@@ -7,6 +7,6 @@
 <title>Hello World</title>
 </head>
 <body>
-	<h1>Testing automatic update</h1>
+	<h1>Testing</h1>
 </body>
 </html>
