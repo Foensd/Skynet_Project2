@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration> 			<!-- ROOT TAG -->
+	<session-factory>				<!-- configuration for the session factory -->
+
+		<!-- DB Configuration -->
+		<property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+		<property name="hibernate.connection.url">jdbc:oracle:thin:@project2.cvn2sbvqpuhu.us-east-2.rds.amazonaws.com:1521:orcl</property>
+		<property name="hibernate.connection.username">Skynet</property>
+		<property name="hibernate.connection.password">p4ssw0rd</property>
+		<property name="hibernate.connection.pool_size">10</property>
+
+		<property name="show_sql">true</property> <!-- Queries display in console that are written for you -->
+		<property name="hibernate.hbm2ddl.auto">update</property> <!-- Specify ddl approach -->
+		
+		<!-- 
+			create: purge database that current project uses, if it already exist
+			update: simply add onto existing data 
+			validate: simply validates the DB, no changes applied
+			create-drop: Database is created, then purged upon application end.
+		 -->
+	
+		<!--  Setting up a second level cache. -->
+		<!--  For configuration purposes it requires the following 2 lines -->
+		<property name="hibernate.cache.use_second_level_cache">true</property>
+		<property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+		
+		
+		<!-- Mapping CLASSES with hibernate -->
+		<mapping class="com.revature.bean.Roles" />
+		<mapping class="com.revature.bean.Status" />
+		<mapping class="com.revature.bean.Users" />
+
+
+	</session-factory>
+</hibernate-configuration>
