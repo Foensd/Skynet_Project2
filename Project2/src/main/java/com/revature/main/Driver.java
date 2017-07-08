@@ -12,7 +12,7 @@ public class Driver {
 		UserDao dao = new UserDaoImpl();
 		
 		
-		dao.createUser("Jonathan", test);
+		//dao.createUser("Jonathan", test);
 	}
 
 }
