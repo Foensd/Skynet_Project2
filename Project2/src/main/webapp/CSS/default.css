@@ -1,0 +1,16 @@
+.footer {
+	position: fixed;
+	bottom: 0px;
+	height: 30px;
+	width: 100%;
+	background-color: #171717;
+	color: white;
+}
+
+#footer-content {
+	/* background-color: #f3e5f5;
+  border: 1px solid #ab47bc; */
+	height: 32px;
+	/* height + top/bottom paddding + top/bottom border must add up to footer height */
+	padding: 8px;
+}

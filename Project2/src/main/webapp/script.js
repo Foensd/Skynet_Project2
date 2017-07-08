@@ -10,7 +10,8 @@ var myApp = angular.module('myApp', ['ngRoute']);
  * DEFINING CONTROLLERS
  */
 myApp.config(function($routeProvider) {
-  $routeProvider
+  
+	$routeProvider
 
   .when('/', {
     templateUrl : 'pages/home.html',
@@ -41,7 +42,7 @@ myApp.config(['$locationProvider', function($locationProvider) {
 //create the controller and inject Angular's $scope
 myApp.controller('mainController', function($scope) {
 
-    $scope.message = 'This is the home page, from script.js'; // create a message to display in our view
+   // $scope.message = 'This is the home page, from script.js'; // create a message to display in our view
 });
 
 
