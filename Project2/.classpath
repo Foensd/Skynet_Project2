@@ -39,6 +39,14 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/Jonathan/Downloads/ojdbc7.jar"/>
+=======
+	<classpathentry kind="lib" path="Jars/ojdbc7.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+>>>>>>> 25dacc67a2cc405d4781229c00111a78c8421e86
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
