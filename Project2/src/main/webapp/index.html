@@ -12,40 +12,12 @@
   <script src="script.js"></script> <!-- Getting script file -->
 </head>
 <body>
-
-    <!-- HEADER AND NAVBAR -->
-    <header>
-        <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#/">Angular Routing Example</a>
-            </div>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#/"><i class="fa fa-home"></i> Home</a></li>
-                <li><a href="#/about"><i class="fa fa-shield"></i> About</a></li>
-                <li><a href="#/contact"><i class="fa fa-comment"></i> Contact</a></li>
-            </ul>
-        </div>
-        </nav>
-    </header>
 	
-	<script type="text/ng-template" id="pages/home.html">
-		<h1>1</h1>
-		<h2>{{message}}</h3>
-	</script>
-	<script type="text/ng-template" id="pages/about.html">
-      <h1>2</h1>
-      <h3>{{message}}</h3>
-    </script>
-    <script type="text/ng-template" id="pages/contact.html">
-      <h1>3</h1>
-      <h3>{{message}}</h3>
-    </script>
-	
-	
-	<!-- ng-view is a directive that will include template of currenty route -->
-	<div data-ng-view></div>
+	<div class="container" >
+		<div ng-include="'pages/navbar.html'"></div> <!-- Adding navbar -->
+		<!-- ng-view is a directive that will include template of currenty route -->
+		<div ng-view></div>
+	</div>
 	
  </body>
  </html>
