@@ -22,7 +22,7 @@ myApp.controller('NavController', function NavController($scope, $location) {
 
 
 /*
- * DEFINING CONTROLLERS
+ * DEFINING CONTROLLERS AND ROUTES
  */
 myApp.config(function($routeProvider) {
   
@@ -30,17 +30,22 @@ myApp.config(function($routeProvider) {
 
   .when('/', {
     templateUrl : 'pages/home.html',
-    controller  : 'homeController'
+    controller  : 'HomeController'
   })
 
   .when('/about', {
     templateUrl : 'pages/about.html',
-    controller  : 'aboutController'
+    controller  : 'AboutController'
   })
 
   .when('/rules', {
     templateUrl : 'pages/rules.html',
-    controller  : 'rulesController'
+    controller  : 'RulesController'
+  })
+  
+  .when('/play', {
+    templateUrl : 'pages/play.html',
+    controller  : 'PlayController'
   })
 
   .otherwise({redirectTo: '/'});

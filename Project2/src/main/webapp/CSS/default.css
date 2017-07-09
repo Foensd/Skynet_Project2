@@ -17,3 +17,13 @@ footer {
 	/* height + top/bottom paddding + top/bottom border must add up to footer height */
 	padding: 8px;
 }
+
+.jumbotron {
+	background-color: #3399ff;  /* blue background */ 
+	width: 1000px;
+    height: 700px;
+    padding: 50px;
+    margin: auto;  /* center the div */
+    text-align: center;
+    /* border: 1px solid red; */
+}

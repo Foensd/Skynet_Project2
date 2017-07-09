@@ -1,15 +1,18 @@
 <div style="text-align:center" class="well">
 	<h1>Welcome to Town Revature</h1>
 	<h3>where a 12 week bootcamp can reveal someone's true traits</h3>
+	{{message}}
 </div>
 
 <div>
 	<div style="text-align:center">
-		<input type="button" class="btn btn-primary" name="play" value="Play">
+		<input type="button" class="btn btn-primary" name="play" value="Play"
+		ng-click="go('/play')"> <!-- On click goes to homeCtrl, checks function -->
 	</div>
 	
 	<br>
 	<div style="text-align:center">
-		<input type="button" class="btn btn-secondary" name="rules" value="How to play">
+		<input type="button" class="btn btn-secondary" name="rules" 
+		value="How to play" ng-click="readRules()">
 	</div>
 </div>
