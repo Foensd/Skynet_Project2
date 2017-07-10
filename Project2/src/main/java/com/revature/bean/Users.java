@@ -4,6 +4,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,17 +25,19 @@ public class Users {
 	@Id
 	@Column(name = "U_Id")
 	@SequenceGenerator(name = "UID_SEQ", sequenceName = "UID_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UID_SEQ")
 	private int userid;
 
 	@Column(name = "Username")
 	private String username;
+	
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "Role_ID", nullable = false, insertable = false, updatable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "Role_ID")
 	private Roles role;
-
-	@OneToOne(fetch = FetchType.EAGER, optional= false)
-	@JoinColumn(name = "Status_ID", nullable = false, insertable = false, updatable = false)
+	
+	@ManyToOne(fetch = FetchType.EAGER, optional= false)
+	@JoinColumn(name = "Status_ID")
 	private Status status;
 
 	public Users(int userid, String username, Roles roleId, Status statusId) {

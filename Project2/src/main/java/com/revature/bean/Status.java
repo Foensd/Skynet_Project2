@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "Status")
 public class Status {
@@ -20,6 +21,14 @@ public class Status {
 
 	@Column(name = "Status")
 	private String status;
+
+	@OneToMany(mappedBy = "status")
+	private List<Users> users;
+	
+	
+	public Status() {
+		super();
+	}
 
 	public Status(int statusId, String status) {
 		super();

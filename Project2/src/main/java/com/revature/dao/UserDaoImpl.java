@@ -15,9 +15,9 @@ public class UserDaoImpl implements UserDao {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = session.beginTransaction();
 		
-		Users user = new Users(name, role , new Status("Alive"));
-		session.save(user.getStatus());
-		session.save(user.getRole());
+		StatusDao daos = new StatusDaoImpl();
+		
+		Users user = new Users(name, role , daos.selectStatusById(1));
 		session.save(user);
 		
 		tx.commit();
