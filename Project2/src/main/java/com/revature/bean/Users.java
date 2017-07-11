@@ -36,6 +36,10 @@ public class Users {
 	private String username;
 	
 
+	public Users() {
+		super();
+	}
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "Role_ID")
 	private Roles role;

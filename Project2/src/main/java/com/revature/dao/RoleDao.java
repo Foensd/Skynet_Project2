@@ -5,5 +5,5 @@ import com.revature.bean.Roles;
 public interface RoleDao {
 	
 	public Roles selectRoleById(int id);
-	public int selectRoleId(String role);
+	public Roles selectRoleByDesc(String role);
 }
