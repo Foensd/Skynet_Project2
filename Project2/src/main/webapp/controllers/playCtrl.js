@@ -1,3 +1,4 @@
+
 var myApp = angular.module('myApp');
 
 /*
@@ -17,12 +18,13 @@ myApp.controller('PlayController', function($scope, PlayerService) {
     }
 })
     .factory("PlayerService", ['$http', function($http){ //Creating factory named "PlayerService 
-    	var REQUEST_SERVICE_URI = 'http://13.59.197.145:8085/Project2/#/lobby'
+    	debugger;
+    	var REQUEST_SERVICE_URI = 'http://13.59.197.145:8085/Project2/#/play'
     	var playerObject = {} // create playerObject
     	
     	playerObject.AddPlayerToDB = function(user)
     	{
-    		$http.post(REQUEST_SERVICE_URI, user).success(function (response) {
+    		$http.post(REQUEST_SERVICE_URI, user).then(function (response) {
     			alert(response.status);
     		})
     	}

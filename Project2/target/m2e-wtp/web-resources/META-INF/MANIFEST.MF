@@ -1,5 +1,9 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: Jonathan
+=======
+Built-By: Lucas Bootcamp
+>>>>>>> 79e4e31c322352c3a2b91cad91f3e910b4d47c0c
 Build-Jdk: 1.8.0_131
 Created-By: Maven Integration for Eclipse
 
