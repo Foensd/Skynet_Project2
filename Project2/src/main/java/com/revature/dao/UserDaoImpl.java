@@ -24,7 +24,6 @@ public class UserDaoImpl implements UserDao {
 			Users user = new Users(name, role, daos.selectStatusById(1));
 			session.save(user);
 
-			System.out.println(user);
 
 			tx.commit();
 
@@ -51,29 +50,34 @@ public class UserDaoImpl implements UserDao {
 		return users;
 	}
 
-	/*@Override
+	@Override
 	public boolean updateRoleById(int id, String role) {
 		try {
 			Session session = HibernateUtil.getSession();
+			Query query;
+			String hql;
 			Transaction tx = session.beginTransaction();
-
-			StatusDao daos = new StatusDaoImpl();
-
-			Users user = new Users(name, role, daos.selectStatusById(1));
-			session.save(user);
-
-			System.out.println(user);
-
+			RoleDao r = new RoleDaoImp();
+			
+			hql = "FROM com.revature.bean.Users WHERE U_ID = :id";
+			query = session.createQuery(hql);
+			query.setParameter("id", id);
+			
+			Users user =  (Users)query.uniqueResult();
+			System.out.println("before " + user);
+			user.setRole(r.selectRoleByDesc(role));
+			System.out.println("after " + user);
+			session.update(user);
+			System.out.println("after update " + user);
 			tx.commit();
-
 			session.close();
-
+	
 			return true;
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
-	}*/
+	}
 
 }

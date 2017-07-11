@@ -25,10 +25,10 @@ public class Driver {
 		
 		
 		/*Status s = daos.selectStatusById(1);
-		System.out.println(s);*/
+		System.out.printsln(s);*/
 		
 		//dao.createUser("Jonathan4", null);
-		
+		dao.updateRoleById(550, "HR");
 	}
 
 }
