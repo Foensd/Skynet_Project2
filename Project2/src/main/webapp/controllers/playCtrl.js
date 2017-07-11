@@ -28,7 +28,7 @@ myApp.controller('PlayController', function($scope, PlayerService) {
     			alert(response.status);
     		})
     	}
-    	
+    	//rest request
     	return playerObject;
     	
     }])
