@@ -29,4 +29,19 @@ public class RoleDaoImp implements RoleDao {
 		
 	}
 
+	@Override
+	public int selectRoleId(String role) {
+		Session session = HibernateUtil.getSession();
+		Query query;
+		String hql;
+		
+		hql = "FROM com.revature.bean.Roles WHERE R_DESC = :desc";
+		query = session.createQuery(hql);
+		query.setParameter("desc", role);
+		
+		Roles r =  (Roles) query.uniqueResult();
+		session.close();
+		return r.getRoleId();
+	}
+
 }
