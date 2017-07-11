@@ -18,8 +18,8 @@ myApp.controller('PlayController', function($scope, PlayerService) {
     }
 })
     .factory("PlayerService", ['$http', function($http){ //Creating factory named "PlayerService 
-    	/*debugger;*/
-    	var REQUEST_SERVICE_URI = 'http://localhost:8085/Project2/index.html#/play'
+    	debugger;
+    	var REQUEST_SERVICE_URI = 'http://13.59.197.145:8085/Project2/#/play'
     	var playerObject = {} // create playerObject
     	
     	playerObject.AddPlayerToDB = function(user)
