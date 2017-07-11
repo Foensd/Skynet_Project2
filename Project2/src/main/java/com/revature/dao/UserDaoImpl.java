@@ -1,5 +1,8 @@
 package com.revature.dao;
 
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -11,18 +14,66 @@ import com.revature.util.HibernateUtil;
 public class UserDaoImpl implements UserDao {
 
 	@Override
-	public void createUser(String name, Roles role) {
-		Session session = HibernateUtil.getSession();
-		Transaction tx = session.beginTransaction();
-		
-		Users user = new Users(name, role , new Status("Alive"));
-		session.save(user.getStatus());
-		session.save(user.getRole());
-		session.save(user);
-		
-		tx.commit();
+	public boolean createUser(String name, Roles role) {
+		try {
+			Session session = HibernateUtil.getSession();
+			Transaction tx = session.beginTransaction();
 
-		session.close();
+			StatusDao daos = new StatusDaoImpl();
+
+			Users user = new Users(name, role, daos.selectStatusById(1));
+			session.save(user);
+
+			System.out.println(user);
+
+			tx.commit();
+
+			session.close();
+
+			return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
+
+	@Override
+	public List<Users> getUsers() {
+		Session session = HibernateUtil.getSession();
+		Query query;
+		String hql;
+		Transaction tx;
+		
+		hql = "FROM com.example.bean.Users";
+		query = session.createQuery(hql);
+		List<Users> users = query.list(); //list executes the query and returns results
+		return users;
+	}
+
+	/*@Override
+	public boolean updateRoleById(int id, String role) {
+		try {
+			Session session = HibernateUtil.getSession();
+			Transaction tx = session.beginTransaction();
+
+			StatusDao daos = new StatusDaoImpl();
+
+			Users user = new Users(name, role, daos.selectStatusById(1));
+			session.save(user);
+
+			System.out.println(user);
+
+			tx.commit();
+
+			session.close();
+
+			return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}*/
 
 }

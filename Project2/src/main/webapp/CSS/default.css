@@ -1,0 +1,29 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+}
+
+#footer-content {
+	/* background-color: #f3e5f5;
+  border: 1px solid #ab47bc; */
+	height: 32px;
+	/* height + top/bottom paddding + top/bottom border must add up to footer height */
+	padding: 8px;
+}
+
+.jumbotron {
+	background-color: #3399ff;  /* blue background */ 
+	width: 1000px;
+    height: 700px;
+    padding: 50px;
+    margin: auto;  /* center the div */
+    text-align: center;
+    /* border: 1px solid red; */
+}

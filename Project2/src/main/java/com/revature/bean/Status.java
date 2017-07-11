@@ -6,9 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
+@Component
 @Entity
 @Table(name = "Status")
 public class Status {
@@ -20,6 +24,14 @@ public class Status {
 
 	@Column(name = "Status")
 	private String status;
+
+	@OneToMany(mappedBy = "status")
+	private List<Users> users;
+	
+	
+	public Status() {
+		super();
+	}
 
 	public Status(int statusId, String status) {
 		super();

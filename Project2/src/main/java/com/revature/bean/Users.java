@@ -1,20 +1,24 @@
 package com.revature.bean;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.stereotype.Component;
 
-
+@Component
 @Entity
 @Table(name = "Users")
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "myAwesomeCache")
@@ -23,17 +27,21 @@ public class Users {
 	@Id
 	@Column(name = "U_Id")
 	@SequenceGenerator(name = "UID_SEQ", sequenceName = "UID_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UID_SEQ")
 	private int userid;
-
+	
+	@NotEmpty(message="Username cannot be empty")
+	@Size(min=4,max=20)
 	@Column(name = "Username")
 	private String username;
+	
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "Role_ID", nullable = false, insertable = false, updatable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "Role_ID")
 	private Roles role;
-
-	@OneToOne(fetch = FetchType.EAGER, optional= false)
-	@JoinColumn(name = "Status_ID", nullable = false, insertable = false, updatable = false)
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "Status_ID")
 	private Status status;
 
 	public Users(int userid, String username, Roles roleId, Status statusId) {

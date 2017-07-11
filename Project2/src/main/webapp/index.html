@@ -1,51 +1,33 @@
 <!DOCTYPE html>
-<html ng-app="myApp"> <!-- This tells it that it's going to use angular, with module name 'scotchApp' -->
+<html ng-app="myApp"> <!-- This tells it that it's going to use angular, with module name 'myhApp' -->
 <head>
-  <!-- load bootstrap and fontawesome via CDN -->
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
-
-  <!-- load angular and angular route via CDN -->
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script> 
- 
-  <script src="script.js"></script> <!-- Getting script file -->
+	<!-- load bootstrap and fontawesome via CDN -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
+	
+	<!-- load angular and angular route via CDN -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script> 
+	
+	<link rel="stylesheet" type="text/css" href="CSS/default.css"> <!-- Importing css -->
+	
+	<script src="script.js"></script> <!-- Getting script file -->
+	<script src="controllers/homeCtrl.js"></script> <!-- Getting script file -->
+	<script src="controllers/aboutCtrl.js"></script> <!-- Getting script file -->
+	<script src="controllers/rulesCtrl.js"></script> <!-- Getting script file -->
+	<script src="controllers/playCtrl.js"></script> <!-- Getting script file -->
 </head>
 <body>
+	
+	<div class="container" >
+		<div ng-include="'pages/navbar.html'"></div> <!-- Adding navbar -->
+		<!-- ng-view is a directive that will include template of current route -->
+		<div ng-view></div>
+		
+		
+		
+		<footer ng-include="'pages/footer.html'" id="footer"></footer> <!-- footer -->
+	</div>
 
-    <!-- HEADER AND NAVBAR -->
-    <header>
-        <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#/">Angular Routing Example</a>
-            </div>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#/"><i class="fa fa-home"></i> Home</a></li>
-                <li><a href="#/about"><i class="fa fa-shield"></i> About</a></li>
-                <li><a href="#/contact"><i class="fa fa-comment"></i> Contact</a></li>
-            </ul>
-        </div>
-        </nav>
-    </header>
-	
-	<script type="text/ng-template" id="pages/home.html">
-		<h1>1</h1>
-		<h2>{{message}}</h3>
-	</script>
-	<script type="text/ng-template" id="pages/about.html">
-      <h1>2</h1>
-      <h3>{{message}}</h3>
-    </script>
-    <script type="text/ng-template" id="pages/contact.html">
-      <h1>3</h1>
-      <h3>{{message}}</h3>
-    </script>
-	
-	
-	<!-- ng-view is a directive that will include template of currenty route -->
-	<div data-ng-view></div>
-	
  </body>
  </html>

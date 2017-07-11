@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!DOCTYPE xml>
 <ehcache>
     <!--  Note the name attribute, it is used for linking to a persistent class. -->
 	<cache name="myAwesomeCache" eternal="false" timeToIdleSeconds="300" timeToLiveSeconds="600" maxEntriesLocalHeap="5000"/>
