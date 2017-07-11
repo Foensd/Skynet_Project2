@@ -30,7 +30,7 @@ public class RoleDaoImp implements RoleDao {
 	}
 
 	@Override
-	public int selectRoleId(String role) {
+	public Roles selectRoleByDesc(String role) {
 		Session session = HibernateUtil.getSession();
 		Query query;
 		String hql;
@@ -41,7 +41,7 @@ public class RoleDaoImp implements RoleDao {
 		
 		Roles r =  (Roles) query.uniqueResult();
 		session.close();
-		return r.getRoleId();
+		return r;
 	}
 
 }
