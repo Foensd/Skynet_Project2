@@ -30,8 +30,8 @@ public class Users {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UID_SEQ")
 	private int userid;
 	
-	@NotEmpty(message="Username cannot be empty")
-	@Size(min=4,max=20)
+	@NotEmpty(message="Username cannot be empty(1-20 characters)")
+	@Size(min=1,max=20)
 	@Column(name = "Username")
 	private String username;
 	

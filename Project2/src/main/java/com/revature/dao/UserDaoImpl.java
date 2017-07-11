@@ -44,7 +44,7 @@ public class UserDaoImpl implements UserDao {
 		String hql;
 		Transaction tx;
 		
-		hql = "FROM com.example.bean.Users";
+		hql = "FROM com.revature.bean.Users";
 		query = session.createQuery(hql);
 		List<Users> users = query.list(); //list executes the query and returns results
 		return users;

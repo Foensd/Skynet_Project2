@@ -2,7 +2,10 @@ package com.revature.main;
 
 
 
+import java.util.List;
+
 import com.revature.bean.Roles;
+import com.revature.bean.Users;
 import com.revature.dao.RoleDao;
 import com.revature.dao.RoleDaoImp;
 import com.revature.dao.StatusDao;
@@ -10,6 +13,7 @@ import com.revature.dao.StatusDaoImpl;
 import com.revature.dao.UserDao;
 import com.revature.dao.UserDaoImpl;
 import com.revature.service.Register;
+import com.revature.service.RoleAssig;
 
 public class Driver {
 
@@ -27,8 +31,12 @@ public class Driver {
 		/*Status s = daos.selectStatusById(1);
 		System.out.printsln(s);*/
 		
-		//dao.createUser("Jonathan4", null);
-		dao.updateRoleById(550, "HR");
+		
+		//dao.updateRoleById(550, "HR");
+		
+		RoleAssig r = new RoleAssig();
+		r.assignRandomRoles();
+		
 	}
 
 }
