@@ -2,16 +2,17 @@ package com.revature.resources;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.stereotype.Controller;
+//import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.bean.Users;
 import com.revature.service.Register;
 
-@Controller
+@RestController
 public class SpringController {
 	
 	// has to accept 

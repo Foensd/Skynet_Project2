@@ -21,7 +21,7 @@
 				<value>/WEB-INF/pages/</value>
 			</property>
 			<property name="suffix">
-				<value>.jsp</value>
+				<value>.html</value>
 			</property>
 		</bean>
 		
