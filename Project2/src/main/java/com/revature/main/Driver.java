@@ -34,8 +34,8 @@ public class Driver {
 		
 		//dao.updateRoleById(550, "HR");
 		
-		RoleAssig r = new RoleAssig();
-		r.assignRandomRoles();
+		/*RoleAssig r = new RoleAssig();
+		r.assignRandomRoles();*/
 		
 	}
 

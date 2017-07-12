@@ -2,9 +2,9 @@ package com.revature.resources;
 
 import javax.servlet.http.HttpSession;
 
-//import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,15 +17,18 @@ public class SpringController {
 	
 	// has to accept 
 	@RequestMapping(headers="Accept=application/json", value="/play.do", method = RequestMethod.POST)
-	public String registerUser(Users user, BindingResult bindingResult, ModelMap modelMap, HttpSession session){
+	public String registerUser(@RequestBody String username, BindingResult bindingResult, ModelMap modelMap, HttpSession session){
 		Register r = new Register();
+		System.out.println("TRYING TO CREATE A USER: " + username);
 		
-		if(r.createUser(user.getUsername())){
+		Users user = new Users(username);
+		
+		if(r.createUser(username)){
 		session.setAttribute("username", user.getUsername());
 		session.setAttribute("role", user.getRole());
 		session.setAttribute("status", user.getStatus());
 		
-		System.out.println("Creating User " + user.getUsername());
+		System.out.println("Created user: " + user.getUsername());
 		
 		return "lobby";
 		
