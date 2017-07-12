@@ -18,7 +18,8 @@
 		
 		<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 			<property name="prefix">
-				<value>/WEB-INF/pages/</value>
+				<value>/pages/</value> <!-- I think this is correct, since we don't have the pages in the WEB-INF yet -->
+				<!-- <value>/WEB-INF/pages/</value> -->
 			</property>
 			<property name="suffix">
 				<value>.html</value>

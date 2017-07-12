@@ -16,12 +16,12 @@
  <!-- Context-params, they're back! Parameters set in the context scope, 
 		ie, Application scope. Spring MVC will use these parameters to determine 
 		where to look for our bean definition. -->
-<!-- 
+
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/beans.xml</param-value>
 	</context-param>
-	
+	<!--  
 	Next we hook up the Spring mvc listener. this will take all requests and forward them to our dispatcherServlet.
 	NOTE: this is pulling from the spring-mvc library, syntax must be perfect.
 	<listener>

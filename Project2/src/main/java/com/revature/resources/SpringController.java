@@ -16,7 +16,7 @@ import com.revature.service.Register;
 public class SpringController {
 	
 	// has to accept 
-	@RequestMapping(headers="Accept=application/json", value="/play",method = RequestMethod.POST)
+	@RequestMapping(headers="Accept=application/json", value="/play", method = RequestMethod.POST)
 	public String registerUser(Users user, BindingResult bindingResult, ModelMap modelMap, HttpSession session){
 		Register r = new Register();
 		

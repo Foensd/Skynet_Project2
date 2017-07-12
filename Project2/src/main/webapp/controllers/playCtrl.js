@@ -5,7 +5,11 @@ var myApp = angular.module('myApp');
  * CONTROLLERS METHOD
  */
 
-myApp.controller('PlayController', function($scope, PlayerService) {
+myApp.controller('PlayController', ['$scope', '$http', function($scope, $http) {
+	
+	var REQUEST_SERVICE_URI = '/Project2/play';
+	//var REQUEST_SERVICE_URI = 'http://13.59.197.145:8085/Project2/#/play';
+    var playerObject = {} // create playerObject
 	
 	$scope.message = "Let's play!";
 	$scope.message2 = "Please enter your name";
@@ -13,14 +17,25 @@ myApp.controller('PlayController', function($scope, PlayerService) {
 	     name: ''/*,
 	     email: ''*/
     };
+	
+	
     $scope.register = function() {
-      PlayerService.AddPlayerToDB($scope.user);
+    	
+    	playerObject = $scope.user;  // adding user to a playerObject
+    	console.log('playerObject.name: ' + playerObject.name);
+    	//console.log('playerObject: ' + $scope.user.name);
+    	
+    	console.log("REGISTER BUTTON WAS CLICKED");
+    	$http.post(REQUEST_SERVICE_URI, playerObject).
+	        then(function(playerObject) {
+	            alert("SUCCESS");
+	        	//$scope.user = data;
+	        });
     }
-})
-    .factory("PlayerService", ['$http', function($http){ //Creating factory named "PlayerService 
+}])
+    /*.factory("PlayerService", ['$http', function($http){ //Creating factory named "PlayerService 
     	debugger;
-    	var REQUEST_SERVICE_URI = 'http://13.59.197.145:8085/Project2/#/play'
-    	var playerObject = {} // create playerObject
+    	
     	
     	playerObject.AddPlayerToDB = function(user)
     	{
@@ -31,7 +46,7 @@ myApp.controller('PlayController', function($scope, PlayerService) {
     	//rest request
     	return playerObject;
     	
-    }])
+    }])*/
    
 
 
