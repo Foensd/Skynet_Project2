@@ -22,13 +22,13 @@ myApp.controller('PlayController', ['$scope', '$http', function($scope, $http) {
     $scope.register = function() {
     	
     	playerObject = $scope.user;  // adding user to a playerObject
-    	console.log('playerObject.name: ' + playerObject.name);
+    	console.log('playerObject.name: ' + playerObject.username);
     	//console.log('playerObject: ' + $scope.user.name);
     	
     	console.log("REGISTER BUTTON WAS CLICKED");
-    	$http.post(REQUEST_SERVICE_URI, playerObject).
-	        then(function(playerObject) {
-	            alert("SUCCESS");
+    	$http.post(REQUEST_SERVICE_URI, playerObject)
+    		.then(function(playerObject) {
+	            console.log("SUCCESSFULLY ENTERED A USER");
 	        	//$scope.user = data;
 	        });
     }
