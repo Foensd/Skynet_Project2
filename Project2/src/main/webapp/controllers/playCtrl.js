@@ -22,7 +22,7 @@ myApp.controller('PlayController', ['$scope', '$http', function($scope, $http) {
     $scope.register = function() {
     	
     	playerObject = $scope.user;  // adding user to a playerObject
-    	console.log('playerObject.name: ' + playerObject.username);
+    	console.log('playerObject.username: ' + playerObject.username);
     	//console.log('playerObject: ' + $scope.user.name);
     	
     	console.log("REGISTER BUTTON WAS CLICKED");
