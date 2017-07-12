@@ -1,12 +1,15 @@
 package com.revature.resources;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.bean.Users;
+import com.revature.dao.UserDao;
+import com.revature.dao.UserDaoImpl;
 import com.revature.service.Register;
 
 @RestController
@@ -54,14 +59,15 @@ public class SpringController {
 	
 	//-------------------Retrieve All Players--------------------------------------------------------
     
-    /*@RequestMapping(value = "/lobby/", method = RequestMethod.GET)
-    public ResponseEntity<List<User>> listAllUsers() {
-        List<User> users = userService.findAllUsers();
+    @RequestMapping(value = "/lobby", method = RequestMethod.GET)
+    public ResponseEntity<List<Users>> listAllUsers() {
+    	UserDao dao = new UserDaoImpl();
+        List<Users> users = dao.getUsers();
         if(users.isEmpty()){
-            return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+            return new ResponseEntity<List<Users>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
         }
-        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
-    }*/
+        return new ResponseEntity<List<Users>>(users, HttpStatus.OK);
+    }
 	
 	//-------------------Create a User--------------------------------------------------------
     
