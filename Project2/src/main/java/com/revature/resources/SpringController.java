@@ -1,13 +1,20 @@
 package com.revature.resources;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpSession;
 
 //import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+
 
 import com.revature.bean.Users;
 import com.revature.service.Register;
@@ -17,13 +24,21 @@ public class SpringController {
 	
 	// has to accept 
 	@RequestMapping(headers="Accept=application/json", value="/play.do", method = RequestMethod.POST)
-	public String registerUser(Users user, BindingResult bindingResult, ModelMap modelMap, HttpSession session){
+	public String registerUser(@RequestBody String jsonObject, BindingResult bindingResult, ModelMap modelMap, HttpSession session){
 		Register r = new Register();
-		
+		Users user = null;
+		try {
+			user = new ObjectMapper().readValue(jsonObject, Users.class);
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("User: " + user);
 		if(r.createUser(user.getUsername())){
 		session.setAttribute("username", user.getUsername());
-		session.setAttribute("role", user.getRole());
-		session.setAttribute("status", user.getStatus());
 		
 		System.out.println("Creating User " + user.getUsername());
 		

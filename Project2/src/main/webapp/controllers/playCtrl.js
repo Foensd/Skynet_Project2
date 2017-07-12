@@ -14,7 +14,7 @@ myApp.controller('PlayController', ['$scope', '$http', function($scope, $http) {
 	$scope.message = "Let's play!";
 	$scope.message2 = "Please enter your name";
 	$scope.user = {
-	     name: ''/*,
+	     username: ''/*,
 	     email: ''*/
     };
 	
