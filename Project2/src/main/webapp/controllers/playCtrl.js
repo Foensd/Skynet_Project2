@@ -27,10 +27,12 @@ myApp.controller('PlayController', ['$scope', '$http', function($scope, $http) {
     	
     	console.log("REGISTER BUTTON WAS CLICKED");
     	$http.post(REQUEST_SERVICE_URI, playerObject)
-    		.then(function(playerObject) {
+    	 var path = "/Project2/index.html#/lobby";
+    	 location.href = path;
+    		/*.then(function(playerObject) {
 	            console.log("SUCCESSFULLY ENTERED A USER");
 	        	//$scope.user = data;
-	        });
+	        });*/
     }
 }])
     /*.factory("PlayerService", ['$http', function($http){ //Creating factory named "PlayerService 
