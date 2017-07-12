@@ -1,7 +1,12 @@
 package com.revature.resources;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,16 +22,22 @@ public class SpringController {
 	
 	//-------------------Create a User-------------------------------------------------------- \\
 	@RequestMapping(headers="Accept=application/json", value="/play.do", method = RequestMethod.POST)
-	public String registerUser(@RequestBody String username, BindingResult bindingResult, ModelMap modelMap, HttpSession session){
+	public String registerUser(@RequestBody String jsonObject, BindingResult bindingResult, ModelMap modelMap, HttpSession session){
 		Register r = new Register();
-		System.out.println("TRYING TO CREATE A USER: " + username);
-		
-		Users user = new Users(username);
-		
-		if(r.createUser(username)){
+		Users user = null;
+		System.out.println("jsonObject: " + jsonObject);
+		try {
+			user = new ObjectMapper().readValue(jsonObject, Users.class);
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("User: " + user);
+		if(r.createUser(user.getUsername())){
 		session.setAttribute("username", user.getUsername());
-		session.setAttribute("role", user.getRole());
-		session.setAttribute("status", user.getStatus());
 		
 		System.out.println("Created user: " + user.getUsername());
 		
