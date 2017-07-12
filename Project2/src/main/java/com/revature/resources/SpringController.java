@@ -26,6 +26,7 @@ public class SpringController {
 	public String registerUser(@RequestBody String jsonObject, BindingResult bindingResult, ModelMap modelMap, HttpSession session){
 		Register r = new Register();
 		Users user = null;
+		System.out.println("jsonObject: " + jsonObject);
 		try {
 			user = new ObjectMapper().readValue(jsonObject, Users.class);
 		} catch (JsonParseException e) {
