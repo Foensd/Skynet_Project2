@@ -4,7 +4,6 @@ var myApp = angular.module('myApp');
 /*
  * CONTROLLERS METHOD
  */
-
 myApp.controller('PlayController', ['$scope', '$http', function($scope, $http) {
 	
 	var REQUEST_SERVICE_URI = '/Project2/play.do';
@@ -44,7 +43,7 @@ myApp.controller('PlayController', ['$scope', '$http', function($scope, $http) {
     	$http.post(REQUEST_SERVICE_URI, name).
 	        then(function(name) {
 	            alert("SUCCESS");
-	        	//$scope.user = data;
+	        	
 	        });
     }
 }])
