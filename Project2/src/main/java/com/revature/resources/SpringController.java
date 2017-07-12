@@ -1,7 +1,5 @@
 package com.revature.resources;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.ModelMap;
@@ -10,10 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
-
 
 import com.revature.bean.Users;
 import com.revature.service.Register;
@@ -21,24 +15,18 @@ import com.revature.service.Register;
 @RestController
 public class SpringController {
 	
-	// has to accept 
+	//-------------------Create a User-------------------------------------------------------- \\
 	@RequestMapping(headers="Accept=application/json", value="/play.do", method = RequestMethod.POST)
-	public String registerUser(@RequestBody String jsonObject, BindingResult bindingResult, ModelMap modelMap, HttpSession session){
+	public String registerUser(@RequestBody String username, BindingResult bindingResult, ModelMap modelMap, HttpSession session){
 		Register r = new Register();
-		Users user = null;
-		System.out.println("jsonObject: " + jsonObject);
-		try {
-			user = new ObjectMapper().readValue(jsonObject, Users.class);
-		} catch (JsonParseException e) {
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		System.out.println("User: " + user);
-		if(r.createUser(user.getUsername())){
+		System.out.println("TRYING TO CREATE A USER: " + username);
+		
+		Users user = new Users(username);
+		
+		if(r.createUser(username)){
 		session.setAttribute("username", user.getUsername());
+		session.setAttribute("role", user.getRole());
+		session.setAttribute("status", user.getStatus());
 		
 		System.out.println("Created user: " + user.getUsername());
 		
@@ -52,6 +40,17 @@ public class SpringController {
 		}
 		
 	}
+	
+	//-------------------Retrieve All Players--------------------------------------------------------
+    
+    /*@RequestMapping(value = "/lobby/", method = RequestMethod.GET)
+    public ResponseEntity<List<User>> listAllUsers() {
+        List<User> users = userService.findAllUsers();
+        if(users.isEmpty()){
+            return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+    }*/
 	
 	//-------------------Create a User--------------------------------------------------------
     

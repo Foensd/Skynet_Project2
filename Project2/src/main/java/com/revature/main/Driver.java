@@ -18,9 +18,9 @@ import com.revature.service.RoleAssig;
 public class Driver {
 
 	public static void main(String[] args) {
-		/*UserDao dao = new UserDaoImpl();
+		UserDao dao = new UserDaoImpl();
 		RoleDao daor = new RoleDaoImp();
-		StatusDao daos = new StatusDaoImpl();*/
+		StatusDao daos = new StatusDaoImpl();
 		
 		
 		/*int r = daor.selectRoleId("HR");
@@ -32,7 +32,6 @@ public class Driver {
 		System.out.printsln(s);*/
 		
 		
-		//dao.updateRoleById(550, "HR");
 		
 		/*RoleAssig r = new RoleAssig();
 		r.assignRandomRoles();*/
