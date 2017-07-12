@@ -7,7 +7,7 @@ var myApp = angular.module('myApp');
 
 myApp.controller('PlayController', ['$scope', '$http', function($scope, $http) {
 	
-	var REQUEST_SERVICE_URI = '/Project2/play';
+	var REQUEST_SERVICE_URI = '/Project2/play.do';
 	//var REQUEST_SERVICE_URI = 'http://13.59.197.145:8085/Project2/#/play';
     var playerObject = {} // create playerObject
 	
