@@ -5,7 +5,6 @@ package com.revature.dao;
 import java.util.List;
 
 import com.revature.bean.Roles;
-import com.revature.bean.Status;
 import com.revature.bean.Users;
 
 public interface UserDao {

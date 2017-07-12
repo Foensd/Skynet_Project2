@@ -42,7 +42,7 @@ public class UserDaoImpl implements UserDao {
 		Session session = HibernateUtil.getSession();
 		Query query;
 		String hql;
-		Transaction tx;
+		//Transaction tx;
 		
 		hql = "FROM com.revature.bean.Users";
 		query = session.createQuery(hql);
