@@ -7,7 +7,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.revature.bean.Roles;
-import com.revature.bean.Status;
 import com.revature.bean.Users;
 import com.revature.util.HibernateUtil;
 

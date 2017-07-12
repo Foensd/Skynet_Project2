@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpSession;
 
-//import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,7 +39,7 @@ public class SpringController {
 		if(r.createUser(user.getUsername())){
 		session.setAttribute("username", user.getUsername());
 		
-		System.out.println("Creating User " + user.getUsername());
+		System.out.println("Created user: " + user.getUsername());
 		
 		return "lobby";
 		

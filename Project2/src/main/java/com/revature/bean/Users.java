@@ -25,6 +25,8 @@ import org.springframework.stereotype.Component;
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "myAwesomeCache")
 public class Users {
 
+	
+
 	@Id
 	@Column(name = "U_Id")
 	@SequenceGenerator(name = "UID_SEQ", sequenceName = "UID_SEQ")
@@ -49,6 +51,11 @@ public class Users {
 	@JoinColumn(name = "Status_ID")
 	private Status status;
 
+	public Users(String username) {
+		super();
+		this.username = username;
+	}
+	
 	public Users(int userid, String username, Roles roleId, Status statusId) {
 		super();
 		this.userid = userid;
