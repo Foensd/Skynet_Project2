@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.revature.bean.Roles;
+import com.revature.bean.Status;
 import com.revature.bean.Users;
 import com.revature.util.HibernateUtil;
 
@@ -78,5 +79,29 @@ public class UserDaoImpl implements UserDao {
 			return false;
 		}
 	}
+
+	@Override
+	public void changeStatusByUsername(int stat, String username) {
+		Session session = HibernateUtil.getSession();
+		Query query;
+		String hql;
+		Transaction tx = session.beginTransaction();
+		
+		StatusDao dao = new StatusDaoImpl();
+		Status status = dao.selectStatusById(stat);
+		
+		hql = "FROM com.revature.bean.Users WHERE Username  = :user";
+		query = session.createQuery(hql);
+		query.setParameter("user", username);
+		
+		Users user =  (Users)query.uniqueResult();
+		user.setStatus(status);
+		session.update(user);
+		tx.commit();
+		session.close();
+		
+	}
+
+
 
 }
