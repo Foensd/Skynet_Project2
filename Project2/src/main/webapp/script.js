@@ -23,6 +23,11 @@ myApp.controller('NavController', function NavController($scope, $location) {
 
 /*
  * DEFINING CONTROLLERS AND ROUTES
+ * 
+ * routes will choose the file that should be displayed (templateUrl)
+ * then it will say which controller to control whatever is being displayed
+ * 
+ * controllers are all imported in the index.html file
  */
 myApp.config(function($routeProvider) {
   
@@ -46,6 +51,11 @@ myApp.config(function($routeProvider) {
   .when('/play', {
     templateUrl : 'pages/play.html',
     controller  : 'PlayController'
+  })
+  
+  .when('/lobby', {
+    templateUrl : 'pages/lobby.html',
+    controller  : 'LobbyController'
   })
 
   .otherwise({redirectTo: '/'});

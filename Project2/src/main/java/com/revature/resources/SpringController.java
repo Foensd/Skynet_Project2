@@ -15,7 +15,7 @@ import com.revature.service.Register;
 @RestController
 public class SpringController {
 	
-	// has to accept 
+	//-------------------Create a User-------------------------------------------------------- \\
 	@RequestMapping(headers="Accept=application/json", value="/play.do", method = RequestMethod.POST)
 	public String registerUser(@RequestBody String username, BindingResult bindingResult, ModelMap modelMap, HttpSession session){
 		Register r = new Register();
@@ -40,6 +40,17 @@ public class SpringController {
 		}
 		
 	}
+	
+	//-------------------Retrieve All Players--------------------------------------------------------
+    
+    /*@RequestMapping(value = "/lobby/", method = RequestMethod.GET)
+    public ResponseEntity<List<User>> listAllUsers() {
+        List<User> users = userService.findAllUsers();
+        if(users.isEmpty()){
+            return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+    }*/
 	
 	//-------------------Create a User--------------------------------------------------------
     
