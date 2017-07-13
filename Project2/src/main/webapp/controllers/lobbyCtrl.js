@@ -3,7 +3,7 @@ var myApp = angular.module('myApp');
 /*
  * CONTROLLERS METHOD
  */
-myApp.controller('LobbyController', ['$scope', '$http', function($scope, $http) {
+myApp.controller('LobbyController', ['$scope', '$http', '$interval', function($scope, $http, $interval) {
 	
 	console.log("currently in lobbyCtrl.js");
 	$scope.message = "This is where we'll display everyone's name (from lobbyCtrl.js)";
@@ -11,18 +11,21 @@ myApp.controller('LobbyController', ['$scope', '$http', function($scope, $http) 
 	
 	//$scope.allPlayers = ['test1', 'test2'];
 			
-	console.log("Trying to get users from DB");
-	$http({
-		url: '/Project2/lobby.do',
-		method: 'GET',
-	}).then(function successCallBack(response) {
-		$scope.allPlayers = response.data;
-		console.log("successfully got players");
-		console.log("vm.allPLayers: " + $scope.allPlayers)
-	}, function errorCallBack(response){
-		console.log("did not get players")
-	});
-		
+	getPlayers = function() {
+		console.log("Trying to get users from DB");
+		$http({
+			url: '/Project2/lobby.do',
+			method: 'GET',
+		}).then(function successCallBack(response) {
+			$scope.allPlayers = response.data;
+			console.log("successfully got players");
+			console.log("vm.allPLayers: " + $scope.allPlayers)
+		}, function errorCallBack(response){
+			console.log("did not get players")
+		});
+	}
+	
+	var promise = $interval(function() {getPlayers()}, 10000);
 	
 }]);
 
