@@ -1,10 +1,11 @@
 var myApp = angular.module('myApp');
-
+debugger;
 /*
  * CONTROLLERS METHOD
  */
 myApp.controller('LobbyController', ['$scope', '$http', function($scope, $http) {
 	
+	console.log("currently in lobbyCtrl.js");
 	$scope.message = "This is where we'll display everyone's name (from lobbyCtrl.js)";
 	$scope.response = ['firstPersonName', 'secondPersonName']; // creating an array to be displayed
 	
