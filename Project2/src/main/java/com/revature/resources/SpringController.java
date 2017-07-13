@@ -25,19 +25,20 @@ import com.revature.bean.Users;
 import com.revature.dao.UserDao;
 import com.revature.dao.UserDaoImpl;
 import com.revature.service.Register;
-
+import com.revature.service.RoleAssig;
 
 @RestController
 public class SpringController {
-	
-	//-------------------Create a User-------------------------------------------------------- \\
-	@RequestMapping(method=RequestMethod.POST, headers="Accept=application/json", value="/play.do")
-	public ResponseEntity<Void> registerUser(@RequestBody String jsonObject, HttpSession session){
+
+	// -------------------Create a
+	// User-------------------------------------------------------- \\
+	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/play.do")
+	public ResponseEntity<Void> registerUser(@RequestBody String jsonObject, HttpSession session) {
 		Register r = new Register();
 		Users user = null;
 		System.out.println("jsonObject: " + jsonObject);
 		try {
-			 user = new ObjectMapper().readValue(jsonObject, Users.class);
+			user = new ObjectMapper().readValue(jsonObject, Users.class);
 		} catch (JsonParseException e) {
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
@@ -46,45 +47,53 @@ public class SpringController {
 			e.printStackTrace();
 		}
 		System.out.println("User: " + user);
-		if(r.createUser(user.getUsername())){
-		session.setAttribute("username", user.getUsername());
-		
-		System.out.println("Created user: " + user.getUsername());
-		
-		return ResponseEntity.status(HttpStatus.OK).body(null);
-		
-		
-		}else{
-			
+		if (r.createUser(user.getUsername())) {
+			session.setAttribute("username", user.getUsername());
+
+			System.out.println("Created user: " + user.getUsername());
+
+			return ResponseEntity.status(HttpStatus.OK).body(null);
+
+		} else {
+
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-			
+
 		}
-		
+
 	}
-	
-	//-------------------Retrieve All Players--------------------------------------------------------
-    
-    @RequestMapping(value = "/lobby.do", method = RequestMethod.GET)
-    @ResponseBody
-    public List<String> listAllUsers() {
-    	System.out.println("Getting a list of users");
-    	UserDao dao = new UserDaoImpl();
-        List<Users> users = dao.getUsers();
-    	List<String> usernames= new ArrayList<String>();
-    	for(int i=0; i<users.size(); i++) {
-    		usernames.add(users.get(i).getUsername());
-    	}
-        /*if(users.isEmpty()){
-            return new ResponseEntity<List<Users>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
-        }*/
-        
-        System.out.println("Successfully got a list of users, returning them to lobbyCtrl.js");
-        System.out.println(users);
-        
-        return usernames;
-    }
-	
-	
-	
-	
+
+	// -------------------Retrieve All
+	// Players--------------------------------------------------------
+
+	@RequestMapping(value = "/lobby.do", method = RequestMethod.GET)
+	@ResponseBody
+	public List<String> listAllUsers() {
+		System.out.println("Getting a list of users");
+		UserDao dao = new UserDaoImpl();
+		List<Users> users = dao.getUsers();
+		List<String> usernames = new ArrayList<String>();
+		for (int i = 0; i < users.size(); i++) {
+			usernames.add(users.get(i).getUsername());
+		}
+		/*
+		 * if(users.isEmpty()){ return new
+		 * ResponseEntity<List<Users>>(HttpStatus.NO_CONTENT);//You many decide
+		 * to return HttpStatus.NOT_FOUND }
+		 */
+
+		System.out.println("Successfully got a list of users, returning them to lobbyCtrl.js");
+		System.out.println(users);
+
+		return usernames;
+	}
+
+	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/something.do")
+	public ResponseEntity<Void> setRoles(@RequestBody String jsonObject, HttpSession session) {
+		RoleAssig r = new RoleAssig();
+		r.assignRandomRoles();
+			
+			return ResponseEntity.status(HttpStatus.OK).body(null);
+
+
+	}
 }
