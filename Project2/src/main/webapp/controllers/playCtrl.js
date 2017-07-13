@@ -12,7 +12,7 @@ myApp.controller('PlayController', ['$scope', '$http', function($scope, $http) {
     var playerObject = {} // create playerObject
 	
 	$scope.message = "Let's play!";
-	$scope.message2 = "Please enter your name";
+	$scope.message2 = "Please enter your name:";
 	$scope.user = {
 	     username: ''/*,
 	     email: ''*/
@@ -20,6 +20,7 @@ myApp.controller('PlayController', ['$scope', '$http', function($scope, $http) {
 	
 	
     $scope.register = function() {
+    	//var path = "/Project2/#/lobby";
     	
     	playerObject = $scope.user;  // adding user to a playerObject
     	console.log('playerObject.username: ' + playerObject.username);
@@ -27,8 +28,15 @@ myApp.controller('PlayController', ['$scope', '$http', function($scope, $http) {
     	
     	console.log("REGISTER BUTTON WAS CLICKED");
     	$http.post(REQUEST_SERVICE_URI, playerObject)
-    	 var path = "/Project2/index.html#/lobby";
-    	 location.href = path;
+    	.then(function successsCallBack(response){
+    		var path = response.data;
+    		console.log("response: " + response);
+    		console.log("response.data: " + response.data);
+    		location.href = path;
+    		return locatoin.href;
+    	});
+    	 
+    	 
     		/*.then(function(playerObject) {
 	            console.log("SUCCESSFULLY ENTERED A USER");
 	        	//$scope.user = data;
