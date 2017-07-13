@@ -57,14 +57,15 @@ body {
 /***********************************************************************************/
 /* Center the loader */
 #loader {
-  position: absolute;
-  left: 50%;
-  top: 50%;
+  position: relative; /* this was default absolute */
+  /* left: 50%;
+  top: 50%; */
   z-index: 1;
-  width: 150px;
-  height: 150px;
-  margin: -75px 0 0 -75px;
-  border: 16px solid #f3f3f3;
+  /* width: 150px;
+  height: 150px; */
+  margin: auto;
+  /* margin: -75px 0 0 -75px; */ /*this was the default */
+  border: 16px solid #D8D3D2;
   border-radius: 50%;
   border-top: 16px solid #3498db;
   width: 120px;
