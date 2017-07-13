@@ -45,6 +45,15 @@ body {
     /* border: 1px solid red; */
 }
 
+.well ol li {
+	clear: both;
+}
+
+#readyButton {
+	float: right;
+	/* clear: both; */
+}
+
 /***********************************************************************************/
 /* Center the loader */
 #loader {
