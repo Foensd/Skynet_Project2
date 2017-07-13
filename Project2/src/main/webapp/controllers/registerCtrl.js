@@ -7,7 +7,8 @@ var myApp = angular.module('myApp');
 myApp.controller('RegisterController', [
 		'$scope',
 		'$http',
-		function($scope, $http) {
+		'$location',
+		function($scope, $http,$location) {
 
 			var REQUEST_SERVICE_URI = '/Project2/register.do';
 			var playerObject = {} // create playerObject
@@ -26,8 +27,9 @@ myApp.controller('RegisterController', [
 				console.log("REGISTER BUTTON WAS CLICKED");
 				$http.post(REQUEST_SERVICE_URI, playerObject).then(
 						function successsCallBack(response) {
-							var path = "/Project2/#/lobby";
-							location.href = path;
+							//var path = "/Project2/#/lobby";
+							 var path = null;
+						$location.path("/lobby");
 						}, function() {
 							alert("Username is either taken or blank");
 						});
