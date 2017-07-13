@@ -32,7 +32,7 @@ public class SpringController {
 
 	// -------------------Create a
 	// User-------------------------------------------------------- \\
-	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/play.do")
+	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/register.do")
 	public ResponseEntity<Void> registerUser(@RequestBody String jsonObject, HttpSession session) {
 		Register r = new Register();
 		Users user = null;
