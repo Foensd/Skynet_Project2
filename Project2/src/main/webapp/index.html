@@ -21,17 +21,21 @@
 <body>
 	
 	<div class="container" id="wrap">
-		<div ng-include="'pages/navbar.html'"></div> <!-- Adding navbar -->
-		<!-- ng-view is a directive that will include template of current route -->
-		<div ng-view></div>
+		<div id="header">
+			<div ng-include="'pages/navbar.html'"></div> <!-- Adding navbar -->
+			<!-- ng-view is a directive that will include template of current route -->
+		</div>
+	 	
+	 			
+		<div id="body">
+			<div ng-view></div>
+		</div>	
 		
 		
-		
-		
+		<div id="footer">
+			<footer ng-include="'pages/footer.html'"></footer> <!-- footer -->
+		</div>
 	</div>
 	
-	<div>
-		<footer ng-include="'pages/footer.html'" id="footer"></footer> <!-- footer -->
-	</div>
  </body>
  </html>

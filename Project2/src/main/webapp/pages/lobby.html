@@ -1,16 +1,18 @@
-<div class="jumbotron">
-	<h2>Pre-Game Lobby</h2>
-	<h3>{{message}}</h3>
-	<div style="text-align:left" class="well">
-		<ol>
-			<!-- <li ng-repeat="name in response">{{name}}</li> Going through array to display names -->
-			<li ng-repeat="player in allPlayers">{{player}}</li>
+<div id="loader" ng-show="loadingRequest"></div> <!-- animated circle button -->
+
+	<div class="jumbotron" ng-hide="loadingRequest"> <!-- Adding animation to only display it after loading bar -->
+		<h2>Pre-Game Lobby</h2>
+		<h3>{{message}}</h3>
+		<div style="text-align:left" class="well">
+			<ol>
+				<!-- <li ng-repeat="name in response">{{name}}</li> Going through array to display names -->
+				<li ng-repeat="player in allPlayers">{{player}}</li>
+				
+			</ol>
 			
-		</ol>
-		
-		<input type="button" class="btn btn-primary" name="start" value="Start"
-		ng-click="go('/start')" style="margin:auto"> <!-- On click goes to homeCtrl, checks function -->
-		<p> The button should be accessible by the "admin" only! </p>
+			<input type="button" class="btn btn-primary" name="start" value="Start"
+			ng-click="go('/start')" style="margin:auto"> <!-- On click goes to homeCtrl, checks function -->
+			<p> The button should be accessible by the "admin" only! </p>
+		</div>
 	</div>
-</div>
 
