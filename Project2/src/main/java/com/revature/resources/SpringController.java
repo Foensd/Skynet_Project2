@@ -84,23 +84,7 @@ public class SpringController {
         return usernames;
     }
 	
-	//-------------------Create a User--------------------------------------------------------
-    
-    /*@RequestMapping(value = "/user/", method = RequestMethod.POST)
-    public String registerUser(Users user, BindingResult bindingResult, ModelMap modelMap, HttpSession session){
-        System.out.println("Creating User " + user.getUsername());
-  
-        if (userService.isUserExist(user)) {
-            System.out.println("A User with name " + user.getUsername() + " already exist");
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
-  
-        userService.saveUser(user);
-  
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-    }*/
+	
 	
 	
 }
