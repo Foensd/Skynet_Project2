@@ -1,5 +1,5 @@
 var myApp = angular.module('myApp');
-debugger;
+
 /*
  * CONTROLLERS METHOD
  */
@@ -9,22 +9,20 @@ myApp.controller('LobbyController', ['$scope', '$http', function($scope, $http) 
 	$scope.message = "This is where we'll display everyone's name (from lobbyCtrl.js)";
 	$scope.response = ['firstPersonName', 'secondPersonName']; // creating an array to be displayed
 	
-	$scope.allPlayers = [];
-	
-	$scope.getAllPlayersFromDB = function() {
+	//$scope.allPlayers = ['test1', 'test2'];
+			
+	console.log("Trying to get users from DB");
+	$http({
+		url: '/Project2/lobby.do',
+		method: 'GET',
+	}).then(function successCallBack(response) {
+		$scope.allPlayers = response.data;
+		console.log("successfully got players");
+		console.log("vm.allPLayers: " + $scope.allPlayers)
+	}, function errorCallBack(response){
+		console.log("did not get players")
+	});
 		
-		console.log("Trying to get users from DB");
-		$http({
-			url: '/Project2/lobby',
-			method: 'GET',
-		}).then(function successCallBack(response) {
-			console.log("successfully got players");
-			$scope.allPlayers = response.data;
-		}, function errorCallBack(response){
-			console.log("did not get players")
-		});
-		
-	}
 	
 }]);
 

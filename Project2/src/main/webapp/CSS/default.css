@@ -2,26 +2,38 @@ html {
     position: relative;
     min-height: 100%;
 }
+#wrap {
+	min-height: 100%;
+	overflow: auto;
+  padding-bottom: 180px; /* must be same height as the footer */
+}
 footer {
-    position: absolute;
+    /* position: absolute;
     left: 0;
     bottom: 0;
     height: 100px;
-    width: 100%;
+    width: 100%; */
+    
+    position: relative;
+  	margin-top: -180px; /* negative value of footer height */
+  	height: 180px;
+  	clear: both;
 }
 
 #footer-content {
 	/* background-color: #f3e5f5;
-  border: 1px solid #ab47bc; */
+  	border: 1px solid #ab47bc; */
 	height: 32px;
 	/* height + top/bottom paddding + top/bottom border must add up to footer height */
 	padding: 8px;
+ 	
+ 	
 }
 
 .jumbotron {
 	background-color: #3399ff;  /* blue background */ 
 	width: 1000px;
-    height: 700px;
+    
     padding: 50px;
     margin: auto;  /* center the div */
     text-align: center;

@@ -1,20 +1,24 @@
 package com.revature.resources;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+/*import javax.validation.Valid;*/
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
+/*import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;*/
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+/*import org.springframework.web.bind.annotation.ResponseStatus;*/
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.bean.Users;
@@ -22,17 +26,18 @@ import com.revature.dao.UserDao;
 import com.revature.dao.UserDaoImpl;
 import com.revature.service.Register;
 
+
 @RestController
 public class SpringController {
 	
 	//-------------------Create a User-------------------------------------------------------- \\
-	@RequestMapping(headers="Accept=application/json", value="/play.do", method = RequestMethod.POST)
-	public String registerUser(@RequestBody String jsonObject, BindingResult bindingResult, ModelMap modelMap, HttpSession session){
+	@RequestMapping(method=RequestMethod.POST, headers="Accept=application/json", value="/play.do")
+	public ResponseEntity<Void> registerUser(@RequestBody String jsonObject, HttpSession session){
 		Register r = new Register();
 		Users user = null;
 		System.out.println("jsonObject: " + jsonObject);
 		try {
-			user = new ObjectMapper().readValue(jsonObject, Users.class);
+			 user = new ObjectMapper().readValue(jsonObject, Users.class);
 		} catch (JsonParseException e) {
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
@@ -47,12 +52,12 @@ public class SpringController {
 		
 		System.out.println("Created user: " + user.getUsername());
 		
-		return "lobby";
+		return ResponseEntity.status(HttpStatus.OK).body(null);
 		
 		
 		}else{
 			
-			return "login";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 			
 		}
 		
@@ -60,14 +65,24 @@ public class SpringController {
 	
 	//-------------------Retrieve All Players--------------------------------------------------------
     
-    @RequestMapping(value = "/lobby", method = RequestMethod.GET)
-    public ResponseEntity<List<Users>> listAllUsers() {
+    @RequestMapping(value = "/lobby.do", method = RequestMethod.GET)
+    @ResponseBody
+    public List<String> listAllUsers() {
+    	System.out.println("Getting a list of users");
     	UserDao dao = new UserDaoImpl();
         List<Users> users = dao.getUsers();
-        if(users.isEmpty()){
+    	List<String> usernames= new ArrayList<String>();
+    	for(int i=0; i<users.size(); i++) {
+    		usernames.add(users.get(i).getUsername());
+    	}
+        /*if(users.isEmpty()){
             return new ResponseEntity<List<Users>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
-        }
-        return new ResponseEntity<List<Users>>(users, HttpStatus.OK);
+        }*/
+        
+        System.out.println("Successfully got a list of users, returning them to lobbyCtrl.js");
+        System.out.println(users);
+        
+        return usernames;
     }
 	
 	//-------------------Create a User--------------------------------------------------------
