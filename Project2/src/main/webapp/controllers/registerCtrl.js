@@ -39,8 +39,8 @@ myApp.controller('RegisterController', [
 					}, function errorCallBack(response) {
 						console.log("Error. Sending them back to /register");
 						$scope.loadingRequest = true; // set loadingRequest back to true so it stops spinning, and lets user try again
-						
-						alert("Username is either taken or blank");
+						$scope.errorMessage = "The name you tried to enter already exists. Try a different one";
+						$scope.errorRequest = true;
 					});
 
 			}

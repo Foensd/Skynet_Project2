@@ -1,6 +1,10 @@
 <div class="jumbotron">	
 	<div ng-show="loadingRequest">
-		<h1>{{message}}</h1>		
+		<div ng-show="errorRequest" class="alert alert-danger"> <!-- Displays error message if user wasn't create, with color red -->
+	 		{{errorMessage}} 
+	 	</div>	
+		
+		<h1 ng-hide="errorRequest">{{message}}</h1> <!-- Will not display first message if they got an error -->		
 	 	<h2>{{message2}}</h2>		
 	 	<div>		
 	 		<form name="myForm" ng-submit="register()">		
