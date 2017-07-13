@@ -41,6 +41,7 @@ public class SpringController {
 			e.printStackTrace();
 		}
 		System.out.println("User: " + user);
+		
 		if(r.createUser(user.getUsername())){
 		session.setAttribute("username", user.getUsername());
 		
