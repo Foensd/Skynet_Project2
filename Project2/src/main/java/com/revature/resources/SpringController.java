@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -15,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.bean.Users;
@@ -22,17 +24,18 @@ import com.revature.dao.UserDao;
 import com.revature.dao.UserDaoImpl;
 import com.revature.service.Register;
 
+
 @RestController
 public class SpringController {
 	
 	//-------------------Create a User-------------------------------------------------------- \\
-	@RequestMapping(headers="Accept=application/json", value="/play.do", method = RequestMethod.POST)
-	public String registerUser(@RequestBody String jsonObject, BindingResult bindingResult, ModelMap modelMap, HttpSession session){
+	@RequestMapping(method=RequestMethod.POST, headers="Accept=application/json", value="/play.do")
+	public ResponseEntity<Void> registerUser(@RequestBody String jsonObject, HttpSession session){
 		Register r = new Register();
 		Users user = null;
 		System.out.println("jsonObject: " + jsonObject);
 		try {
-			user = new ObjectMapper().readValue(jsonObject, Users.class);
+			 user = new ObjectMapper().readValue(jsonObject, Users.class);
 		} catch (JsonParseException e) {
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
@@ -46,12 +49,12 @@ public class SpringController {
 		
 		System.out.println("Created user: " + user.getUsername());
 		
-		return "lobby";
+		return ResponseEntity.status(HttpStatus.OK).body(null);
 		
 		
 		}else{
 			
-			return "login";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 			
 		}
 		

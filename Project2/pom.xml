@@ -120,6 +120,7 @@
 		    <artifactId>jackson-core-asl</artifactId>
 		    <!-- <version>1.9.13</version> -->
 		</dependency>
+		
 	</dependencies>
 
 	<build>
