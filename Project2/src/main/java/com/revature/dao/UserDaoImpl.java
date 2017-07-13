@@ -46,6 +46,7 @@ public class UserDaoImpl implements UserDao {
 		
 		hql = "FROM com.revature.bean.Users";
 		query = session.createQuery(hql);
+		@SuppressWarnings("unchecked")
 		List<Users> users = query.list(); //list executes the query and returns results
 		return users;
 	}
