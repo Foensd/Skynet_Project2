@@ -4,12 +4,12 @@ var myApp = angular.module('myApp');
  * CONTROLLERS METHOD
  */
 
-myApp.controller('PlayController', [
+myApp.controller('RegisterController', [
 		'$scope',
 		'$http',
 		function($scope, $http) {
 
-			var REQUEST_SERVICE_URI = '/Project2/play.do';
+			var REQUEST_SERVICE_URI = '/Project2/register.do';
 			var playerObject = {} // create playerObject
 
 			$scope.message = "Let's play!";
@@ -19,12 +19,10 @@ myApp.controller('PlayController', [
 			};
 
 			$scope.register = function() {
-				// var path = "/Project2/#/lobby";
-
+			
 				playerObject = $scope.user; // adding user to a playerObject
 				console.log('playerObject.username: ' + playerObject.username);
-				// console.log('playerObject: ' + $scope.user.name);
-
+			
 				console.log("REGISTER BUTTON WAS CLICKED");
 				$http.post(REQUEST_SERVICE_URI, playerObject).then(
 						function successsCallBack(response) {

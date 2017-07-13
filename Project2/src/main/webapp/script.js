@@ -48,9 +48,9 @@ myApp.config(function($routeProvider) {
     controller  : 'RulesController'
   })
   
-  .when('/play', {
-    templateUrl : 'pages/play.html',
-    controller  : 'PlayController'
+  .when('/register', {
+    templateUrl : 'pages/register.html',
+    controller  : 'RegisterController'
   })
   
   .when('/lobby', {
