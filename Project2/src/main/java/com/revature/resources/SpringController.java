@@ -23,8 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.bean.Users;
-import com.revature.dao.StatusDao;
-import com.revature.dao.StatusDaoImpl;
 import com.revature.dao.UserDao;
 import com.revature.dao.UserDaoImpl;
 import com.revature.service.Register;
@@ -104,7 +102,6 @@ public class SpringController {
 	public ResponseEntity<Void> readyButton(@RequestBody String jsonObject, HttpSession session) {
 		Users user = null;
 		UserDao userDao = new UserDaoImpl();
-		StatusDao statusDao = new StatusDaoImpl();
 		System.out.println("jsonObject: " + jsonObject);
 		try {
 			user = new ObjectMapper().readValue(jsonObject, Users.class);
