@@ -57,6 +57,11 @@ myApp.config(function($routeProvider) {
     templateUrl : 'pages/lobby.html',
     controller  : 'LobbyController'
   })
+  
+  .when('/play', {
+    templateUrl : 'pages/play.html',
+    controller  : 'PlayController'
+  })
 
   .otherwise({redirectTo: '/'});
 });

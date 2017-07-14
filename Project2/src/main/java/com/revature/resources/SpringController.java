@@ -33,6 +33,7 @@ public class SpringController {
 	// -------------------Create a
 	// User-------------------------------------------------------- \\
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/register.do")
+	/*public ResponseEntity<String> registerUser(@RequestBody String jsonObject, HttpSession session) {*/
 	public ResponseEntity<Void> registerUser(@RequestBody String jsonObject, HttpSession session) {
 		Register r = new Register();
 		Users user = null;
@@ -47,12 +48,20 @@ public class SpringController {
 			e.printStackTrace();
 		}
 		System.out.println("User: " + user);
+		/*
+		 * {
+		 * 	"username": "jdhfsjkh"
+		 * }
+		 * 
+		 */
 		
 		if (r.createUser(user.getUsername())) {
 			session.setAttribute("username", user.getUsername());
 
 			System.out.println("Created user: " + user.getUsername());
 
+			//StringBuilder sb = new StringBuilder();
+			/*return ResponseEntity.status(HttpStatus.OK).body(user.getUsername());*/
 			return ResponseEntity.status(HttpStatus.OK).body(null);
 
 		} else {
