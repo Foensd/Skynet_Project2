@@ -26,6 +26,7 @@ myApp.controller('RegisterController', [
 				console.log("REGISTER BUTTON WAS CLICKED");
 				$http.post(REQUEST_SERVICE_URI, playerObject).then(
 						function successsCallBack(response) {
+							username = response.data;
 							var path = "/Project2/#/lobby";
 							location.href = path;
 						}, function() {

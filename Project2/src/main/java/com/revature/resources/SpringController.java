@@ -98,4 +98,13 @@ public class SpringController {
 
 	}
 
+	
+//
+//
+//	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/something.do")
+//	public ResponseEntity<Void> readyButton(@RequestBody String jsonObject, HttpSession session) {
+//		
+//
+//		return ResponseEntity.status(HttpStatus.OK).body(null);
+//	}
 }
