@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.bean.Users;
+import com.revature.dao.StatusDao;
+import com.revature.dao.StatusDaoImpl;
 import com.revature.dao.UserDao;
 import com.revature.dao.UserDaoImpl;
 import com.revature.service.Register;
@@ -57,7 +59,7 @@ public class SpringController {
 		
 		if (r.createUser(user.getUsername())) {
 			session.setAttribute("username", user.getUsername());
-
+			
 			System.out.println("Created user: " + user.getUsername());
 
 			//StringBuilder sb = new StringBuilder();
@@ -96,14 +98,44 @@ public class SpringController {
 
 		return usernames;
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/readyButton.do")
+	public ResponseEntity<Void> readyButton(@RequestBody String jsonObject, HttpSession session) {
+		Users user = null;
+		UserDao userDao = new UserDaoImpl();
+		StatusDao statusDao = new StatusDaoImpl();
+		System.out.println("jsonObject: " + jsonObject);
+		try {
+			user = new ObjectMapper().readValue(jsonObject, Users.class);
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("User: " + user);
+		
+		userDao.changeStatusByUsername(1, user.getUsername());
+		session.setAttribute("status", "Employed");
+		return ResponseEntity.status(HttpStatus.OK).body(null);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/allReady.do")
+	public ResponseEntity<Void> allReady() {
 
-	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/something.do")
-	public ResponseEntity<Void> setRoles(@RequestBody String jsonObject, HttpSession session) {
-		RoleAssig r = new RoleAssig();
-		r.assignRandomRoles();
-			
-			return ResponseEntity.status(HttpStatus.OK).body(null);
-
-
+		UserDao dao = new UserDaoImpl();
+		List<Users> users = dao.getUsers();
+		for(Users user: users) {
+			if(user.getStatus() == null)
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		}
+		for(Users user: users) {
+			if(user.getRole() == null) {
+				RoleAssig r = new RoleAssig();
+				r.assignRandomRoles();
+			}
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(null);
 	}
 }

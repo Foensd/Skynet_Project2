@@ -21,7 +21,7 @@ public class UserDaoImpl implements UserDao {
 
 			StatusDao daos = new StatusDaoImpl();
 
-			Users user = new Users(name, role, daos.selectStatusById(1));
+			Users user = new Users(name, role, null);
 			session.save(user);
 
 

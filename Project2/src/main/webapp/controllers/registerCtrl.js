@@ -4,28 +4,31 @@ var myApp = angular.module('myApp');
  * CONTROLLERS METHOD
  */
 myApp.controller('RegisterController', [
+		'$rootScope',
 		'$scope',
 		'$http',
 		'$location',
-		function($scope, $http, $location) {
+		function($rootScope, $scope, $http, $location) {
 			
 			var REQUEST_SERVICE_URI = '/Project2/register.do';
 			var playerObject = {}; // create playerObject
 
 			$scope.message = "Let's play!";
 			$scope.message2 = "Please enter a username you want to be known as: ";
-			$scope.user = {
-				username : ''
+			$rootScope.user = {
+				username : '',
+				role : '',
+				status : ''
 			};
 
 			$scope.loadingRequest = true; // makes the loadingRequest true, so it will display 'loader' upon page load
 						
 			$scope.register = function() {
 				$scope.loadingRequest = false; // set loadingRequest to false so it hides the input box
-				var msg = 'Creating user: ' + $scope.user.username;
+				var msg = 'Creating user: ' + $rootScope.user.username;
 				$scope.userMessage = msg;
 				
-				playerObject = $scope.user; // adding user to a playerObject
+				playerObject = $rootScope.user; // adding user to a playerObject
 
 				console.log("REGISTER BUTTON WAS CLICKED!");
 				
@@ -46,7 +49,7 @@ myApp.controller('RegisterController', [
 						console.log("Error. Sending them back to /register");
 						$scope.loadingRequest = true; // set loadingRequest back to true so it stops spinning, and lets user try again
 						
-						var msg2 = 'The username ' + $scope.user.username + ' already exists. Try a different one';
+						var msg2 = 'The username ' + $rootScope.user.username + ' already exists. Try a different one';
 						$scope.errorMessage = msg2;
 						$scope.errorRequest = true;
 					});
