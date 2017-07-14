@@ -6,6 +6,8 @@ var myApp = angular.module('myApp');
 myApp.controller('LobbyController', ['$rootScope', '$scope', '$http', '$interval', '$location',
 	function($rootScope, $scope, $http, $interval, $location) {
 	
+	//$rootScope.hideNavbar = true;
+	
 	console.log("currently in lobbyCtrl.js");
 	$scope.message = "This is where we'll display everyone's name (from lobbyCtrl.js)";
 	$scope.response = ['firstPersonName', 'secondPersonName']; // creating an array to be displayed

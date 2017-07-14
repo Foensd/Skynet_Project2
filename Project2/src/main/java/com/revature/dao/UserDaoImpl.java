@@ -19,7 +19,7 @@ public class UserDaoImpl implements UserDao {
 			Session session = HibernateUtil.getSession();
 			Transaction tx = session.beginTransaction();
 
-			StatusDao daos = new StatusDaoImpl();
+			//StatusDao daos = new StatusDaoImpl();
 
 			Users user = new Users(name, role, null);
 			session.save(user);
