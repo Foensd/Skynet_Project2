@@ -45,6 +45,10 @@ body {
     /* border: 1px solid red; */
 }
 
+.row {
+	background-color: #3399ff;  /* blue background */
+}
+
 .well ol li {
 	clear: both;
 }

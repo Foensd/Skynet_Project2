@@ -8,7 +8,7 @@ myApp.controller('RegisterController', [
 		'$http',
 		'$location',
 		function($scope, $http, $location) {
-
+			//test line
 			var REQUEST_SERVICE_URI = '/Project2/register.do';
 			var playerObject = {} // create playerObject
 
