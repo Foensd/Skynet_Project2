@@ -50,6 +50,17 @@ public class Users {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "Status_ID")
 	private Status status;
+	
+	@Column
+	private String targetUser;
+
+	public String getTargetUser() {
+		return targetUser;
+	}
+
+	public void setTargetUser(String targetUser) {
+		this.targetUser = targetUser;
+	}
 
 	public Users(String username) {
 		super();
