@@ -7,6 +7,7 @@ myApp.controller('RegisterController', [
 		'$scope',
 		'$http',
 		'$location',
+
 		function($scope, $http, $location) {
 			//test line
 			var REQUEST_SERVICE_URI = '/Project2/register.do';

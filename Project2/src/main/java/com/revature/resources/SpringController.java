@@ -33,7 +33,7 @@ public class SpringController {
 	// -------------------Create a
 	// User-------------------------------------------------------- \\
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/register.do")
-	public ResponseEntity<Void> registerUser(@RequestBody String jsonObject, HttpSession session) {
+	public ResponseEntity<String> registerUser(@RequestBody String jsonObject, HttpSession session) {
 		Register r = new Register();
 		Users user = null;
 		System.out.println("jsonObject: " + jsonObject);
@@ -53,7 +53,7 @@ public class SpringController {
 
 			System.out.println("Created user: " + user.getUsername());
 
-			return ResponseEntity.status(HttpStatus.OK).body(null);
+			return ResponseEntity.status(HttpStatus.OK).body(user.getUsername());
 
 		} else {
 
