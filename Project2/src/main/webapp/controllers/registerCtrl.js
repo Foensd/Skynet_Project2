@@ -45,7 +45,7 @@ myApp.controller('RegisterController', [
 						var path = '/lobby';
 						$location.path(path);
 					}, function  (response) {
-						debugger;
+						
 						console.log("Error. Sending them back to /register");
 						$scope.loadingRequest = true; // set loadingRequest back to true so it stops spinning, and lets user try again
 						
