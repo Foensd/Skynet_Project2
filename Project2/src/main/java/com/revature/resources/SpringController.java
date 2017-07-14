@@ -136,7 +136,7 @@ public class SpringController {
 		System.out.println("User: " + currentUser);
 		UserDao dao = new UserDaoImpl();
 		List<Users> users = dao.getUsers();
-		Users ur = dao.getUserByUsername("test");
+		//Users ur = dao.getUserByUsername("test");
 		for(Users user: users) {
 			if(user.getStatus() == null)
 				return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);

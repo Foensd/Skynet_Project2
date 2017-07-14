@@ -53,6 +53,21 @@ body {
 	clear: both;
 }
 
+#mainContainer {
+	
+}
+
+#topContainer {
+	height: 30px;
+	background-color: red;
+	padding-bottom: 10px;
+}
+
+#nameContainer {
+	/* padding-top: 1cm; */
+	
+}
+
 #readyButton {
 	float: right;
 	/* clear: both; */
