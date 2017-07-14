@@ -104,6 +104,21 @@ public class UserDaoImpl implements UserDao {
 		
 	}
 
+	@Override
+	public Users getUserByUsername(String username) {
+		Session session = HibernateUtil.getSession();
+		Query query;
+		String hql;
+		
+		hql = "FROM com.revature.bean.Users WHERE Username = :user";
+		query = session.createQuery(hql);
+		query.setParameter("user", username);
+		
+		Users user =  (Users) query.uniqueResult();
+		session.close();
+		return user;
+	}
+
 
 
 }
