@@ -24,7 +24,7 @@ myApp.controller('LobbyController', ['$rootScope', '$scope', '$http', '$interval
 			$scope.allPlayers = response.data;
 			console.log("successfully got players");
 			console.log("scope.allPLayers: " + $scope.allPlayers)
-			
+			$scope.numberOfPlayers = $scope.allPlayers.length;
 			$scope.loadingRequest = false;  // hide the 'loader'
 			
 		}, function errorCallBack(response){
@@ -41,6 +41,7 @@ myApp.controller('LobbyController', ['$rootScope', '$scope', '$http', '$interval
 		$http({
 			url: '/Project2/allReady.do',
 			method: 'POST',
+			data: $rootScope.user
 		})
 		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
 			$interval.cancel(promise)

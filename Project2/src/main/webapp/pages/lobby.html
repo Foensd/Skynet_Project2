@@ -7,11 +7,13 @@
 		<div style="text-align:left" class="well">
 			<ol>
 				<!-- <li ng-repeat="name in response">{{name}}</li> Going through array to display names -->
+				
 				<li ng-repeat="player in allPlayers">{{player}}
-				<form name="myForm" ng-submit="ready()">
-				<input ng-show="player==user.username && user.status==''" class="btn btn-primary" type="submit" id="readyButton" value="READY">
-				</form>
-				<input ng-show="player==user.username && user.status=='Employed'" class="btn btn-primary" type="submit" id="readyButton" value="READY" style="background-color:#009900"></li>
+					<form ng-hide="numberOfPlayers < 5" name="readyForm" ng-submit="ready()" style="display:inline-block;float:right;">
+						<input ng-if="player==user.username && user.status==''" class="btn btn-primary" type="submit" id="readyButton" value="READY">
+					</form>
+					<input ng-if="player==user.username && user.status=='Employed'" class="btn btn-primary" type="submit" id="clickedReadyButton" value="READY" style="background-color:#009900">
+				</li>
 				
 			</ol>
 			

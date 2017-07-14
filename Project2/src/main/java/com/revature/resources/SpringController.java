@@ -122,8 +122,20 @@ public class SpringController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/allReady.do")
-	public ResponseEntity<Void> allReady() {
+	public ResponseEntity<Void> allReady(@RequestBody String jsonObject) {
 
+		Users currentUser = null;
+		System.out.println("jsonObject: " + jsonObject);
+		try {
+			currentUser = new ObjectMapper().readValue(jsonObject, Users.class);
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("User: " + currentUser);
 		UserDao dao = new UserDaoImpl();
 		List<Users> users = dao.getUsers();
 		for(Users user: users) {
