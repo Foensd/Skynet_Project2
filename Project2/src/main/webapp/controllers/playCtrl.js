@@ -8,7 +8,7 @@ myApp.controller('PlayController', ['$rootScope', '$scope', function($rootScope,
 	$scope.rolePredictions = ['Employee', 'Hacker', 'HR', 'Trainer'];
 	$scope.allPlayers = [
 		{name: 'Player 1', status: 'Active'},
-		{name: 'Player 2', status: 'Fired'},
+		{name: 'I have a really long name', status: 'Fired'},
 		{name: 'Player 3', status: 'Active'},
 		{name: 'Player 4', status: 'Fired'},
 		{name: 'Player 5', status: 'Active'},
