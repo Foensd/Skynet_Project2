@@ -13,14 +13,14 @@
 							<th>Status</th>
 							<th>Voting</th>
 						</tr>
-						<tr ng-repeat="player in allPlayers">
-							<td>{{player.name}}</td>
+						<tr ng-repeat="playername in allPlayers">
+							<td>{{playername}}</td>
 							<td>
 								<select ng-options="choice for choice in rolePredictions" ng-model="selected" 
 									class="form-control btn btn-primary dropdown-toggle" id="predictionDropdown">
 								</select>
 							</td> 
-							<td>{{player.status}} </td>
+							<td>Status </td>
 							<td>Votes </td>
 						</tr>
 					</table>
@@ -50,7 +50,11 @@
 					<h4>My status: {{user.status}}</h4>
 				</div>
 				<div class="well col-sm-10 col-sm-offset-2" id="rolesContainer">
-					<h4>Roles go here</h4>
+					<h4 style="text-align:center; bold">Roles</h4>
+					<h4>Hacker:</h4>
+					<h4>Trainer:</h4>
+					<h4>HR:</h4>
+					<h4>Employee:</h4>
 				</div>
 			</div>
 		</div>	
