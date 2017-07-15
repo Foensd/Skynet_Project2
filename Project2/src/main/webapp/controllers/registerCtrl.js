@@ -50,7 +50,7 @@ myApp.controller('RegisterController', [
 						console.log("Error. Sending them back to /register");
 						$scope.loadingRequest = true; // set loadingRequest back to true so it stops spinning, and lets user try again
 						
-						var msg2 = 'The username ' + $rootScope.user.username + ' already exists. Try a different one';
+						var msg2 = 'The username must begin with a letter and be alphanumeric. If ' + $rootScope.user.username + ' follows this, it already exists in the lobby. Try a different one';
 						$scope.errorMessage = msg2;
 						$scope.errorRequest = true;
 					});

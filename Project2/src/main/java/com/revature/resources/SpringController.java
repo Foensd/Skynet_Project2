@@ -55,8 +55,7 @@ public class SpringController {
 		 * }
 		 * 
 		 */
-		
-		if (r.createUser(user.getUsername())) {
+		if (user.getUsername().matches("[a-zA-Z]\\w*") && r.createUser(user.getUsername())) {
 			session.setAttribute("username", user.getUsername());
 			
 			System.out.println("Created user: " + user.getUsername());
@@ -221,7 +220,7 @@ public class SpringController {
 		
 		messages.put("message1", message1);
 		messages.put("message2", message2);
-
+		
 		return ResponseEntity.status(HttpStatus.OK).body(messages);
 	}
 }
