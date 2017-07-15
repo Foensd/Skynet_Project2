@@ -16,4 +16,5 @@ public interface UserDao {
 	public Users getUserByUsername(String username);
 	public void updateUserTarget(String username, String target);
 	public List<Users> getImportantUsers();
+	public void deleteTargets();
 }
