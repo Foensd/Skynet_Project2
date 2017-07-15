@@ -119,7 +119,7 @@ public class SpringController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/allReady.do")
-	public ResponseEntity<Void> allReady(@RequestBody String jsonObject) {
+	public ResponseEntity<String> allReady(@RequestBody String jsonObject) {
 
 		Users currentUser = null;
 		System.out.println("jsonObject: " + jsonObject);
@@ -145,6 +145,7 @@ public class SpringController {
 				r.assignRandomRoles();
 			}
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(null);
+		currentUser = dao.getUserByUsername(currentUser.getUsername());
+		return ResponseEntity.status(HttpStatus.OK).body("{role:" + currentUser.getRole().getDescription() + "}");
 	}
 }

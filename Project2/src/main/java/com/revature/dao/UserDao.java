@@ -13,5 +13,5 @@ public interface UserDao {
 	public List<Users> getUsers();
 	public boolean updateRoleById(int id, String role);
 	public void changeStatusByUsername(int status, String username);
-	
+	public Users getUserByUsername(String username);
 }
