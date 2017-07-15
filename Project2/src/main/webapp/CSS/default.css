@@ -2,91 +2,143 @@ html,
 
 body {
    margin:0;
-   padding:0;
-   height:100%;
+   padding: 0;
+   height: 100%;
 }
 
-/* Container */
-#wrap { 
+.fullWrapper {
 	min-height: 100%;
-	/* overflow: auto; */
-	position:relative;
-	/*padding-bottom: 180px;*/ /* must be same height as the footer */
+	position: relative;
 }
 
 #header {
-   /* background:#ff0; */
-   padding: 5px;
+	margin: 1% 10%;
 }
 
-#body {
-   padding:15px;
+#container {
+	
+   /* padding:15px; */
    padding-bottom:60px;   /* Height of the footer */
 
 }
 
 #footer {
-	padding:10px;
-	/* border: solid; */
 	position: absolute;
-	bottom:0;
+	bottom: 0;
 	width: 100%;
-	height:60px;   /* Height of the footer */
-	/* background:#6cf; */
+	height: 60px;   /* Height of the footer */
 	
 }
 
+.notPlayhtml {
+	margin: 1% 10%;
+}
+
+#homeContainer {
+	padding: 100px;
+	text-align:center;
+	
+}
 
 .jumbotron {
 	background-color: #3399ff;  /* blue background */ 
-	padding: 50px;
-    margin: auto;  /* center the div */
+	margin-top: 60px; 
+	margin-left: 250px;
+	margin-right: 250px;  
+	padding: 30px;
+	/* margin: auto; */  /* center the div */
     text-align: center;
     /* border: 1px solid red; */
 }
 
-#playBackground {
-	background-image: url('../img/revature_background.jpg');
-	height: 800px;
-	background-size: auto 100%;
-}
-
-/* #playBackground  img{
-    vertical-align: top;
-    width: 100%; max width
-    opacity: 0;  make it transparent
-}
-
-#playBackground  div{
-    position: absolute;
-    top: 100px;
-    width: 100%;
-    height: 100%;
-} */
 
 .well ol li{
 	clear: both;
-}
-
-#mainContainer {
-	
-}
-
-#topContainer {
-	height: 30px;
-	background-color: red;
-	padding-bottom: 10px;
-}
-
-#nameContainer {
-	/* padding-top: 1cm; */
-	
 }
 
 #readyButton {
 	float: right;
 	/* clear: both; */
 }
+
+/***********************   play.html styling  ************************************************************/
+#playBackground {
+	background-image: url('../img/revature_background.jpg');
+	background-size: auto 100%;
+	height: 98%;
+	width: 98%;
+	margin: 1%;
+}
+
+#nameContainer {
+	padding: 10px;
+	background-color: blue;
+	margin-top: 50px;
+	padding: 0px; /* overrules boostrap rules*/
+	width: 300px;
+}
+
+#playerListContainer {
+	background-color: blue;
+	padding: 0px; /* overrules boostrap rules*/
+	margin-top: 5px;
+	height: auto;
+	width: 300px;
+}
+
+#chatContainer {
+	background-color: blue;
+	padding: 0px; /* overrules boostrap rules*/
+	margin-top: 80px;
+	margin-bottom: 10px;
+	height: 350px;
+}
+
+#titleContainer {
+	position: relative;
+	height: 40px;
+	background-color: red;
+	margin-top: 10px; /* putting space from top */
+	magin-bottom:10px;
+	text-align: center;
+	padding: 0px; /* overrules boostrap rules*/
+}
+
+#phaseContainer {
+	position: relative;
+	clear: both;
+	background-color: yellow;
+	padding: 0px; /* overrules boostrap rules*/
+	text-align: center;
+	width: auto;
+}
+
+#actionContainer {
+	background-color: yellow;
+	padding: 0px; /* overrules boostrap rules*/
+	text-align: center;
+	clear: both;
+	width: auto;
+	
+}
+
+#rolesContainer {
+	background-color: green;
+	margin-top: 50px;
+	padding: 0px; /* overrules boostrap rules*/
+	height: 200px;
+}
+
+#votingContainer {
+	background-color: green;
+	margin-top: 200px;
+	padding: 0px; /* overrules boostrap rules*/
+	height: auto;
+}
+
+
+/***********************************************************************************/
+
 
 /***********************************************************************************/
 /* Center the loader */

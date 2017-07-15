@@ -1,17 +1,19 @@
-<div style="text-align:center" class="well">
-	<h1>Welcome to Town Revature</h1>
-	<h3>where a 12 week bootcamp can reveal someone's true traits</h3>
-</div>
-
-<div>
-	<div style="text-align:center">
-		<input type="button" class="btn btn-primary" value="Play"
-		ng-click="go('/register')"> <!-- On click goes to homeCtrl, checks function -->
+<div class="well notPlayhtml" id="homeContainer">
+	<div>
+		<h1>Welcome to Town Revature</h1>
+		<h3>where a 12 week bootcamp can reveal someone's true traits</h3>
 	</div>
 	
-	<br>
-	<div style="text-align:center">
-		<input type="button" class="btn btn-secondary" name="rules" 
-		value="How to play" ng-click="readRules()">
+	<div>
+		<div>
+			<input type="button" class="btn btn-primary" value="Play"
+			ng-click="go('/register')"> <!-- On click goes to homeCtrl, checks function -->
+		</div>
+		
+		<br>
+		<div>
+			<input type="button" class="btn btn-secondary" name="rules" 
+			value="How to play" ng-click="readRules()">
+		</div>
 	</div>
 </div>

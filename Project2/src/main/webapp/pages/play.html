@@ -1,15 +1,57 @@
 <div id="playBackground">
-	<div class="container" id="mainContainer">
-		<div id="topContainer">
-			<h5>top area stuff</h5>
-		</div>
-		<div class="well col-sm-3" id="nameContainer">	
-			<h4>Username: {{user.username}}</h4>
-			<h4>My role: {{user.role}}</h4>
-			<h4>My status: {{user.status}}</h4>
-		</div>		
-	 	<div>		
-	 		<h3>Something else here</h3>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-5">
+				<div class="well" id="nameContainer">
+					<h4>Username: {{user.username}}</h4>
+					<h4>My role: {{user.role}}</h4>
+					<h4>My status: {{user.status}}</h4>
+				</div>
+				<div class="well" id="playerListContainer">
+					<h4>All players:</h4>
+					<ul>
+						<li>Player1</li>
+						<li>Player2</li>
+						<li>Player3</li>
+						<li>Player4</li>
+						<li>Player5</li>
+						<li>Player6</li>
+					</ul>
+				</div>
+				<div class="well" id="chatContainer">
+					<h4>Chat goes here</h4>
+					
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="well col-sm-4 col-sm-offset-1" id="titleContainer">
+					<h4>Who Did It?</h4>
+				</div>
+				<div class="well col-sm-4" id="phaseContainer">
+					<h4>Phase goes here</h4>
+					<h4>Currently it's night time at Revature Town</h4>
+				</div>
+				<div class="well col-sm-4 col-sm-offset-1" id="actionContainer">
+					<h4>Action goes here</h4>
+					<h4>Choose someone to fire</h4>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="well" id="rolesContainer">
+					<h4>Roles go here</h4>
+				</div>
+				<div class="well" id="votingContainer">
+					<h4>Voting happens here</h4>
+					<ul>
+						<li>Player1</li>
+						<li>Player2</li>
+						<li>Player3</li>
+						<li>Player4</li>
+						<li>Player5</li>
+						<li>Player6</li>
+					</ul>
+				</div>
+			</div>
 		</div>	
 	</div>
 </div>

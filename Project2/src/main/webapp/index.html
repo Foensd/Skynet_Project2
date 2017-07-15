@@ -2,9 +2,16 @@
 <html ng-app="myApp"> <!-- This tells it that it's going to use angular, with module name 'myhApp' -->
 <head>
 	<title>Project 2 - Not Mafia</title>
+	
 	<!-- load bootstrap and fontawesome via CDN -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
+	
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	
 	<!-- load angular and angular route via CDN -->
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
@@ -22,13 +29,14 @@
 </head>
 <body>
 	
-	<div class="container" id="wrap">
+	<!-- <div class="container" id="wrap"> -->
+	<div class="fullWrapper">
 		<div id="header" ng-controller="NavController" ng-hide="hideNavbar()">
 			<div ng-include="'pages/navbar.html'"></div> <!-- Adding navbar -->
 		</div>
 	 	
 	 			
-		<div id="body">
+		<div id="container">
 		<!-- ng-view is a directive that will include template of current route -->
 			<div ng-view></div>
 		</div>	
