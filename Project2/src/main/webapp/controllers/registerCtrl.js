@@ -40,7 +40,7 @@ myApp.controller('RegisterController', [
 					
 				}).then(function successCallBack(response) {
 						$scope.userMessage = "Done! See, that wasn't so bad)";
-						
+						$scope.allUsers = response.data
 						console.log("Creating new user(playerObject) with username: " + playerObject.username)
 						
 						var path = '/lobby';

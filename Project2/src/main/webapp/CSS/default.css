@@ -130,7 +130,7 @@ body {
 #chatContainer {
 	/* position: fixed; */
 	padding: 0px; /* overrules boostrap rules*/
-	margin-top: 35%;
+	margin-top: 25%;
 	margin-bottom: 5%; 
 	height: 300px;
 	width: 100%;

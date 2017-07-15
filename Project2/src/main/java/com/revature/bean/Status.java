@@ -9,12 +9,14 @@ import javax.persistence.OneToMany;
 //import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.stereotype.Component;
 
 @Component
 @Entity
 @Table(name = "Status")
+@XmlRootElement
 public class Status {
 
 	@Id
@@ -25,8 +27,6 @@ public class Status {
 	@Column(name = "Status")
 	private String status;
 
-	@OneToMany(mappedBy = "status")
-	private List<Users> users;
 	
 	
 	public Status() {

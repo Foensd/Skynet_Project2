@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 //import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.stereotype.Component;
 
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table(name ="ROLES")
-
+@XmlRootElement
 public class Roles {
 	
 	@Id
@@ -27,18 +28,7 @@ public class Roles {
 	@Column(name="R_Desc")
 	private String description;
 	
-	
-	@OneToMany(mappedBy = "role")
-	private List<Users> users;
-	
 
-	
-	public List<Users> getUsers() {
-		return users;
-	}
-	public void setUsers(List<Users> users) {
-		this.users = users;
-	}
 	public Roles() {
 		super();
 	}
