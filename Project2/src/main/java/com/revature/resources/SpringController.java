@@ -153,4 +153,69 @@ public class SpringController {
 		
 		return ResponseEntity.status(HttpStatus.OK).body(JSONObject.quote(u.getRole().getDescription()));
 	}
+	
+	
+	
+	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/something.do")
+	public ResponseEntity<String> NightTarget(@RequestBody String jsonObject) {
+
+		Users currentUser = null;
+		System.out.println("jsonObject: " + jsonObject);
+		try {
+			currentUser = new ObjectMapper().readValue(jsonObject, Users.class);
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		UserDao dao = new UserDaoImpl();
+		dao.updateUserTarget(currentUser.getUsername(), currentUser.getTargetUser());
+		
+		//The function below needs to be called once the every target user has been saved in the database
+		
+	      /*  UserDao dao = new UserDaoImpl();
+	        List<Users> users = dao.getUsers();
+	        List<String> usernames = new ArrayList<String>();
+	        for(Users user: users) {
+	            if(user.getRole().getDescription().equals("Hacker")) {
+	                usernames.add(user.getTargetUser());
+	            }
+	        }
+	        int chosen = (int)(Math.random() * usernames.size());
+	        dao.changeStatusByUsername(2, usernames.get(chosen));
+	        
+	        for(Users user: users) {
+	            if(user.getRole().getDescription().equals("Trainer")) {
+	                if(dao.getUserByUsername(user.getTargetUser()).getRole().getDescription().equals("Hacker")) {
+	                    
+	                	dao.changeStatusByUsername(2, user.getTargetUser());
+	                	return ResponseEntity.status(HttpStatus.OK).body(JSONObject.quote("You Fired a Hacker!"));
+	                    
+	                } else {
+	                	return ResponseEntity.status(HttpStatus.OK).body(JSONObject.quote("Your Target wasn't a Hacker"));
+	                }
+	            }
+	        }
+	        
+	        for(Users user: users) {
+	            if(user.getRole().getDescription().equals("HR")) {
+	                if(dao.getUserByUsername(user.getTargetUser()).getStatus().getStatus().equals("Fired")) {
+	                    dao.changeStatusByUsername(1, user.getTargetUser());
+	                    return ResponseEntity.status(HttpStatus.OK).body(JSONObject.quote("Your target was saved!"));
+	                } else {
+	                	return ResponseEntity.status(HttpStatus.OK).body(JSONObject.quote("Your Target wasn't fired!"));
+	                }
+	            }
+	        }*/
+		
+		
+		
+		
+		
+		
+		return ResponseEntity.status(HttpStatus.OK).body(null);
+	}
 }

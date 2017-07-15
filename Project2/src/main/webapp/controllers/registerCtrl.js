@@ -18,7 +18,8 @@ myApp.controller('RegisterController', [
 			$rootScope.user = {
 				username : '',
 				role : '',
-				status : ''
+				status : '',
+				targetUser : ''
 			};
 
 			$scope.loadingRequest = true; // makes the loadingRequest true, so it will display 'loader' upon page load

@@ -52,7 +52,7 @@ public class Users {
 	private Status status;
 	
 	@Column
-	private String targetUser;
+	private String targetUser; 
 
 	public String getTargetUser() {
 		return targetUser;
@@ -67,6 +67,15 @@ public class Users {
 		this.username = username;
 	}
 	
+	public Users(int userid, String username, Roles role, Status status, String targetUser) {
+		super();
+		this.userid = userid;
+		this.username = username;
+		this.role = role;
+		this.status = status;
+		this.targetUser = targetUser;
+	}
+
 	public Users(int userid, String username, Roles roleId, Status statusId) {
 		super();
 		this.userid = userid;
