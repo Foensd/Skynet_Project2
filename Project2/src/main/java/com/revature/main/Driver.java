@@ -34,8 +34,6 @@ public class Driver {
 		/*RoleAssig r = new RoleAssig();
 		r.assignRandomRoles();*/
 		
-		
-		
 	}
 
 }
