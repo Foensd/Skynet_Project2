@@ -13,6 +13,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 //import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "Users")
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "myAwesomeCache")
+@XmlRootElement
 public class Users {
 
 	

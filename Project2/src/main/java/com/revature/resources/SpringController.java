@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /*import org.springframework.web.bind.annotation.ResponseStatus;*/
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.bean.ListUsers;
 import com.revature.bean.Users;
 import com.revature.dao.UserDao;
 import com.revature.dao.UserDaoImpl;
@@ -34,44 +35,36 @@ public class SpringController {
 	// -------------------Create a
 	// User-------------------------------------------------------- \\
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/register.do")
-	/*public ResponseEntity<String> registerUser(@RequestBody String jsonObject, HttpSession session) {*/
-	public ResponseEntity<String> registerUser(@RequestBody String jsonObject, HttpSession session) {
-		Register r = new Register();
-		Users user = null;
-		System.out.println("jsonObject: " + jsonObject);
-		try {
-			user = new ObjectMapper().readValue(jsonObject, Users.class);
-		} catch (JsonParseException e) {
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		System.out.println("User: " + user);
-		/*
-		 * {
-		 * 	"username": "jdhfsjkh"
-		 * }
-		 * 
-		 */
-		
-		if (r.createUser(user.getUsername())) {
-			session.setAttribute("username", user.getUsername());
-			
-			System.out.println("Created user: " + user.getUsername());
+	@ResponseBody
+    public ResponseEntity<String> registerUser(@RequestBody String jsonObject, HttpSession session) {
+        Register r = new Register();
+        Users user = null;
+        System.out.println("jsonObject: " + jsonObject);
+        try {
+            user = new ObjectMapper().readValue(jsonObject, Users.class);
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("User: " + user);
+        
+        if (user.getUsername().matches("[a-zA-Z]\\w*") && r.createUser(user.getUsername())) {
+            session.setAttribute("username", user.getUsername());
+            
+            System.out.println("Created user: " + user.getUsername());
 
-			//StringBuilder sb = new StringBuilder();
-			/*return ResponseEntity.status(HttpStatus.OK).body(user.getUsername());*/
-			return ResponseEntity.status(HttpStatus.OK).body(null);
+            return ResponseEntity.status(HttpStatus.OK).body(null);
 
-		} else {
+        } else {
 
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 
-		}
+        }
 
-	}
+    }
 
 	// -------------------Retrieve All
 	// Players--------------------------------------------------------
@@ -86,12 +79,6 @@ public class SpringController {
 		for (int i = 0; i < users.size(); i++) {
 			usernames.add(users.get(i).getUsername());
 		}
-		/*
-		 * if(users.isEmpty()){ return new
-		 * ResponseEntity<List<Users>>(HttpStatus.NO_CONTENT);//You many decide
-		 * to return HttpStatus.NOT_FOUND }
-		 */
-
 		System.out.println("Successfully got a list of users, returning them to lobbyCtrl.js");
 		System.out.println(users);
 
@@ -154,7 +141,15 @@ public class SpringController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONObject.quote(u.getRole().getDescription()));
 	}
 	
-	
+	@RequestMapping(value = "/somethinggg.do", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Users> getAllUserObjects(){
+		UserDao dao = new UserDaoImpl();
+		List<Users> ul = dao.getUsers();
+		
+		return ul;
+		
+	}
 	
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/action.do")
 	public ResponseEntity<String> NightTarget(@RequestBody String jsonObject) {
