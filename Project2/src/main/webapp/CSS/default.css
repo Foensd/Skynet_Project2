@@ -16,7 +16,7 @@ body {
 }
 
 #container {
-	
+	margin: 1% 10%;
    /* padding:15px; */
    padding-bottom:60px;   /* Height of the footer */
 
@@ -30,9 +30,6 @@ body {
 	
 }
 
-.notPlayhtml {
-	margin: 1% 10%;
-}
 
 #homeContainer {
 	padding: 100px;
@@ -42,13 +39,15 @@ body {
 
 .jumbotron {
 	background-color: #3399ff;  /* blue background */ 
-	margin-top: 60px; 
-	margin-left: 250px;
-	margin-right: 250px;  
+	margin: 7% 20%;
 	padding: 30px;
 	/* margin: auto; */  /* center the div */
     text-align: center;
     /* border: 1px solid red; */
+}
+
+#lobbyJumbotron {
+	margin: 5% 15%;
 }
 
 
@@ -65,39 +64,36 @@ body {
 #playBackground {
 	background-image: url('../img/revature_background.jpg');
 	background-size: auto 100%;
-	height: 98%;
-	width: 98%;
-	margin: 1%;
+	/* height: 98%;
+	width: 98%; */
+	margin: -1% -10%;
+}
+
+#nameContainer, #playerListContainer, #titleContainer, #phaseContainer, #actionContainer, #rolesContainer, #chatContainer, #votingContainer 
+{
+	opacity: 0.7;
 }
 
 #nameContainer {
 	padding: 10px;
-	background-color: blue;
+	/* background-color: blue; */
 	margin-top: 50px;
 	padding: 0px; /* overrules boostrap rules*/
 	width: 300px;
 }
 
 #playerListContainer {
-	background-color: blue;
+	/* background-color: blue; */
 	padding: 0px; /* overrules boostrap rules*/
 	margin-top: 5px;
 	height: auto;
 	width: 300px;
 }
 
-#chatContainer {
-	background-color: blue;
-	padding: 0px; /* overrules boostrap rules*/
-	margin-top: 80px;
-	margin-bottom: 10px;
-	height: 350px;
-}
-
 #titleContainer {
 	position: relative;
 	height: 40px;
-	background-color: red;
+	/* background-color: red; */
 	margin-top: 10px; /* putting space from top */
 	magin-bottom:10px;
 	text-align: center;
@@ -107,14 +103,14 @@ body {
 #phaseContainer {
 	position: relative;
 	clear: both;
-	background-color: yellow;
+	/* background-color: yellow; */
 	padding: 0px; /* overrules boostrap rules*/
 	text-align: center;
 	width: auto;
 }
 
 #actionContainer {
-	background-color: yellow;
+	/* background-color: yellow; */
 	padding: 0px; /* overrules boostrap rules*/
 	text-align: center;
 	clear: both;
@@ -123,15 +119,23 @@ body {
 }
 
 #rolesContainer {
-	background-color: green;
+	/* background-color: green; */
 	margin-top: 50px;
 	padding: 0px; /* overrules boostrap rules*/
 	height: 200px;
 }
 
+#chatContainer {
+	/* background-color: blue; */
+	padding: 0px; /* overrules boostrap rules*/
+	margin-top: 80px;
+	margin-bottom: 10px;
+	height: 350px;
+}
+
 #votingContainer {
-	background-color: green;
-	margin-top: 200px;
+	margin-top: 80px;
+	/* background-color: green; */
 	padding: 0px; /* overrules boostrap rules*/
 	height: auto;
 }
