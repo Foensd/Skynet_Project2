@@ -138,6 +138,21 @@ public class UserDaoImpl implements UserDao {
 		
 	}
 
+	@Override
+	public List<Users> getImportantUsers() {
+		Session session = HibernateUtil.getSession();
+		Query query;
+		String hql;
+		
+		
+		hql = "FROM com.revature.bean.Users WHERE ROLE_ID <> 1";
+		query = session.createQuery(hql);
+		@SuppressWarnings("unchecked")
+		List<Users> users = query.list(); //list executes the query and returns results
+		session.close();
+		return users;
+	}
+
 
 
 }

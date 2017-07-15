@@ -156,7 +156,7 @@ public class SpringController {
 	
 	
 	
-	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/something.do")
+	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/action.do")
 	public ResponseEntity<String> NightTarget(@RequestBody String jsonObject) {
 
 		Users currentUser = null;
@@ -173,49 +173,55 @@ public class SpringController {
 		
 		UserDao dao = new UserDaoImpl();
 		dao.updateUserTarget(currentUser.getUsername(), currentUser.getTargetUser());
-		
-		//The function below needs to be called once the every target user has been saved in the database
-		
-	      /*  UserDao dao = new UserDaoImpl();
-	        List<Users> users = dao.getUsers();
-	        List<String> usernames = new ArrayList<String>();
-	        for(Users user: users) {
-	            if(user.getRole().getDescription().equals("Hacker")) {
-	                usernames.add(user.getTargetUser());
-	            }
-	        }
-	        int chosen = (int)(Math.random() * usernames.size());
-	        dao.changeStatusByUsername(2, usernames.get(chosen));
-	        
-	        for(Users user: users) {
-	            if(user.getRole().getDescription().equals("Trainer")) {
-	                if(dao.getUserByUsername(user.getTargetUser()).getRole().getDescription().equals("Hacker")) {
-	                    
-	                	dao.changeStatusByUsername(2, user.getTargetUser());
-	                	return ResponseEntity.status(HttpStatus.OK).body(JSONObject.quote("You Fired a Hacker!"));
-	                    
-	                } else {
-	                	return ResponseEntity.status(HttpStatus.OK).body(JSONObject.quote("Your Target wasn't a Hacker"));
-	                }
-	            }
-	        }
-	        
-	        for(Users user: users) {
-	            if(user.getRole().getDescription().equals("HR")) {
-	                if(dao.getUserByUsername(user.getTargetUser()).getStatus().getStatus().equals("Fired")) {
-	                    dao.changeStatusByUsername(1, user.getTargetUser());
-	                    return ResponseEntity.status(HttpStatus.OK).body(JSONObject.quote("Your target was saved!"));
-	                } else {
-	                	return ResponseEntity.status(HttpStatus.OK).body(JSONObject.quote("Your Target wasn't fired!"));
-	                }
-	            }
-	        }*/
-		
-		
-		
-		
-		
-		
 		return ResponseEntity.status(HttpStatus.OK).body(null);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/nightEnd.do")
+	public ResponseEntity<JSONObject> NightActions(@RequestBody String jsonObject) {
+		JSONObject messages = new JSONObject();
+		String message1 = null;
+		String message2 = null;
+
+		UserDao dao = new UserDaoImpl();
+		List<Users> users = dao.getImportantUsers();
+		for(Users user: users) {
+			if(user.getTargetUser() == null)
+				return new ResponseEntity<JSONObject>(HttpStatus.BAD_REQUEST);
+		}
+		
+		
+		List<String> usernames = new ArrayList<String>();
+		for (Users user : users) {
+			if (user.getRole().getDescription().equals("Hacker")) {
+				usernames.add(user.getTargetUser());
+			}
+		}
+		int chosen = (int) (Math.random() * usernames.size());
+		dao.changeStatusByUsername(2, usernames.get(chosen));
+		message1 = "1 Employee was fired last night !";
+
+		for (Users user : users) {
+			if (user.getRole().getDescription().equals("Trainer")) {
+				if (dao.getUserByUsername(user.getTargetUser()).getRole().getDescription().equals("Hacker")) {
+
+					dao.changeStatusByUsername(2, user.getTargetUser());
+					message1 = "2 Employees were fired last night !";
+				}
+			}
+		}
+
+		for (Users user : users) {
+			if (user.getRole().getDescription().equals("HR")) {
+				if (dao.getUserByUsername(user.getTargetUser()).getStatus().getStatus().equals("Fired")) {
+					dao.changeStatusByUsername(1, user.getTargetUser());
+					message2 = "However HR stepped in and decided to let them stay ! ";
+				}
+			}
+		}
+		
+		messages.put("message1", message1);
+		messages.put("message2", message2);
+
+		return ResponseEntity.status(HttpStatus.OK).body(messages);
 	}
 }
