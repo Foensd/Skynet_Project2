@@ -35,36 +35,38 @@ public class SpringController {
 	// -------------------Create a
 	// User-------------------------------------------------------- \\
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/register.do")
-	@ResponseBody
-    public ResponseEntity<String> registerUser(@RequestBody String jsonObject, HttpSession session) {
-        Register r = new Register();
-        Users user = null;
-        System.out.println("jsonObject: " + jsonObject);
-        try {
-            user = new ObjectMapper().readValue(jsonObject, Users.class);
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("User: " + user);
-        
-        if (user.getUsername().matches("[a-zA-Z]\\w*") && r.createUser(user.getUsername())) {
-            session.setAttribute("username", user.getUsername());
-            
-            System.out.println("Created user: " + user.getUsername());
 
-            return ResponseEntity.status(HttpStatus.OK).body(null);
+	public ResponseEntity<String> registerUser(@RequestBody String jsonObject, HttpSession session) {
+		Register r = new Register();
+		Users user = null;
+		System.out.println("jsonObject: " + jsonObject);
+		try {
+			user = new ObjectMapper().readValue(jsonObject, Users.class);
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("User: " + user);
+		if (user.getUsername().matches("[a-zA-Z]\\w*") && r.createUser(user.getUsername())) {
+			session.setAttribute("username", user.getUsername());
+			
+			System.out.println("Created user: " + user.getUsername());
 
-        } else {
+			//StringBuilder sb = new StringBuilder();
+			/*return ResponseEntity.status(HttpStatus.OK).body(user.getUsername());*/
+			return ResponseEntity.status(HttpStatus.OK).body(null);
 
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		} else {
 
-        }
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 
-    }
+		}
+
+	}
+
 
 	// -------------------Retrieve All
 	// Players--------------------------------------------------------
@@ -216,7 +218,7 @@ public class SpringController {
 		
 		messages.put("message1", message1);
 		messages.put("message2", message2);
-
+		
 		return ResponseEntity.status(HttpStatus.OK).body(messages);
 	}
 }
