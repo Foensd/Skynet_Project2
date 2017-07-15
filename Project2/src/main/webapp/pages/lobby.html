@@ -1,23 +1,21 @@
-<div id="loader" ng-show="loadingRequest"></div> <!-- animated circle button -->
+<div id="loader2" ng-show="loadingRequest"></div> <!-- animated circle button -->
 
-	<div class="jumbotron" ng-hide="loadingRequest"> <!-- Adding animation to only display it after loading bar -->
-		<h2>Pre-Game Lobby</h2>
-		<h3>{{message}}</h3>
-		<h3>{{user.status}}</h3>
-		<div style="text-align:left" class="well">
-			<ol>
-				<!-- <li ng-repeat="name in response">{{name}}</li> Going through array to display names -->
-				
-				<li ng-repeat="player in allPlayers">{{player}}
-					<form ng-hide="numberOfPlayers < 5" name="readyForm" ng-submit="ready()" style="display:inline-block;float:right;">
-						<input ng-if="player==user.username && user.status==''" class="btn btn-primary" type="submit" id="readyButton" value="READY">
-					</form>
-					<input ng-if="player==user.username && user.status=='Employed'" class="btn btn-primary" type="submit" id="clickedReadyButton" value="READY" style="background-color:#009900">
-				</li>
-				
-			</ol>
+<div class="jumbotron" ng-hide="loadingRequest" id="lobbyJumbotron"> <!-- Adding animation to only display it after loading bar -->
+	<h2>Pre-Game Lobby</h2>
+	<h3>{{message}}</h3>
+	<h3>{{user.status}}</h3>
+	<div style="text-align:left" class="well">
+		<ol>
+			<!-- <li ng-repeat="name in response">{{name}}</li> Going through array to display names -->
 			
+			<li ng-repeat="player in allPlayers">{{player}}
+				<form ng-hide="numberOfPlayers < 5" name="readyForm" ng-submit="ready()" style="display:inline-block;float:right;">
+					<input ng-if="player==user.username && user.status==''" class="btn btn-primary" type="submit" id="readyButton" value="READY">
+				</form>
+				<input ng-if="player==user.username && user.status=='Employed'" class="btn btn-primary" type="submit" id="clickedReadyButton" value="READY" style="background-color:#009900">
+			</li>
 			
-		</div>
+		</ol>
 	</div>
+</div>
 

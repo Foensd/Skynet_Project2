@@ -2,52 +2,54 @@ html,
 
 body {
    margin:0;
-   padding:0;
-   height:100%;
+   padding: 0;
+   height: 100%;
 }
 
-/* Container */
-#wrap { 
+.fullWrapper {
 	min-height: 100%;
-	/* overflow: auto; */
-	position:relative;
-	/*padding-bottom: 180px;*/ /* must be same height as the footer */
+	position: relative;
 }
 
 #header {
-   /* background:#ff0; */
-   padding: 5px;
+	margin: 1% 10%;
 }
 
-#body {
-   padding:15px;
+#container {
+	margin: 1% 10%;
+   /* padding:15px; */
    padding-bottom:60px;   /* Height of the footer */
 
 }
 
 #footer {
-	padding:10px;
-	/* border: solid; */
 	position: absolute;
-	bottom:0;
+	bottom: 0;
 	width: 100%;
-	height:60px;   /* Height of the footer */
-	/* background:#6cf; */
+	height: 60px;   /* Height of the footer */
 	
 }
 
 
+#homeContainer {
+	padding: 100px;
+	text-align:center;
+	
+}
+
 .jumbotron {
 	background-color: #3399ff;  /* blue background */ 
-	padding: 50px;
-    margin: auto;  /* center the div */
+	margin: 7% 20%;
+	padding: 30px;
+	/* margin: auto; */  /* center the div */
     text-align: center;
     /* border: 1px solid red; */
 }
 
-.row {
-	background-color: #3399ff;  /* blue background */
+#lobbyJumbotron {
+	margin: 5% 15%;
 }
+
 
 .well ol li{
 	clear: both;
@@ -58,6 +60,103 @@ body {
 	/* clear: both; */
 }
 
+/***********************   play.html styling  ************************************************************/
+.row {
+	height: 100%;
+}
+
+#playBackground {
+	background-image: url('../img/revature_background.jpg');
+	background-size: auto 100%;
+	/* height: 98%; 
+	width: 120%; */
+	margin: -1% -10%;
+}
+
+#nameContainer, #playerListContainer, #titleContainer, #phaseContainer, #actionContainer, #rolesContainer, #chatContainer, #votingContainer 
+{
+	opacity: 0.7;
+}
+
+#playerListContainer {
+	/* background-color: blue; */
+	padding: 0px; /* overrules boostrap rules*/
+	margin-top: 35%;
+	margin-bottom: 35%;
+	height: auto;
+	width: 80%;
+}
+
+#titleContainer {
+	position: relative;
+	height: 40px;
+	/* background-color: red; */
+	margin-top: 10px; /* putting space from top */
+	magin-bottom:10px;
+	text-align: center;
+	padding: 0px; /* overrules boostrap rules*/
+}
+
+#phaseContainer {
+	position: relative;
+	clear: both;
+	/* background-color: yellow; */
+	padding: 0px; /* overrules boostrap rules*/
+	text-align: center;
+	width: auto;
+}
+
+#actionContainer {
+	/* background-color: yellow; */
+	padding: 0px; /* overrules boostrap rules*/
+	text-align: center;
+	clear: both;
+	width: auto;
+	
+}
+
+#chatContainer {
+	/* background-color: blue; */
+	padding: 0px; /* overrules boostrap rules*/
+	margin-top: 40%;
+	margin-bottom: 5%;
+	height: 300px;
+	bottom: 0;
+}
+
+#nameContainer {
+	padding: 10px;
+	/* background-color: blue; */
+	margin-top: 30px;
+	padding: 0px; /* overrules boostrap rules*/
+	width: 90%;
+}
+
+#rolesContainer {
+	/* background-color: green; */
+	margin-top: 50px;
+	padding: 0px; /* overrules boostrap rules*/
+	height: 200px;
+}
+
+
+#playerTable {
+	/* overflow-y: scroll; */
+	height: auto;
+	/* display: block; */
+	/* margin-top: 50%; */
+	/*margin-bottom: 50%; */
+	text-align: center;
+	
+} 
+
+#predictionDropdown {
+	height: 20px;
+	padding: 2px;
+}
+/***********************************************************************************/
+
+
 /***********************************************************************************/
 /* Center the loader */
 #loader {
@@ -67,6 +166,24 @@ body {
   z-index: 1;
   /* width: 150px;
   height: 150px; */
+  margin: auto;
+  /* margin: -75px 0 0 -75px; */ /*this was the default */
+  border: 16px solid #D8D3D2;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+#loader2 {
+  position: absolute; /* this was default absolute */
+  left: 45%;
+  top: 40%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
   margin: auto;
   /* margin: -75px 0 0 -75px; */ /*this was the default */
   border: 16px solid #D8D3D2;

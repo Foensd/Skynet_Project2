@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 /*import org.springframework.ui.ModelMap;
@@ -34,7 +35,7 @@ public class SpringController {
 	// User-------------------------------------------------------- \\
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/register.do")
 	/*public ResponseEntity<String> registerUser(@RequestBody String jsonObject, HttpSession session) {*/
-	public ResponseEntity<Void> registerUser(@RequestBody String jsonObject, HttpSession session) {
+	public ResponseEntity<String> registerUser(@RequestBody String jsonObject, HttpSession session) {
 		Register r = new Register();
 		Users user = null;
 		System.out.println("jsonObject: " + jsonObject);
@@ -135,9 +136,10 @@ public class SpringController {
 		System.out.println("User: " + currentUser);
 		UserDao dao = new UserDaoImpl();
 		List<Users> users = dao.getUsers();
+		//Users ur = dao.getUserByUsername("test");
 		for(Users user: users) {
 			if(user.getStatus() == null)
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+				return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 		for(Users user: users) {
 			if(user.getRole() == null) {
@@ -145,7 +147,81 @@ public class SpringController {
 				r.assignRandomRoles();
 			}
 		}
-		currentUser = dao.getUserByUsername(currentUser.getUsername());
-		return ResponseEntity.status(HttpStatus.OK).body("{role:" + currentUser.getRole().getDescription() + "}");
+		
+		Users u = dao.getUserByUsername(currentUser.getUsername());
+		
+		
+		return ResponseEntity.status(HttpStatus.OK).body(JSONObject.quote(u.getRole().getDescription()));
+	}
+	
+	
+	
+	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/action.do")
+	public ResponseEntity<String> NightTarget(@RequestBody String jsonObject) {
+
+		Users currentUser = null;
+		System.out.println("jsonObject: " + jsonObject);
+		try {
+			currentUser = new ObjectMapper().readValue(jsonObject, Users.class);
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		UserDao dao = new UserDaoImpl();
+		dao.updateUserTarget(currentUser.getUsername(), currentUser.getTargetUser());
+		return ResponseEntity.status(HttpStatus.OK).body(null);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/nightEnd.do")
+	public ResponseEntity<JSONObject> NightActions(@RequestBody String jsonObject) {
+		JSONObject messages = new JSONObject();
+		String message1 = null;
+		String message2 = null;
+
+		UserDao dao = new UserDaoImpl();
+		List<Users> users = dao.getImportantUsers();
+		for(Users user: users) {
+			if(user.getTargetUser() == null)
+				return new ResponseEntity<JSONObject>(HttpStatus.BAD_REQUEST);
+		}
+		
+		
+		List<String> usernames = new ArrayList<String>();
+		for (Users user : users) {
+			if (user.getRole().getDescription().equals("Hacker")) {
+				usernames.add(user.getTargetUser());
+			}
+		}
+		int chosen = (int) (Math.random() * usernames.size());
+		dao.changeStatusByUsername(2, usernames.get(chosen));
+		message1 = "1 Employee was fired last night !";
+
+		for (Users user : users) {
+			if (user.getRole().getDescription().equals("Trainer")) {
+				if (dao.getUserByUsername(user.getTargetUser()).getRole().getDescription().equals("Hacker")) {
+
+					dao.changeStatusByUsername(2, user.getTargetUser());
+					message1 = "2 Employees were fired last night !";
+				}
+			}
+		}
+
+		for (Users user : users) {
+			if (user.getRole().getDescription().equals("HR")) {
+				if (dao.getUserByUsername(user.getTargetUser()).getStatus().getStatus().equals("Fired")) {
+					dao.changeStatusByUsername(1, user.getTargetUser());
+					message2 = "However HR stepped in and decided to let them stay ! ";
+				}
+			}
+		}
+		
+		messages.put("message1", message1);
+		messages.put("message2", message2);
+
+		return ResponseEntity.status(HttpStatus.OK).body(messages);
 	}
 }

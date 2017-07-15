@@ -50,12 +50,32 @@ public class Users {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "Status_ID")
 	private Status status;
+	
+	@Column
+	private String targetUser; 
+
+	public String getTargetUser() {
+		return targetUser;
+	}
+
+	public void setTargetUser(String targetUser) {
+		this.targetUser = targetUser;
+	}
 
 	public Users(String username) {
 		super();
 		this.username = username;
 	}
 	
+	public Users(int userid, String username, Roles role, Status status, String targetUser) {
+		super();
+		this.userid = userid;
+		this.username = username;
+		this.role = role;
+		this.status = status;
+		this.targetUser = targetUser;
+	}
+
 	public Users(int userid, String username, Roles roleId, Status statusId) {
 		super();
 		this.userid = userid;

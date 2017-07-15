@@ -28,7 +28,6 @@ myApp.controller('NavController', function NavController($scope, $location) {
 
 			return true;
 		}
-		console.log('testing');
 	}
 	
 	
