@@ -155,7 +155,7 @@ public class SpringController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/action.do")
-	public ResponseEntity<String> NightTarget(@RequestBody String jsonObject) {
+	public ResponseEntity<String> updateTarget(@RequestBody String jsonObject) {
 
 		Users currentUser = null;
 		System.out.println("jsonObject: " + jsonObject);
@@ -270,11 +270,11 @@ public class SpringController {
 		
 	}
 	
-	@RequestMapping(value = "/somethinggg.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/somethingggggg.do", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Users> getMostVoted(){
 		UserDao dao = new UserDaoImpl();
-		List<Users> ul = dao.getUsers();
+		List<Users> ul = dao.getActiveUsers();
 		int[] numberOfVotes = new int[ul.size()];
 		for(int i=0; i<ul.size(); i++) {
 			for(Users user: ul) {
