@@ -113,6 +113,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		}
 		else {
 			$scope.voteButton = false;
+			console.log('This person CANNOT vote at night...');
 			alert('YOU CANNOT VOTE!');
 		}
 	}
