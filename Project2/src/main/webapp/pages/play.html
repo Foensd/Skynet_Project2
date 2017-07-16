@@ -15,7 +15,7 @@
 							<th>Status</th>
 							<th>Voting</th>
 						</tr>
-						<tr ng-repeat="player in allPlayers">
+						<tr ng-repeat="player in allPlayers" >
 							<td>{{player.username}}</td>
 							<td>
 								<select ng-options="choice for choice in rolePredictions" ng-model="selected" 
@@ -26,8 +26,11 @@
 							<td ng-class="{activeStatus : player.status.status == 'Active', firedStatus: player.status.status == 'Fired'}">
 								{{player.status.status}}
 							</td>
-							<td ng-hide="voteButton">Votes </td>
+							<td ng-show="voteButton">
+								<input type="radio" ng-value="player.username" ng-model="vote">
+							</td>
 						</tr>
+						<p>Selected: {{vote}}</p>
 					</table>
 				</div>
 				
@@ -41,7 +44,7 @@
 					Currently in: {{phase}} phase</h4>
 				</div>
 				<div class="well col-sm-4 col-sm-offset-3" id="actionContainer">
-					<h4>Action:</h4>
+					<h4>Action: </h4>
 					<h4>{{action}}</h4>
 				</div>
 				<div class="well col-sm-12" id="chatContainer">
