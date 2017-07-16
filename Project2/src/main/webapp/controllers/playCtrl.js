@@ -3,10 +3,11 @@ var myApp = angular.module('myApp');
 /*
  * CONTROLLERS METHOD
  */
-myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout', function($http, $rootScope, $scope, $timeout) {
+myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout', '$q', function($http, $rootScope, $scope, $timeout, $q) {
 	
 	$scope.rolePredictions = ['Employee', 'Hacker', 'HR', 'Trainer'];
 	$scope.choice;
+	$scope.msg = 'hi again';
 
 	$scope.voteAction = function(){
 		$rootScope.user.targetUser = $scope.choice;
@@ -51,6 +52,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	
 	$scope.status = ['Employee', 'Fired'];
 	
+	// chat
 	$timeout(function() {document.getElementById("chat").src="http://widget.mibbit.com/?settings=a4cc8e334a558b93d1cb07eb4ac82f51" + 
 	"&server=irc.mibbit.net%3A%2B6697" +
 	"&channel=%23Skynet_Game_Chat" +
@@ -59,8 +61,6 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 
 	
 	getPlayers(); // run getPlayers() function to retrieve players upon page load
-	
-	$scope.msg = 'hi again';
 	
 	/*$scope.modalFunction = function() {
 		console.log('opening pop up');
@@ -84,6 +84,25 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
  	};
 
 	$scope.openModal();*/
+
+	//time function with 5 second delay
+	countDown = function(timerAmount) {   // passing in timerAmount value from function call
+		$scope.clock = timerAmount;
+		return $q(function(resolve, reject) {
+			var time = $timeout(function () {
+		        var timer = setInterval(function () {
+		            if ($scope.clock > 0) {
+		                $scope.clock--;
+		            } else {
+		                clearInterval(timer);
+		                resolve('GOING TO NEXT PHASE');
+		            }
+		            $scope.$apply();
+		        }, 1000);
+		    }, 5000);	// 5 second delay before counter begins
+		});
+	}
+	
 	/*$scope.voteButton = false;*/
 	$scope.voteButton = true;
 	
@@ -92,10 +111,18 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		$scope.phase = 'day';
 		$scope.action = 'Welcome to Revature Town... please look around and get acquainted with everything';
 		
-		$timeout($scope.goToNight, 40000);
+		
+		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
+		//when function above resolves, it returns a promise, which lets us perform the following actions:
+		promise.then(function(promiseResolve){  
+			console.log('PROMISE: ' + promiseResolve);
+			goToNight();
+		});
+
 	}
 	
-	$scope.goToNight = function() {
+	
+	goToNight = function() {
 		console.log('Going to night');
 		
 		$scope.phase = 'night';
@@ -103,10 +130,15 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.voteButton = true;
 		
-		$timeout($scope.goToDay, 40000);
+		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
+		//when function above resolves, it returns a promise, which lets us perform the following actions:
+		promise.then(function(promiseResolve){  
+			console.log('PROMISE: ' + promiseResolve);
+			goToDay();
+		});
 	}
 	
-	$scope.goToDay = function() {
+	goToDay = function() {
 		$http({
 			url: '/Project2/nightEnd.do',
 			method: 'POST'
@@ -127,20 +159,31 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		$scope.action = 'Discuss along with you peers about what happened last night. Who did it?';
 		
 		$scope.voteButton = false;
-		$timeout($scope.goToVoting, 40000);
+		
+		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
+		//when function above resolves, it returns a promise, which lets us perform the following actions:
+		promise.then(function(promiseResolve){  
+			console.log('PROMISE: ' + promiseResolve);
+			goToVoting();
+		});
 	}
 	
-	$scope.goToVoting = function() {
+	goToVoting = function() {
 		console.log('Starting voting');
 		
 		$scope.action = 'Vote for who you think should be fired';
 		
 		$scope.voteButton = true;
 		
-		$timeout($scope.goToTrial, 40000);
+		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
+		//when function above resolves, it returns a promise, which lets us perform the following actions:
+		promise.then(function(promiseResolve){  
+			console.log('PROMISE: ' + promiseResolve);
+			goToTrial();
+		});
 	}
 	
-	$scope.goToTrial = function() {
+	goToTrial = function() {
 		$scope.voteButton = true;
 		$http({
 			url: '/Project2/getMostVoted.do',
@@ -157,10 +200,15 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.action = 'This person is being put on trial. Do you think this person is guilty or innocent?';
 		
-		$timeout($scope.goToClosing, 40000);
+		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
+		//when function above resolves, it returns a promise, which lets us perform the following actions:
+		promise.then(function(promiseResolve){  
+			console.log('PROMISE: ' + promiseResolve);
+			goToClosing();
+		});
 	}
 	
-	$scope.goToClosing = function() {
+	goToClosing = function() {
 		$http({
 			url: '/Project2/trial.do',
 			method: 'POST',
@@ -194,7 +242,12 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.voteButton = false;
 		
-		$timeout($scope.goToNight, 40000);
+		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
+		//when function above resolves, it returns a promise, which lets us perform the following actions:
+		promise.then(function(promiseResolve){  
+			console.log('PROMISE: ' + promiseResolve);
+			goToNight();
+		});
 	}
 	   
 }]);
