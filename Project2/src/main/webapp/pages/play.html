@@ -5,6 +5,7 @@
 				<div class="well" id="choiceDisplay">
 					<p>Selected(choice): {{choice}}</p>
 					<p>Selected(targetUser): {{user.targetUser}}</p>
+					<p>Message: {{messages}}</p>
 				</div>
 				<div class="well" id="playerListContainer">
 					<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" 
@@ -22,15 +23,24 @@
 						<tr ng-repeat="player in allPlayers">
 							<td>{{player.username}}</td>
 							<td>
-								<select ng-show="showAllyHackers()" ng-options="choice for choice in rolePredictions" ng-model="selected" 
-									class="form-control btn btn-primary dropdown-toggle" id="predictionDropdown">
+								<select ng-hide="{{user.role}} == 'Hacker' && {{player.role.description}} == 'Hacker'" 
+								ng-options="choice for choice in rolePredictions" ng-model="selected">
+								<!-- <select ng-show="showAllyHackers()" ng-options="choice for choice in rolePredictions" ng-model="selected" 
+									class="form-control btn btn-primary dropdown-toggle" id="predictionDropdown"> -->
 								</select>
+								<div ng-show="{{user.role}} == 'Hacker' && {{player.role.description}} == 'Hacker'">
+								HACKER
+								</div>
 							</td> 
 							<!-- changing status colors -->
 							<td ng-class="{activeStatus : player.status.status == 'Active', firedStatus: player.status.status == 'Fired'}">
 								{{player.status.status}}
 							</td>
-							<td ng-show="voteButton &&{{player.status.statusId}}==1" ng-click="voteAction()">
+							<td ng-show="voteButton && {{player.status.status}} == 'Active' &&
+							{{user.username}} != {{player.username}} && 
+							({{phase}} == 'day') || ({{user.role}} == 'Hacker' && {{person.role.description}} != 'Hacker')
+							 || {{user.role}} != 'Employee')" 
+							ng-click="voteAction()">
 								<input type="radio" name="name" ng-value="player.username" ng-model="$parent.choice">
 							</td>
 						</tr>
