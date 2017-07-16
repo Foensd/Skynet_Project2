@@ -7,6 +7,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	
 	$scope.rolePredictions = ['Employee', 'Hacker', 'HR', 'Trainer'];
 	$scope.choice;
+	$scope.msg = 'hi again';
 
 	$scope.voteAction = function(){
 		$rootScope.user.targetUser = $scope.choice;
@@ -51,6 +52,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	
 	$scope.status = ['Employee', 'Fired'];
 	
+	// chat
 	$timeout(function() {document.getElementById("chat").src="http://widget.mibbit.com/?settings=a4cc8e334a558b93d1cb07eb4ac82f51" + 
 	"&server=irc.mibbit.net%3A%2B6697" +
 	"&channel=%23Skynet_Game_Chat" +
@@ -59,8 +61,6 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 
 	
 	getPlayers(); // run getPlayers() function to retrieve players upon page load
-	
-	$scope.msg = 'hi again';
 	
 	/*$scope.modalFunction = function() {
 		console.log('opening pop up');
@@ -130,7 +130,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.voteButton = true;
 		
-		var promise = countDown(10); // passing x amount of seconds to perform the timer in countDown()
+		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
@@ -157,7 +157,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.voteButton = false;
 		
-		var promise = countDown(10); // passing x amount of seconds to perform the timer in countDown()
+		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
@@ -172,7 +172,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.voteButton = true;
 		
-		var promise = countDown(10); // passing x amount of seconds to perform the timer in countDown()
+		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
@@ -197,7 +197,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.action = 'This person is being put on trial. Do you think this person is guilty or innocent?';
 		
-		var promise = countDown(10); // passing x amount of seconds to perform the timer in countDown()
+		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
@@ -239,7 +239,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.voteButton = false;
 		
-		var promise = countDown(10); // passing x amount of seconds to perform the timer in countDown()
+		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
