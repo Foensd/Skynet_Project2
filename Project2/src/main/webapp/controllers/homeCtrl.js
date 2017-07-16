@@ -12,7 +12,7 @@ myApp.controller('HomeController', ['$scope', '$location', function($scope, $loc
 	   $location.path(path);
 	}
    $scope.readRules = function() {
-	   alert("Print rules");
+	  $location.path('/rules');
    }
    
 }]);
