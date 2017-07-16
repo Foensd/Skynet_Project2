@@ -1,7 +1,62 @@
-<div>
-	<h1>Rules</h1>
+<div class="well" id="homeContainer">
+	<legend>
+		<h1>Game Logistics</h1>
+	</legend>
 	
-	<h3>{{message}}</h3>
-	<h2>some text for rules... ON RULES.HTML</h2>
-	{{message2}}
+		ToR requires a minimum of 5 players to start.
+		<br>All players in the lobby must be ready before the game proceeds to the play page
+		<br>The Game is only over when there is an equal amount of Hackers as there are employees or if all the Hackers have been fired.
+	
 </div>
+	<div class="well" id="rolesContainer" background-color="#588de2" >
+		<h3 style="text-align: center;">Roles</h3>
+		<div class="tab">
+			<button class="tablinks" onclick="openRole(event, 'Hacker')">Hacker</button>
+			<button class="tablinks" onclick="openRole(event, 'Trainer')">Trainer</button>
+			<button class="tablinks" onclick="openRole(event, 'HR')">HR</button>
+			<button class="tablinks" onclick="openRole(event, 'Employee')">Employee</button>
+		</div>
+
+		<div id="Hacker" class="tabcontent">
+			<h3>Hacker</h3>
+			<p>Hackers want to take over the town.</p>
+			<p>At night Hackers will choose someone to fire. That person has
+				to leave Revature town first thing in the morning.</p>
+			<p>Hackers win the game if there's less people in Revature Town
+				then there are Hackers. Every game starts with at least 1 Hacker.</p>
+		</div>
+
+		<div id="Trainer" class="tabcontent">
+			<h3>Trainer</h3>
+			<p>The Trainer is the good guy.</p>
+			<p>At night the Trainer will investigate one of the employees and
+				make sure that person is not a Hacker.</p>
+			<p>If that person is indeed a Hacker, the Trainer will fire that
+				person.</p>
+		</div>
+
+		<div id="HR" class="tabcontent">
+			<h3>HR</h3>
+			<p>HR has an important role.</p>
+			<p>At night, HR can vouch for somebody that would have been
+				fired, and keep that person in Revature Town.</p>
+			<p>However, HR can step in for ANYONE that would have been fired
+				- regardless of that person's role (Employee, Trainer, or even a
+				Hacker).</p>
+			<p>If HR wants, they can decide to vouch for themselves at night
+				instead of a random person.</p>
+		</div>
+		<div id="Employee" class="tabcontent">
+			<h3>Employee</h3>
+			<p>Employees make up the majority of Revature Town.</p>
+			<p>Employees come to work everyday, enjoy a cup of coffee, and go
+				home after hours of programming.</p>
+			<p>At night, employees simply go to sleep, since they have to
+				wake up early next morning.</p>
+			<p>During the day however, employees can come together to
+				investigate and figure out who the Hacker possibly could be.</p>
+		</div>
+</div>
+<br>
+<br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

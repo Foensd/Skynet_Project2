@@ -19,7 +19,7 @@
 							<th>Status</th>
 							<th>Voting</th>
 						</tr>
-						<tr ng-repeat="player in allPlayers" >
+						<tr ng-repeat="player in allPlayers">
 							<td>{{player.username}}</td>
 							<td>
 								<select ng-show="showAllyHackers()" ng-options="choice for choice in rolePredictions" ng-model="selected" 
