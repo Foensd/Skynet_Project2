@@ -7,7 +7,6 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	
 	$scope.rolePredictions = ['Employee', 'Hacker', 'HR', 'Trainer'];
 	$scope.choice;
-	$scope.msg = 'hi again';
 
 	$scope.voteAction = function(){
 		$rootScope.user.targetUser = $scope.choice;
@@ -34,7 +33,8 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 			method: 'GET',
 		})
 		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
-			
+			// returns an array list with all users
+			// username(String), role(Object), status(Object), targetUser(String)
 			$scope.allPlayers = response.data;
 			
 			console.log("SUCCESS - got all players");
@@ -49,8 +49,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 			$scope.message = "There are no other players online."
 		});
 	}
-	
-	$scope.status = ['Employee', 'Fired'];
+	getPlayers(); // run getPlayers() function to retrieve players upon page load
 	
 	// chat
 	$timeout(function() {document.getElementById("chat").src="http://widget.mibbit.com/?settings=a4cc8e334a558b93d1cb07eb4ac82f51" + 
@@ -60,7 +59,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	"&nick=" + $rootScope.user.username;},500);
 
 	
-	getPlayers(); // run getPlayers() function to retrieve players upon page load
+	
 	
 	/*$scope.modalFunction = function() {
 		console.log('opening pop up');
@@ -103,8 +102,22 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		});
 	}
 	
-	/*$scope.voteButton = false;*/
-	$scope.voteButton = true;
+	// checking if person can vote at night
+	checkVoteCredentials = function(){
+		if($rootScope.user.role != 'Employee' && $rootScope.user.status === 'Active')
+		{
+			console.log('Role decription: ' + $rootScope.user.role);
+			console.log('Status : ' + $rootScope.user.status);
+			$scope.voteButton = true;
+			console.log('This person can vote at night...');
+		}
+		else {
+			$scope.voteButton = false;
+			alert('YOU CANNOT VOTE!');
+		}
+	}
+	$scope.voteButton = false;
+	/*$scope.voteButton = true;*/
 	
 	$scope.gameStart = function(){
 		console.log('game starting');
@@ -112,7 +125,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		$scope.action = 'Welcome to Revature Town... please look around and get acquainted with everything';
 		
 		
-		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
+		var promise = countDown(5); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
@@ -128,14 +141,16 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		$scope.phase = 'night';
 		$scope.action = 'Anyone with roles, perform your actions now. Employees go to sleep!';
 		
-		$scope.voteButton = true;
+		checkVoteCredentials();
+	
 		
-		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
+		
+		/*var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
 			goToDay();
-		});
+		});*/
 	}
 	
 	goToDay = function() {
