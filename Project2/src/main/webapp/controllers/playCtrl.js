@@ -83,27 +83,6 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
  	};
 
 	$scope.openModal();*/
-
-	/*$scope.showAllyHackers = function() {
-		if ($scope.user.role == 'Hacker'){
-			
-			angular.forEach($scope.allPlayers, function(p){
-				if (p.role.description == 'Hacker'){
-					console.log('Person is hacker, hiding predictions');
-					return false;
-				}
-				else {
-					console.log('This person is a Hacker, but');
-					return true;
-				}
-			});
-		}
-		else {
-			console.log('Person it NOT hacker... showing predictions');
-			return true;
-		}
-		
-	}*/
  	
 	//time function with 5 second delay
 	countDown = function(timerAmount) {   // passing in timerAmount value from function call
