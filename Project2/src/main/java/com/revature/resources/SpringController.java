@@ -31,10 +31,11 @@ import com.revature.service.RoleAssig;
 @RestController
 public class SpringController {
 
+	public static boolean started = false;
+	public static boolean finished = false;
 	// -------------------Create a
 	// User-------------------------------------------------------- \\
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/register.do")
-
 	public ResponseEntity<String> registerUser(@RequestBody String jsonObject, HttpSession session) {
 		Register r = new Register();
 		Users user = null;
@@ -60,13 +61,9 @@ public class SpringController {
 			 * ResponseEntity.status(HttpStatus.OK).body(user.getUsername());
 			 */
 			return ResponseEntity.status(HttpStatus.OK).body(null);
-
 		} else {
-
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-
 		}
-
 	}
 
 	// -------------------Retrieve All
@@ -111,7 +108,6 @@ public class SpringController {
 
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/allReady.do")
 	public ResponseEntity<String> allReady(@RequestBody String jsonObject) {
-
 		Users currentUser = null;
 		System.out.println("jsonObject: " + jsonObject);
 		try {
@@ -131,13 +127,17 @@ public class SpringController {
 			if (user.getStatus() == null)
 				return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
-		for (Users user : users) {
-			if (user.getRole() == null) {
-				RoleAssig r = new RoleAssig();
-				r.assignRandomRoles();
+		if(!started) {
+			started = true;
+			for (Users user : users) {
+				if (user.getRole() == null) {
+					RoleAssig r = new RoleAssig();
+					r.assignRandomRoles();
+				}
 			}
+			finished = true;
 		}
-
+		while(!finished);
 		Users u = dao.getUserByUsername(currentUser.getUsername());
 
 		return ResponseEntity.status(HttpStatus.OK).body(JSONObject.quote(u.getRole().getDescription()));
@@ -267,7 +267,7 @@ public class SpringController {
 		return users;
 	}
 	
-	@RequestMapping(value = "/getMostVoted.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getMostVoted.do", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Users> getMostVoted(){
 		UserDao dao = new UserDaoImpl();
@@ -294,8 +294,6 @@ public class SpringController {
 		
 	}
 	
-	@RequestMapping(value = "/checkWinCondition.do", method = RequestMethod.GET)
-	@ResponseBody
 	public String checkWinConditions() {
 		UserDao dao = new UserDaoImpl();
 		List<Users> ul = dao.getActiveUsers();
