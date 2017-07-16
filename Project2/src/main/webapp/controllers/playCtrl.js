@@ -65,11 +65,11 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
  	};
 
 	$scope.openModal();*/
-	$scope.voteButton = 'true';
+	$scope.voteButton = false;
 	
 	$scope.gameStart = function(){
 		console.log('game starting');
-		$scope.phase = 'CURRENTLY ITS DAYTIME';
+		$scope.phase = 'day';
 		$scope.action = 'some action';
 		
 		$timeout($scope.goToNight, 5000);
@@ -78,10 +78,10 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	$scope.goToNight = function() {
 		console.log('Going to night');
 		
-		$scope.phase = 'CURRENTLY NIGHTTIME';
+		$scope.phase = 'night';
 		$scope.action = 'ACTIONS SHOULD HAPPEN NOW';
 		
-		$scope.voteButton = 'false';
+		$scope.voteButton = true;
 		
 		$timeout($scope.goToDay, 5000);
 	}
@@ -89,21 +89,18 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	$scope.goToDay = function() {
 		console.log('Going to day');
 		
-		$scope.phase = 'CURRENTLY DAYTIME';
+		$scope.phase = 'day';
 		$scope.action = 'DISCUSSION SHOULD HAPPEN NOW';
-		
-		$scope.voteButton = 'false';
 		
 		$timeout($scope.goToVoting, 5000);
 	}
 	
 	$scope.goToVoting = function() {
-		console.log('Starting votign');
+		console.log('Starting voting');
 		
-		$scope.phase = 'CURRENTLY DAYTIME - Voting';
 		$scope.action = 'VOTING SHOULD HAPPEN NOW';
 		
-		$scope.voteButton = 'false';
+		$scope.voteButton = true;
 		
 		$timeout($scope.goToTrial, 5000);
 	}
@@ -111,10 +108,9 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	$scope.goToTrial = function() {
 		console.log('Starting trial');
 		
-		$scope.phase = 'CURRENTLY DAYTIME - Trial';
 		$scope.action = 'GUILTY/INNOCENT VOTING SHOULD HAPPEN NOW';
 		
-		$scope.voteButton = 'false';
+		$scope.voteButton = false;
 		
 		$timeout($scope.goToClosing, 5000);
 	}
@@ -122,7 +118,6 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	$scope.goToClosing = function() {
 		console.log('Starting closing');
 		
-		$scope.phase = 'CURRENTLY DAYTIME - Closing';
 		$scope.action = 'TRIAL RESULTS ARE SHOWN';
 		
 		$scope.voteButton = 'false';
