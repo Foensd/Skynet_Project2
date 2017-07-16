@@ -83,27 +83,6 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
  	};
 
 	$scope.openModal();*/
-
-	$scope.showAllyHackers = function() {
-		if ($scope.user.role == 'Hacker'){
-			
-			angular.forEach($scope.allPlayers, function(p){
-				if (p.role.description == 'Hacker'){
-					console.log('Person is hacker, hiding predictions');
-					return false;
-				}
-				else {
-					console.log('This person is a Hacker, but');
-					return true;
-				}
-			});
-		}
-		else {
-			console.log('Person it NOT hacker... showing predictions');
-			return true;
-		}
-		
-	}
  	
 	//time function with 5 second delay
 	countDown = function(timerAmount) {   // passing in timerAmount value from function call
@@ -177,9 +156,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		voteCredAtNight();
 	
-		
-		
-		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
+		var promise = countDown(10); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
@@ -194,6 +171,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		})
 		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
 			$scope.messages = response.data;
+			console.log('$SCOPE.MESSAGES' + $scope.messages);
 		}, function errorCallBack(response){
 			console.log("Failed in nightActions")
 		});
