@@ -144,7 +144,7 @@ public class SpringController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONObject.quote(u.getRole().getDescription()));
 	}
 
-	@RequestMapping(value = "/somethinggg.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAllUserObjects.do", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Users> getAllUserObjects() {
 		UserDao dao = new UserDaoImpl();
@@ -234,7 +234,7 @@ public class SpringController {
 
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/trial.do")
 	@ResponseBody
-	public String trial(@RequestBody String jsonObject) {
+	public List<Users> trial(@RequestBody String jsonObject) {
 		Users user = null;
 		UserDao userDao = new UserDaoImpl();
 		System.out.println("jsonObject: " + jsonObject);
@@ -261,16 +261,13 @@ public class SpringController {
 		}
 		if (count1>count2){
 			userDao.changeStatusByUsername(2, user.getUsername());
-			dao.deleteTargets();
-			return "guilty";
-		}else{
-			dao.deleteTargets();
-			return "innocent";
+			users = dao.getActiveUsers();
 		}
-		
+		dao.deleteTargets();
+		return users;
 	}
 	
-	@RequestMapping(value = "/somethingggggg.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getMostVoted.do", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Users> getMostVoted(){
 		UserDao dao = new UserDaoImpl();
@@ -292,10 +289,13 @@ public class SpringController {
 		}
 		
 		ul.add(new Users(ul.get(index)));
+		dao.deleteTargets();
 		return ul;
 		
 	}
 	
+	@RequestMapping(value = "/checkWinCondition.do", method = RequestMethod.GET)
+	@ResponseBody
 	public String checkWinConditions() {
 		UserDao dao = new UserDaoImpl();
 		List<Users> ul = dao.getActiveUsers();
