@@ -82,7 +82,55 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		$scope.action = 'ACTIONS SHOULD HAPPEN NOW';
 		
 		$scope.voteButton = 'false';
+		
+		$timeout($scope.goToDay, 5000);
 	}
+	
+	$scope.goToDay = function() {
+		console.log('Going to day');
+		
+		$scope.phase = 'CURRENTLY DAYTIME';
+		$scope.action = 'DISCUSSION SHOULD HAPPEN NOW';
+		
+		$scope.voteButton = 'false';
+		
+		$timeout($scope.goToVoting, 5000);
+	}
+	
+	$scope.goToVoting = function() {
+		console.log('Starting votign');
+		
+		$scope.phase = 'CURRENTLY DAYTIME - Voting';
+		$scope.action = 'VOTING SHOULD HAPPEN NOW';
+		
+		$scope.voteButton = 'false';
+		
+		$timeout($scope.goToTrial, 5000);
+	}
+	
+	$scope.goToTrial = function() {
+		console.log('Starting trial');
+		
+		$scope.phase = 'CURRENTLY DAYTIME - Trial';
+		$scope.action = 'GUILTY/INNOCENT VOTING SHOULD HAPPEN NOW';
+		
+		$scope.voteButton = 'false';
+		
+		$timeout($scope.goToClosing, 5000);
+	}
+	
+	$scope.goToClosing = function() {
+		console.log('Starting closing');
+		
+		$scope.phase = 'CURRENTLY DAYTIME - Closing';
+		$scope.action = 'TRIAL RESULTS ARE SHOWN';
+		
+		$scope.voteButton = 'false';
+		
+		$timeout($scope.goToNight, 5000);
+	}
+	
+	
 	   
 }]);
 
