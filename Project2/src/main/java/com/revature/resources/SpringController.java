@@ -180,11 +180,9 @@ public class SpringController {
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/nightEnd.do")
 	@ResponseBody
 	public List<String> NightActions(@RequestBody String jsonObject) {
-		JSONObject messages = new JSONObject();
-		
 
 		UserDao dao = new UserDaoImpl();
-		List<Users> users = dao.getImportantUsers();
+		List<Users> users = dao.getActiveUsers();
 
 		List<String> usernames = new ArrayList<String>();
 		for (Users user : users) {
@@ -251,7 +249,7 @@ public class SpringController {
 		}
 		
 		UserDao dao = new UserDaoImpl();
-		List<Users> users = dao.getUsers();
+		List<Users> users = dao.getActiveUsers();
 		int count1 = 0;
 		int count2 = 0;
 		for (Users us : users) {
