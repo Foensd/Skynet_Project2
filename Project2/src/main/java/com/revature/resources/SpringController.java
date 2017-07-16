@@ -102,6 +102,17 @@ public class SpringController {
 	public ResponseEntity<Void> readyButton(@RequestBody String jsonObject, HttpSession session) {
 		roleRandomizationStarted = false;
 		roleRandomizationFinished = false;
+		
+		
+		nightActionsStarted = false;
+		nightActionsFinished = false;
+		countingVotesStarted = false;
+		countingVotesFinished = false;
+		onTrialStarted = false;
+		onTrialFinished = false;
+		gameInProgress = false;
+		
+		
 		Users user = null;
 		UserDao userDao = new UserDaoImpl();
 		System.out.println("jsonObject: " + jsonObject);
@@ -117,7 +128,6 @@ public class SpringController {
 		System.out.println("User: " + user);
 
 		userDao.changeStatusByUsername(1, user.getUsername());
-		session.setAttribute("status", "Employed");
 		return ResponseEntity.status(HttpStatus.OK).body(null);
 	}
 
@@ -150,6 +160,7 @@ public class SpringController {
 				if (user.getRole() == null) {
 					RoleAssig r = new RoleAssig();
 					r.assignRandomRoles();
+					break;
 				}
 			}
 			roleRandomizationFinished = true;
