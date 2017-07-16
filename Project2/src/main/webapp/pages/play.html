@@ -26,11 +26,12 @@
 							<td ng-class="{activeStatus : player.status.status == 'Active', firedStatus: player.status.status == 'Fired'}">
 								{{player.status.status}}
 							</td>
-							<td ng-show="voteButton">
-								<input type="radio" ng-value="player.username" ng-model="vote">
+							<td ng-show="voteButton" ng-click="voteAction()">
+								<input type="radio" name="name" ng-value="player.username" ng-model="$parent.choice">
 							</td>
 						</tr>
-						<p>Selected: {{vote}}</p>
+						<p>Selected(choice): {{choice}}</p>
+						<p>Selected(targetUser): {{user.targetUser}}</p>
 					</table>
 				</div>
 				
