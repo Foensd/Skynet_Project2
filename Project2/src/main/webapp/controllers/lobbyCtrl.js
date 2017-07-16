@@ -67,7 +67,7 @@ myApp.controller('LobbyController', ['$rootScope', '$scope', '$http', '$interval
 			data: playerObject
 			
 		}).then(function successCallBack(response) {
-				$scope.userMessage = "Set as Employed!";
+				$scope.userMessage = "Set as Active!";
 				$rootScope.user.status = 'Active';
 				
 				console.log("Setting " + playerObject.username + " as employed!");
