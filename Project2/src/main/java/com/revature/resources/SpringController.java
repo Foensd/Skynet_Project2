@@ -229,6 +229,7 @@ public class SpringController {
 		List<String> st = new ArrayList<String>();
 		st.add(message1);
 		st.add(message2);
+		dao.deleteTargets();
 
 		return st;
 	}
