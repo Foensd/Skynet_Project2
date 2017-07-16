@@ -37,11 +37,11 @@ myApp.controller('LobbyController', ['$rootScope', '$scope', '$http', '$interval
 	
 	allReady = function() {
 		console.log("Checking if everybody is ready (Has a status)");
-		
+		playerObject = $rootScope.user;
 		$http({
 			url: '/Project2/allReady.do',
 			method: 'POST',
-			data: $rootScope.user
+			data: playerObject
 		})
 		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
 			$interval.cancel(promise);
