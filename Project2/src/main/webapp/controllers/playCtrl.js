@@ -7,10 +7,10 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	
 	$scope.rolePredictions = ['Employee', 'Hacker', 'HR', 'Trainer'];
 	$scope.choice;
-	$scope.voteAction = function(){
+	/*$scope.voteAction = function(){
 		$rootScope.user.targetUser = $scope.choice; 
 	}
-	console.log("targetUser" + $rootScope.user.targetUser);
+	console.log("targetUser" + $rootScope.user.targetUser);*/
 	
 	
 	getPlayers = function() {

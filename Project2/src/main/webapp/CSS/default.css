@@ -100,9 +100,12 @@ body {
 }
 
 #titleContainer {
-	position: relative;
+	/* position: relative; */
+	display: block;
 	height: 40px;
-	/* background-color: red; */
+	width: auto;
+	margin-right: 35%;
+	margin-left: 35%;
 	margin-top: 10px; /* putting space from top */
 	magin-bottom:10px;
 	text-align: center;
@@ -110,12 +113,14 @@ body {
 }
 
 #phaseContainer {
-	position: relative;
+	/* position: relative; */
 	clear: both;
 	/* background-color: yellow; */
 	padding: 0px; /* overrules boostrap rules*/
 	text-align: center;
 	width: auto;
+	margin-right: 25%;
+	margin-left: 25%;
 }
 
 #actionContainer {
