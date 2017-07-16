@@ -221,4 +221,51 @@ public class SpringController {
 		
 		return ResponseEntity.status(HttpStatus.OK).body(messages);
 	}
+	
+	@RequestMapping(value = "/somethinggg.do", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Users> getMostVoted(){
+		UserDao dao = new UserDaoImpl();
+		List<Users> ul = dao.getUsers();
+		int[] numberOfVotes = new int[ul.size()];
+		for(int i=0; i<ul.size(); i++) {
+			for(Users user: ul) {
+				if(ul.get(i).getUsername().equals(user.getTargetUser()))
+					numberOfVotes[i]++;
+			}
+		}
+		int index = 0;
+		int max = numberOfVotes[0];
+		for(int i=1; i<numberOfVotes.length; i++) {
+			if(numberOfVotes[i] > max) {
+				index = i;
+				max = numberOfVotes[i];
+			}
+		}
+		
+		ul.add(new Users(ul.get(index)));
+		return ul;
+		
+	}
+	
+	public String checkWinConditions() {
+		UserDao dao = new UserDaoImpl();
+		List<Users> ul = dao.getActiveUsers();
+		String message = null;
+		int hackerCount = 0;
+		int employeeCount = 0;
+		for(Users user: ul) {
+			if(user.getRole().getDescription().equals("Hacker"))
+				hackerCount++;
+			else
+				employeeCount++;
+		}
+		if(hackerCount == 0)
+			message = "There are no more hackers, the Employees have won!";
+		else if(employeeCount == 0)
+			message = "There are no more employees, the Hackers have won!";
+		else if(hackerCount >= employeeCount)
+			message = "The Hackers have outnumbered the Employees, the Hackers have won!";
+		return message;
+	}
 }
