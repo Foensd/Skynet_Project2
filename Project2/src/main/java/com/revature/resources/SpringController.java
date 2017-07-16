@@ -265,7 +265,7 @@ public class SpringController {
 		return users;
 	}
 	
-	@RequestMapping(value = "/getMostVoted.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getMostVoted.do", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Users> getMostVoted(){
 		UserDao dao = new UserDaoImpl();
@@ -292,8 +292,6 @@ public class SpringController {
 		
 	}
 	
-	@RequestMapping(value = "/checkWinCondition.do", method = RequestMethod.GET)
-	@ResponseBody
 	public String checkWinConditions() {
 		UserDao dao = new UserDaoImpl();
 		List<Users> ul = dao.getActiveUsers();

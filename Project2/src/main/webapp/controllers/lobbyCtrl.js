@@ -83,7 +83,7 @@ myApp.controller('LobbyController', ['$rootScope', '$scope', '$http', '$interval
 	getPlayers(); // run getPlayers() function to retrieve players upon page load
 
 	var promise = $interval(function() {getPlayers()}, 10000); // interval to recheck getPlayers every 10 secs
-	var promise2 = $interval(function() {allReady()}, 1000); // interval to check if all players are ready every second.
+	var promise2 = $interval(function() {allReady()}, 3000); // interval to check if all players are ready every second.
 }]);
 
 
