@@ -2,6 +2,10 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-4">
+				<div class="well" id="choiceDisplay">
+					<p>Selected(choice): {{choice}}</p>
+					<p>Selected(targetUser): {{user.targetUser}}</p>
+				</div>
 				<div class="well" id="playerListContainer">
 					<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" 
 				 data-target="modal.html/myModal">Open Modal</button> -->
@@ -30,8 +34,6 @@
 								<input type="radio" name="name" ng-value="player.username" ng-model="$parent.choice">
 							</td>
 						</tr>
-						<p>Selected(choice): {{choice}}</p>
-						<p>Selected(targetUser): {{user.targetUser}}</p>
 					</table>
 				</div>
 
@@ -48,7 +50,7 @@
 					<h4>Action: </h4>
 					<h4>{{action}}</h4>
 				</div>
-				<div class="well col-sm-4">
+				<div class="well col-sm-4" id="timerContainer">
 					<p>Time left: {{clock}}s</p>
 				</div>
 				<div class="well col-sm-12" id="chatContainer">

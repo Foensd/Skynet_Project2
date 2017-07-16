@@ -24,7 +24,7 @@ myApp.controller('NavController', function NavController($scope, $location) {
 		var somePath = $location.path();
 		if (somePath == '/lobby' || somePath == '/play'){
 			
-			console.log('Hiding navBar at path: ' + $location.path());
+			//console.log('Hiding navBar at path: ' + $location.path());
 
 			return true;
 		}

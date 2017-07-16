@@ -75,17 +75,22 @@ body {
 	opacity: 0.8;
 }
 
+#choiceDisplay {
+	margin: 5px;
+	width: 95%;
+}
+
 #playerListContainer {
 	/* background-color: blue; */
 	padding: 0px; /* overrules boostrap rules*/
-	margin-top: 20%;
-	margin-bottom: 35%;
+	/* margin-top: 5%; */
+	margin-bottom: 10%;
 	width: 95%;
 }
 
 #playerTable {
 	overflow-y: scroll;
-	height: 650px;
+	height: 600px;
 	display: block;
 	/* margin-top: 50%; */
 	/*margin-bottom: 50%; */
@@ -132,10 +137,16 @@ body {
 	
 }
 
+#timerContainer {
+	width: auto;
+	margin-right: 35%;
+	margin-left: 35%;
+}
+
 #chatContainer {
 	/* position: fixed; */
 	padding: 0px; /* overrules boostrap rules*/
-	margin-top: 35%;
+	margin-top: 25%;
 	margin-bottom: 5%; 
 	height: 300px;
 	width: 100%;
