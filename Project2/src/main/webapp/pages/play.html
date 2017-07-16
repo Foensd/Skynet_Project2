@@ -23,8 +23,9 @@
 							<td>{{player.username}}</td>
 							<td>
 								<select ng-hide="{{user.role}} == 'Hacker' && {{player.role.description}} == 'Hacker'" 
-								ng-options="choice for choice in rolePredictions" ng-model="selected" 
-									class="form-control btn btn-primary dropdown-toggle" id="predictionDropdown">
+								ng-options="choice for choice in rolePredictions" ng-model="selected">
+								<!-- <select ng-show="showAllyHackers()" ng-options="choice for choice in rolePredictions" ng-model="selected" 
+									class="form-control btn btn-primary dropdown-toggle" id="predictionDropdown"> -->
 								</select>
 								<div ng-show="{{user.role}} == 'Hacker' && {{player.role.description}} == 'Hacker'">
 								HACKER
