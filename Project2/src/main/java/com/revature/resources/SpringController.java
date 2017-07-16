@@ -43,6 +43,7 @@ public class SpringController {
 	public static boolean countingVotesFinished = false;
 	public static boolean onTrialStarted = false;
 	public static boolean onTrialFinished = false;
+	public static boolean gameInProgress = false;
 	
 	// -------------------Create a
 	// User-------------------------------------------------------- \\
@@ -61,7 +62,7 @@ public class SpringController {
 			e.printStackTrace();
 		}
 		System.out.println("User: " + user);
-		if (user.getUsername().matches("[a-zA-Z]\\w*") && r.createUser(user.getUsername())) {
+		if (!gameInProgress && user.getUsername().matches("[a-zA-Z]\\w*") && r.createUser(user.getUsername())) {
 			session.setAttribute("username", user.getUsername());
 
 			System.out.println("Created user: " + user.getUsername());
@@ -80,7 +81,7 @@ public class SpringController {
 	// -------------------Retrieve All
 	// Players--------------------------------------------------------
 
-	@RequestMapping(value = "/lobby.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/lobby.do", headers = "Accept=application/json", method = RequestMethod.GET)
 	@ResponseBody
 	public List<String> listAllUsers() {
 		System.out.println("Getting a list of users");
@@ -140,8 +141,10 @@ public class SpringController {
 			if (user.getStatus() == null)
 				return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
+		
 		if(!roleRandomizationStarted) {
 			roleRandomizationStarted = true;
+			gameInProgress = true;
 			for (Users user : users) {
 				if (user.getRole() == null) {
 					RoleAssig r = new RoleAssig();
@@ -157,7 +160,7 @@ public class SpringController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONObject.quote(u.getRole().getDescription()));
 	}
 	
-	@RequestMapping(value = "/getAllUsers.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAllUsers.do", headers = "Accept=application/json", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Users> getAllUserObjects() {
 		UserDao dao = new UserDaoImpl();
@@ -298,7 +301,7 @@ public class SpringController {
 		return users;
 	}
 	
-	@RequestMapping(value = "/getMostVoted.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/getMostVoted.do", headers = "Accept=application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Users> getMostVoted(){
 		nightActionsStarted = false;
@@ -337,7 +340,7 @@ public class SpringController {
 		
 	}
 	
-	@RequestMapping(value = "/afterGuiltyTrial.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/afterGuiltyTrial.do", headers = "Accept=application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String afterGuiltyTrial() {
 		message1 = checkWinConditions();
