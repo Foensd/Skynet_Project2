@@ -8,7 +8,17 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	$scope.rolePredictions = ['Employee', 'Hacker', 'HR', 'Trainer'];
 	$scope.choice;
 	$scope.voteAction = function(){
-		$rootScope.user.targetUser = $scope.choice; 
+		$rootScope.user.targetUser = $scope.choice;
+		$http({
+			url: '/Project2/action.do',
+			method: 'POST',
+			data: $rootScope.user
+		})
+		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
+			console.log("SUCCESS - updated target");
+		}, function errorCallBack(response){
+			console.log("Failed in voteAction's request to updateTarget")
+		});
 	}
 	console.log("targetUser" + $rootScope.user.targetUser);
 	
@@ -80,7 +90,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		$scope.phase = 'day';
 		$scope.action = 'Welcome to Revature Town... please look around and get acquainted with everything';
 		
-		/*$timeout($scope.goToNight, 10000);*/
+		$timeout($scope.goToNight, 30000);
 	}
 	
 	$scope.goToNight = function() {
@@ -91,7 +101,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.voteButton = true;
 		
-		$timeout($scope.goToDay, 5000);
+		$timeout($scope.goToDay, 30000);
 	}
 	
 	$scope.goToDay = function() {
@@ -110,7 +120,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		$scope.action = 'Discuss along with you peers about what happened last night. Who did it?';
 		
 		$scope.voteButton = false;
-		$timeout($scope.goToVoting, 5000);
+		$timeout($scope.goToVoting, 30000);
 	}
 	
 	$scope.goToVoting = function() {
@@ -120,7 +130,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.voteButton = true;
 		
-		$timeout($scope.goToTrial, 5000);
+		$timeout($scope.goToTrial, 30000);
 	}
 	
 	$scope.goToTrial = function() {
@@ -140,7 +150,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.action = 'This person is being put on trial. Do you think this person is guilty or innocent?';
 		
-		$timeout($scope.goToClosing, 5000);
+		$timeout($scope.goToClosing, 30000);
 	}
 	
 	$scope.goToClosing = function() {
@@ -166,14 +176,8 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.voteButton = false;
 		
-		$timeout($scope.goToNight, 5000);
+		$timeout($scope.goToNight, 30000);
 	}
-	var test = this;
-	setTarget = function(username) {
-		$rootScope.user.targetUser = username;
-		console.log(username);
-		console.log(user.targetUser);
-	};
 	   
 }]);
 
