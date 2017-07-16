@@ -118,6 +118,8 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		});
 		console.log('Going to day');
 		
+		getPlayers();
+		
 		$scope.phase = 'day';
 		$scope.action = 'Discuss along with you peers about what happened last night. Who did it?';
 		
