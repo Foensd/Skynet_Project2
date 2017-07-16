@@ -6,31 +6,19 @@ var myApp = angular.module('myApp');
 myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout', function($http, $rootScope, $scope, $timeout) {
 	
 	$scope.rolePredictions = ['Employee', 'Hacker', 'HR', 'Trainer'];
-	/*$scope.allPlayers = [
-		{name: 'Player 1', status: 'Active'},
-		{name: 'I have a really long name', status: 'Fired'},
-		{name: 'Player 3', status: 'Active'},
-		{name: 'Player 4', status: 'Fired'},
-		{name: 'Player 5', status: 'Active'},
-		{name: 'Player 4', status: 'Fired'},
-		{name: 'Player 4', status: 'Fired'},
-		{name: 'Player 4', status: 'Fired'},
-		{name: 'Player 4', status: 'Fired'},
-		{name: 'Player 4', status: 'Fired'}
-	];*/
 	
 	getPlayers = function() {
-		console.log("Trying to get users from DB");
+		console.log("Looking for ALL user objects in DB");
 		
 		$http({
-			url: '/Project2/lobby.do',
+			url: '/Project2/getAllUsers.do',
 			method: 'GET',
 		})
 		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
 			
 			$scope.allPlayers = response.data;
-			console.log("successfully got players");
-			console.log("scope.allPLayers: " + $scope.allPlayers)
+			console.log("SUCCESS - got all players");
+			/*console.log("scope.allPLayers: " + $scope.allPlayers);*/
 			$scope.numberOfPlayers = $scope.allPlayers.length;
 			$scope.loadingRequest = false;  // hide the 'loader'
 			
@@ -51,10 +39,37 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	"&nick=" + $rootScope.user.username;},500);
 
 	getPlayers(); // run getPlayers() function to retrieve players upon page load
-   
+	
+	$scope.msg = 'hi again';
+	
+	/*$scope.modalFunction = function() {
+		console.log('opening pop up');
+		var modalInstance = $modal.open({
+			templateUrl: 'modal.html',
+			controller: 'popCtrl'
+		});
+	}*/
+	
+	/*$scope.openModal = function(data) {
+		console.log('Modal is openned!');
+		$scope.modal = 'openned';
+		var modalInstance = $modal.open({
+			templateUrl: 'modal.html',
+			resolve: {
+				data: function() {
+					return data === null ? {} : data;				
+				}
+			}
+		});
+ 	};
+
+	$scope.openModal();*/
+	
+
+	   
 }]);
 
-function openCity(evt, cityName) {
+function openRole(evt, roleName) { //role tab being displayed
     // Declare all variables
     var i, tabcontent, tablinks;
 
@@ -71,7 +86,7 @@ function openCity(evt, cityName) {
     }
 
     // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(cityName).style.display = "block";
+    document.getElementById(roleName).style.display = "block";
     evt.currentTarget.className += " active";
 }
 

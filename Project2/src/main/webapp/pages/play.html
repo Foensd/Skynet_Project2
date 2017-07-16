@@ -1,8 +1,10 @@
-<div id="playBackground">
+<div id="playBackground" ng-init="modalFunction()">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-4">
 				<div class="well" id="playerListContainer">
+				 <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" 
+				 data-target="modal.html/myModal">Open Modal</button> -->
 					<table class="table table-striped table-inverse" id="playerTable">
 						<tr>
 							<th>All Players</th>
@@ -13,14 +15,17 @@
 							<th>Status</th>
 							<th>Voting</th>
 						</tr>
-						<tr ng-repeat="playername in allPlayers">
-							<td>{{playername}}</td>
+						<tr ng-repeat="player in allPlayers">
+							<td>{{player.username}}</td>
 							<td>
 								<select ng-options="choice for choice in rolePredictions" ng-model="selected" 
 									class="form-control btn btn-primary dropdown-toggle" id="predictionDropdown">
 								</select>
 							</td> 
-							<td>Status </td>
+							<!-- changing status colors -->
+							<td ng-class="{activeStatus : player.status.status == 'Active', firedStatus: player.status.status == 'Fired'}">
+								{{player.status.status}}
+							</td>
 							<td>Votes </td>
 						</tr>
 					</table>
@@ -52,37 +57,59 @@
 				<div class="well col-sm-10" id="rolesContainer">
 					<h4 style="text-align:center; bold">Roles</h4>
 					<div class="tab">
-						<button class="tablinks" onclick="openCity(event, 'Hacker')">Hacker</button>
-						<button class="tablinks" onclick="openCity(event, 'Trainer')">Trainer</button>
-						<button class="tablinks" onclick="openCity(event, 'HR')">HR</button>
-						<button class="tablinks" onclick="openCity(event, 'Employee')">Employee</button>
+						<button class="tablinks" onclick="openRole(event, 'Hacker')">Hacker</button>
+						<button class="tablinks" onclick="openRole(event, 'Trainer')">Trainer</button>
+						<button class="tablinks" onclick="openRole(event, 'HR')">HR</button>
+						<button class="tablinks" onclick="openRole(event, 'Employee')">Employee</button>
 					</div>
 					
 					<div id="Hacker" class="tabcontent">
 					  <h3>Hacker</h3>
-					  <p>London is the capital city of England.</p>
+					  <p> Hackers want to take over the town. </p>
+					  <p> At night Hackers will choose someone 
+					  	to fire. That person has to leave Revature town first thing in the morning.
+					  </p>
+					  <p> Hackers win the game if there's less people in Revature Town then there are Hackers.
+					  	Every game starts with at least 1 Hacker.
+					  </p>
 					</div>
 					
 					<div id="Trainer" class="tabcontent">
 					  <h3>Trainer</h3>
-					  <p>Paris is the capital of France.</p> 
+					  <p> The Trainer is the good guy. </p>
+					  <p> At night the Trainer will investigate one of the 
+					  	employees and make sure that person is not a Hacker. 
+					  </p>
+					  <p> If that person is indeed a Hacker, the Trainer will
+					  	fire that person.</p> 
 					</div>
 					
 					<div id="HR" class="tabcontent">
 					  <h3>HR</h3>
-					  <p>Tokyo is the capital of Japan.</p>
+					  <p>HR has an important role. </p>
+					  <p>At night, HR can vouch for somebody that would have been fired,
+					  	and keep that person in Revature Town.
+					  </p>
+					  <p> However, HR can step in for ANYONE that would have 
+					  	been fired - regardless of that person's role (Employee, Trainer, or even a Hacker).
+					  </p>
+					  <p>
+					  	If HR wants, they can decide to vouch for themselves at night instead of a random person.
+					  </p>
 					</div>
 					<div id="Employee" class="tabcontent">
 					  <h3>Employee</h3>
-					  <p>Tokyo is the capital of Japan.</p>
+					  <p>Employees make up the majority of Revature Town. </p>
+					  <p>Employees come to work everyday, enjoy a cup
+					  	of coffee, and go home after hours of programming.
+					  </p>
+					  <p>At night, employees simply go to sleep,
+					  	since they have to wake up early next morning.
+					  </p> 
+					  <p>During the day however, employees can come together
+					  	to investigate and figure out who the Hacker possibly could be.
+					  </p>
 					</div>
-					<!-- <h4>Hacker:</h4>
-						<h5>Chooses a person at random to fire. If at any point there are less
-						employees then hacker(s), then the hacker(s) win</h5>
-					<h4>Trainer:</h4>
-						<h5></h5>
-					<h4>HR:</h4>
-					<h4>Employee:</h4> -->
 				</div>
 			</div>
 		</div>	
@@ -90,3 +117,5 @@
 		
 	</div>
 </div>
+
+

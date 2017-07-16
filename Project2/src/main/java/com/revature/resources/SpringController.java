@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /*import org.springframework.web.bind.annotation.ResponseStatus;*/
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.bean.ListUsers;
 import com.revature.bean.Users;
 import com.revature.dao.UserDao;
 import com.revature.dao.UserDaoImpl;
@@ -143,7 +142,7 @@ public class SpringController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONObject.quote(u.getRole().getDescription()));
 	}
 	
-	@RequestMapping(value = "/somethinggg.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAllUsers.do", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Users> getAllUserObjects(){
 		UserDao dao = new UserDaoImpl();

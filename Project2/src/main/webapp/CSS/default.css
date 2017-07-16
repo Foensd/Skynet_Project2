@@ -72,7 +72,7 @@ body {
 
 #nameContainer, #playerListContainer, #titleContainer, #phaseContainer, #actionContainer, #rolesContainer, #chatContainer, #votingContainer 
 {
-	opacity: 0.7;
+	opacity: 0.8;
 }
 
 #playerListContainer {
@@ -130,7 +130,7 @@ body {
 #chatContainer {
 	/* position: fixed; */
 	padding: 0px; /* overrules boostrap rules*/
-	margin-top: 25%;
+	margin-top: 35%;
 	margin-bottom: 5%; 
 	height: 300px;
 	width: 100%;
@@ -146,12 +146,14 @@ body {
 #rolesContainer {
 	margin-top: 50px;
 	padding: 5px; /* overrules boostrap rules*/
-	height: 200px;
+	height: auto;
+	width: 100%;
 }
 
-/***** tab styling ****************/
+/***** tab styling ***********************************************************************/
 /* Style the tab */
 div.tab {
+	padding: 1px;
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
@@ -164,7 +166,7 @@ div.tab button {
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 14px 16px;
+    padding: 10px 16px;
     transition: 0.3s;
 }
 
@@ -175,19 +177,30 @@ div.tab button:hover {
 
 /* Create an active/current tablink class */
 div.tab button.active {
-    background-color: #ccc;
+    background-color: #3399ff;
 }
 
 /* Style the tab content */
 .tabcontent {
     display: none;
-    padding: 6px 12px;
+    padding: 2px 12px;
     border: 1px solid #ccc;
     border-top: none;
 }
 
 /***********************************************************************************/
 
+.activeStatus {  /* changing status colors */
+	font-style: italic;
+	font-weight: bold;
+	color: green; 
+}
+
+.firedStatus {
+	font-style: italic;
+	font-weight: bold;
+	color: red;;
+}
 
 /***********************************************************************************/
 /* Center the loader */
