@@ -263,8 +263,10 @@ public class SpringController {
 		}
 		if (count1>count2){
 			userDao.changeStatusByUsername(2, user.getUsername());
+			dao.deleteTargets();
 			return "guilty";
 		}else{
+			dao.deleteTargets();
 			return "innocent";
 		}
 		
