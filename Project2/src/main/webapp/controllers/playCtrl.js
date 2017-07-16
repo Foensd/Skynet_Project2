@@ -38,6 +38,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	"&autoConnect=true" + 
 	"&nick=" + $rootScope.user.username;},500);
 
+	
 	getPlayers(); // run getPlayers() function to retrieve players upon page load
 	
 	$scope.msg = 'hi again';
