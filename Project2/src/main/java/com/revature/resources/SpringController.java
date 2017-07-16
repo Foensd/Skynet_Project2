@@ -62,7 +62,8 @@ public class SpringController {
 			e.printStackTrace();
 		}
 		System.out.println("User: " + user);
-		if (!gameInProgress && user.getUsername().matches("[a-zA-Z]\\w*") && r.createUser(user.getUsername())) {
+		if (//!gameInProgress && 
+				user.getUsername().matches("[a-zA-Z]\\w*") && r.createUser(user.getUsername())) {
 			session.setAttribute("username", user.getUsername());
 
 			System.out.println("Created user: " + user.getUsername());
