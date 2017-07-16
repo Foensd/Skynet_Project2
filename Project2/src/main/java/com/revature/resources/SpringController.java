@@ -87,6 +87,7 @@ public class SpringController {
 
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/readyButton.do")
 	public ResponseEntity<Void> readyButton(@RequestBody String jsonObject, HttpSession session) {
+		started = false;
 		Users user = null;
 		UserDao userDao = new UserDaoImpl();
 		System.out.println("jsonObject: " + jsonObject);
