@@ -7,6 +7,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	
 	$scope.rolePredictions = ['Employee', 'Hacker', 'HR', 'Trainer'];
 	
+	
 	getPlayers = function() {
 		console.log("Looking for ALL user objects in DB");
 		
@@ -17,6 +18,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
 			
 			$scope.allPlayers = response.data;
+			$scope.choice = $scope.allPlayers[0];
 			console.log("SUCCESS - got all players");
 			/*console.log("scope.allPLayers: " + $scope.allPlayers);*/
 			$scope.numberOfPlayers = $scope.allPlayers.length;
@@ -65,21 +67,22 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
  	};
 
 	$scope.openModal();*/
-	$scope.voteButton = false;
+	/*$scope.voteButton = false;*/
+	$scope.voteButton = true;
 	
 	$scope.gameStart = function(){
 		console.log('game starting');
 		$scope.phase = 'day';
-		$scope.action = 'some action';
+		$scope.action = 'Welcome to Revature Town... please look around and get acquainted with everything';
 		
-		$timeout($scope.goToNight, 5000);
+		/*$timeout($scope.goToNight, 10000);*/
 	}
 	
 	$scope.goToNight = function() {
 		console.log('Going to night');
 		
 		$scope.phase = 'night';
-		$scope.action = 'ACTIONS SHOULD HAPPEN NOW';
+		$scope.action = 'Anyone with roles, perform your actions now. Employees go to sleep!';
 		
 		$scope.voteButton = true;
 		
@@ -90,15 +93,16 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		console.log('Going to day');
 		
 		$scope.phase = 'day';
-		$scope.action = 'DISCUSSION SHOULD HAPPEN NOW';
+		$scope.action = 'Discuss along with you peers about what happened last night. Who did it?';
 		
+		$scope.voteButton = false;
 		$timeout($scope.goToVoting, 5000);
 	}
 	
 	$scope.goToVoting = function() {
 		console.log('Starting voting');
 		
-		$scope.action = 'VOTING SHOULD HAPPEN NOW';
+		$scope.action = 'Vote for who you think should be fired';
 		
 		$scope.voteButton = true;
 		
@@ -108,9 +112,8 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	$scope.goToTrial = function() {
 		console.log('Starting trial');
 		
-		$scope.action = 'GUILTY/INNOCENT VOTING SHOULD HAPPEN NOW';
+		$scope.action = 'This person is being put on trial. Do you think this person is guilty or innocent?';
 		
-		$scope.voteButton = false;
 		
 		$timeout($scope.goToClosing, 5000);
 	}
@@ -118,9 +121,9 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	$scope.goToClosing = function() {
 		console.log('Starting closing');
 		
-		$scope.action = 'TRIAL RESULTS ARE SHOWN';
+		$scope.action = 'Trial results are in';
 		
-		$scope.voteButton = 'false';
+		$scope.voteButton = false;
 		
 		$timeout($scope.goToNight, 5000);
 	}
@@ -128,6 +131,8 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	
 	   
 }]);
+
+
 
 function openRole(evt, roleName) { //role tab being displayed
     // Declare all variables
