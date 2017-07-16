@@ -69,6 +69,15 @@ public class Users {
 		this.username = username;
 	}
 	
+	public Users(Users user) {
+		super();
+		this.userid = user.getUserid();
+		this.username = user.getUsername();
+		this.role = user.getRole();
+		this.status = user.getStatus();
+		this.targetUser = user.getTargetUser();
+	}
+	
 	public Users(int userid, String username, Roles role, Status status, String targetUser) {
 		super();
 		this.userid = userid;

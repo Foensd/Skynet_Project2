@@ -153,4 +153,39 @@ public class UserDaoImpl implements UserDao {
 		return users;
 	}
 
+	@Override
+	public void deleteTargets() {
+		Session session = HibernateUtil.getSession();
+		Query query;
+		String hql;
+		Transaction tx = session.beginTransaction();
+		
+		hql = "FROM com.revature.bean.Users";
+		query = session.createQuery(hql);
+		
+		List<Users> users =  query.list();
+		for(Users user : users){
+		user.setTargetUser(null);
+		session.update(user);
+		}
+		tx.commit();
+		session.close();
+		
+		
+	}
+
+	@Override
+	public List<Users> getActiveUsers() {
+		Session session = HibernateUtil.getSession();
+		Query query;
+		String hql;
+		
+		hql = "FROM com.revature.bean.Users WHERE Status_ID = 1";
+		query = session.createQuery(hql);
+		@SuppressWarnings("unchecked")
+		List<Users> users = query.list(); //list executes the query and returns results
+		session.close();
+		return users;
+	}
+
 }
