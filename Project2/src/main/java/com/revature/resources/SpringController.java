@@ -178,7 +178,7 @@ public class SpringController {
 	
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/nightEnd.do")
 	@ResponseBody
-	public List<String> NightActions(@RequestBody String jsonObject) {
+	public List<String> NightActions() {
 
 		UserDao dao = new UserDaoImpl();
 		List<Users> users = dao.getActiveUsers();
@@ -262,6 +262,7 @@ public class SpringController {
 			userDao.changeStatusByUsername(2, user.getUsername());
 			users = dao.getActiveUsers();
 		}
+		users.add(new Users(user));
 		dao.deleteTargets();
 		return users;
 	}

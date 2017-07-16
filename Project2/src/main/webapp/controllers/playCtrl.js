@@ -87,6 +87,15 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	}
 	
 	$scope.goToDay = function() {
+		$http({
+			url: '/Project2/nightEnd.do',
+			method: 'POST'
+		})
+		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
+			$scope.messages = response.data;
+		}, function errorCallBack(response){
+			console.log("Failed in nightActions")
+		});
 		console.log('Going to day');
 		
 		$scope.phase = 'day';
@@ -106,21 +115,47 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	}
 	
 	$scope.goToTrial = function() {
+		$scope.voteButton = true;
+		$http({
+			url: '/Project2/getMostVoted.do',
+			method: 'POST'
+		})
+		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
+			$scope.allPlayerstemp = response.data;
+			$scope.onTrial = response.data.slice(allPlayerstemp.length-1, allPlayerstemp.length);
+			$scope.allPlayers = allPlayerstemp.slice(0, allPlayerstemp.length-1);
+		}, function errorCallBack(response){
+			console.log("Failed in getMostVoted")
+		});
 		console.log('Starting trial');
 		
 		$scope.action = 'GUILTY/INNOCENT VOTING SHOULD HAPPEN NOW';
-		
-		$scope.voteButton = false;
 		
 		$timeout($scope.goToClosing, 5000);
 	}
 	
 	$scope.goToClosing = function() {
+		$http({
+			url: '/Project2/trial.do',
+			method: 'POST',
+			data: $scope.onTrial
+		})
+		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
+			$scope.allPlayerstemp = response.data;
+			$scope.onTrial = response.data.slice(allPlayerstemp.length-1, allPlayerstemp.length);
+			if($scope.onTrial.status.id == 1)
+				$scope.message = $scope.onTrial.username + " was found innocent!";
+			else
+				$scope.message = $scope.onTrial.username + " was found guilty and was fired!";
+			$scope.allPlayers = allPlayerstemp.slice(0, allPlayerstemp.length-1);
+		}, function errorCallBack(response){
+			console.log("Failed in Trial")
+		});
 		console.log('Starting closing');
 		
 		$scope.action = 'TRIAL RESULTS ARE SHOWN';
 		
-		$scope.voteButton = 'false';
+		$scope.voteButton = false;
 		
 		$timeout($scope.goToNight, 5000);
 	}
