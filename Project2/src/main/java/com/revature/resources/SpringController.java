@@ -32,6 +32,7 @@ import com.revature.service.RoleAssig;
 public class SpringController {
 
 	public static boolean started = false;
+	public static boolean finished = false;
 	// -------------------Create a
 	// User-------------------------------------------------------- \\
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/register.do")
@@ -134,8 +135,9 @@ public class SpringController {
 					r.assignRandomRoles();
 				}
 			}
+			finished = true;
 		}
-
+		while(!finished);
 		Users u = dao.getUserByUsername(currentUser.getUsername());
 
 		return ResponseEntity.status(HttpStatus.OK).body(JSONObject.quote(u.getRole().getDescription()));
