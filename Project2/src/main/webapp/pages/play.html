@@ -22,7 +22,7 @@
 						<tr ng-repeat="player in allPlayers" >
 							<td>{{player.username}}</td>
 							<td>
-								<select ng-options="choice for choice in rolePredictions" ng-model="selected" 
+								<select ng-show="showAllyHackers()" ng-options="choice for choice in rolePredictions" ng-model="selected" 
 									class="form-control btn btn-primary dropdown-toggle" id="predictionDropdown">
 								</select>
 							</td> 
