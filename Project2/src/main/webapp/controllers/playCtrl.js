@@ -113,6 +113,9 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		})
 		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
 			$scope.messages = response.data;
+			console.log(messages[0]);
+			console.log(messages[1]);
+			console.log(messages[2]);
 		}, function errorCallBack(response){
 			console.log("Failed in nightActions")
 		});
