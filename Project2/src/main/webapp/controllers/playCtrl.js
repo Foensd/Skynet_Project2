@@ -150,6 +150,8 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		});
 		console.log('Going to day');
 		
+		getPlayers();
+		
 		$scope.phase = 'day';
 		$scope.action = 'Discuss along with you peers about what happened last night. Who did it?';
 		
@@ -213,13 +215,24 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 			$scope.allPlayerstemp = response.data;
 			$scope.onTrial = response.data.slice(allPlayerstemp.length-1, allPlayerstemp.length);
 			if($scope.onTrial.status.id == 1)
-				$scope.message = $scope.onTrial.username + " was found innocent!";
-			else
-				$scope.message = $scope.onTrial.username + " was found guilty and was fired!";
+				$scope.message1 = $scope.onTrial.username + " was found innocent!";
+			else {
+				$scope.message1 = $scope.onTrial.username + " was found guilty and was fired!";
+				$http({
+					url: '/Project2/afterGuiltyTrial.do',
+					method: 'POST'
+				})
+				.then(function successCallBack(response) {
+					$scope.message2 = response.data;
+				}, function errorCallBack(response) {
+					console.log("Failed in afterGuiltyTrial");
+				});
+			}
 			$scope.allPlayers = allPlayerstemp.slice(0, allPlayerstemp.length-1);
 		}, function errorCallBack(response){
 			console.log("Failed in Trial")
 		});
+		
 		console.log('Starting closing');
 		
 		$scope.action = 'Trial results are in';

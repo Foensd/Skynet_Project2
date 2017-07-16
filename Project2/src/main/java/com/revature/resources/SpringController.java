@@ -30,9 +30,20 @@ import com.revature.service.RoleAssig;
 
 @RestController
 public class SpringController {
-
-	public static boolean started = false;
-	public static boolean finished = false;
+	
+	public static String message1 = null;
+	public static String message2 = null;
+	public static String message3 = null;
+	
+	public static boolean roleRandomizationStarted = false;
+	public static boolean roleRandomizationFinished = false;
+	public static boolean nightActionsStarted = false;
+	public static boolean nightActionsFinished = false;
+	public static boolean countingVotesStarted = false;
+	public static boolean countingVotesFinished = false;
+	public static boolean onTrialStarted = false;
+	public static boolean onTrialFinished = false;
+	
 	// -------------------Create a
 	// User-------------------------------------------------------- \\
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/register.do")
@@ -87,7 +98,8 @@ public class SpringController {
 
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/readyButton.do")
 	public ResponseEntity<Void> readyButton(@RequestBody String jsonObject, HttpSession session) {
-		started = false;
+		roleRandomizationStarted = false;
+		roleRandomizationFinished = false;
 		Users user = null;
 		UserDao userDao = new UserDaoImpl();
 		System.out.println("jsonObject: " + jsonObject);
@@ -128,17 +140,17 @@ public class SpringController {
 			if (user.getStatus() == null)
 				return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
-		if(!started) {
-			started = true;
+		if(!roleRandomizationStarted) {
+			roleRandomizationStarted = true;
 			for (Users user : users) {
 				if (user.getRole() == null) {
 					RoleAssig r = new RoleAssig();
 					r.assignRandomRoles();
 				}
 			}
-			finished = true;
+			roleRandomizationFinished = true;
 		}
-		while(!finished);
+		while(!roleRandomizationFinished);
 		
 		Users u = dao.getUserByUsername(currentUser.getUsername());
 
@@ -175,59 +187,68 @@ public class SpringController {
 		return ResponseEntity.status(HttpStatus.OK).body(null);
 	}
 
-	static String message1 = null;
-	static String message2 = null;
 	
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/nightEnd.do")
 	@ResponseBody
 	public List<String> NightActions() {
-
+		onTrialStarted = false;
+		onTrialFinished = false;
 		UserDao dao = new UserDaoImpl();
-		List<Users> users = dao.getActiveUsers();
-
-		List<String> usernames = new ArrayList<String>();
-		for (Users user : users) {
-			if (user.getRole().getDescription().equals("Hacker")) {
-				usernames.add(user.getTargetUser());
-			}
-		}
-		int chosen = (int) (Math.random() * usernames.size());
-		if(usernames.size() > 0) {
-			dao.changeStatusByUsername(2, usernames.get(chosen));
-			if(message1 == null)
-				message1 = usernames.get(chosen) + " was fired last night !";
-		}
-
-		for (Users user : users) {
-			if (user.getRole().getDescription().equals("Trainer")) {
-				if(user.getTargetUser() != null) { 
-					if (dao.getUserByUsername(user.getTargetUser()).getRole().getDescription().equals("Hacker")) {
+		List<Users> users = null;
+		if(!nightActionsStarted) {
+			nightActionsStarted = true;
+			message1 = null;
+			message2 = null;
+			message3 = null;
+			users = dao.getActiveUsers();
 	
-						dao.changeStatusByUsername(2, user.getTargetUser());
-						if(message2 == null)
+			List<String> usernames = new ArrayList<String>();
+			for (Users user : users) {
+				if (user.getRole().getDescription().equals("Hacker")) {
+					if(user.getTargetUser() != null) {
+						usernames.add(user.getTargetUser());
+					}
+				}
+			}
+			int chosen = (int) (Math.random() * usernames.size());
+			if(usernames.size() > 0) {
+				dao.changeStatusByUsername(2, usernames.get(chosen));
+				message1 = usernames.get(chosen) + " was fired last night !";
+			}
+	
+			for (Users user : users) {
+				if (user.getRole().getDescription().equals("Trainer")) {
+					if(user.getTargetUser() != null) { 
+						if (dao.getUserByUsername(user.getTargetUser()).getRole().getDescription().equals("Hacker")) {
+							dao.changeStatusByUsername(2, user.getTargetUser());
 							message2 = user.getTargetUser() + " was fired last night !";
+						}
 					}
 				}
 			}
-		}
-
-		for (Users user : users) {
-			if (user.getRole().getDescription().equals("HR")) {
-				if(user.getTargetUser() != null) {
-					if (dao.getUserByUsername(user.getTargetUser()).getStatus().getStatus().equals("Fired")) {
-						dao.changeStatusByUsername(1, user.getTargetUser());
-						if(message1.matches(user.getTargetUser() + " .*"))
-							message1 = "Somebody was fired, however HR stepped in and decided to let them stay";
-						if(message2.matches(user.getTargetUser() + " .*"))
-							message2 = "Somebody was fired, however HR stepped in and decided to let them stay";
+	
+			for (Users user : users) {
+				if (user.getRole().getDescription().equals("HR")) {
+					if(user.getTargetUser() != null) {
+						if (dao.getUserByUsername(user.getTargetUser()).getStatus().getStatus().equals("Fired")) {
+							dao.changeStatusByUsername(1, user.getTargetUser());
+							if(message1.matches(user.getTargetUser() + " .*"))
+								message1 = "Somebody was fired, however HR stepped in and decided to let them stay";
+							if(message2.matches(user.getTargetUser() + " .*"))
+								message2 = "Somebody was fired, however HR stepped in and decided to let them stay";
+						}
 					}
 				}
 			}
+			message3 = checkWinConditions();
+			nightActionsFinished = true;
 		}
+		while(!nightActionsFinished);
 		
 		List<String> st = new ArrayList<String>();
 		st.add(message1);
 		st.add(message2);
+		st.add(message3);
 		dao.deleteTargets();
 
 		return st;
@@ -236,9 +257,11 @@ public class SpringController {
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/trial.do")
 	@ResponseBody
 	public List<Users> trial(@RequestBody String jsonObject) {
+		countingVotesStarted = false;
+		countingVotesFinished = false;
+		UserDao dao = new UserDaoImpl();
+		List<Users> users = null;
 		Users user = null;
-		UserDao userDao = new UserDaoImpl();
-		System.out.println("jsonObject: " + jsonObject);
 		try {
 			user = new ObjectMapper().readValue(jsonObject, Users.class);
 		} catch (JsonParseException e) {
@@ -248,23 +271,29 @@ public class SpringController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		UserDao dao = new UserDaoImpl();
-		List<Users> users = dao.getActiveUsers();
-		int count1 = 0;
-		int count2 = 0;
-		for (Users us : users) {
-			if (us.getTargetUser().equals("guilty")) {
-				count1++;
-			}else if(us.getTargetUser().equals("innocent")){
-				count2++;
-			}
-		}
-		if (count1>count2){
-			userDao.changeStatusByUsername(2, user.getUsername());
+		if(!onTrialStarted) {
+			onTrialStarted = true;
+			
+			
 			users = dao.getActiveUsers();
+			int guiltyVotes = 0;
+			int innocentVotes = 0;
+			for (Users us : users) {
+				if (us.getTargetUser().equals("guilty")) {
+					guiltyVotes++;
+				}else if(us.getTargetUser().equals("innocent")){
+					innocentVotes++;
+				}
+			}
+			if (guiltyVotes > innocentVotes){
+				dao.changeStatusByUsername(2, user.getUsername());
+			}
+			onTrialFinished = true;
 		}
-		users.add(new Users(user));
+		while(!onTrialFinished);
+		
+		users = dao.getActiveUsers();
+		users.add(new Users(dao.getUserByUsername(user.getUsername())));
 		dao.deleteTargets();
 		return users;
 	}
@@ -272,28 +301,47 @@ public class SpringController {
 	@RequestMapping(value = "/getMostVoted.do", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Users> getMostVoted(){
-		UserDao dao = new UserDaoImpl();
-		List<Users> ul = dao.getActiveUsers();
-		int[] numberOfVotes = new int[ul.size()];
-		for(int i=0; i<ul.size(); i++) {
-			for(Users user: ul) {
-				if(ul.get(i).getUsername().equals(user.getTargetUser()))
-					numberOfVotes[i]++;
-			}
-		}
-		int index = 0;
-		int max = numberOfVotes[0];
-		for(int i=1; i<numberOfVotes.length; i++) {
-			if(numberOfVotes[i] > max) {
-				index = i;
-				max = numberOfVotes[i];
-			}
-		}
+		nightActionsStarted = false;
+		nightActionsFinished = false;
 		
+		UserDao dao = new UserDaoImpl();
+		List<Users> ul = null;
+		int index = 0;
+		if(!countingVotesStarted) {
+			countingVotesStarted = true;
+			ul = dao.getActiveUsers();
+			int[] numberOfVotes = new int[ul.size()];
+			for(int i=0; i<ul.size(); i++) {
+				for(Users user: ul) {
+					if(ul.get(i).getUsername().equals(user.getTargetUser()))
+						numberOfVotes[i]++;
+				}
+			}
+			index = 0;
+			int max = numberOfVotes[0];
+			for(int i=1; i<numberOfVotes.length; i++) {
+				if(numberOfVotes[i] > max) {
+					index = i;
+					max = numberOfVotes[i];
+				}
+			}
+			countingVotesFinished = true;
+		}
+		while(!countingVotesFinished);
+		
+		ul = dao.getActiveUsers();
 		ul.add(new Users(ul.get(index)));
+		
 		dao.deleteTargets();
 		return ul;
 		
+	}
+	
+	@RequestMapping(value = "/afterGuiltyTrial.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String afterGuiltyTrial() {
+		message1 = checkWinConditions();
+		return message1;
 	}
 	
 	public String checkWinConditions() {
@@ -314,6 +362,8 @@ public class SpringController {
 			message = "There are no more employees, the Hackers have won!";
 		else if(hackerCount >= employeeCount)
 			message = "The Hackers have outnumbered the Employees, the Hackers have won!";
+		else
+			message = "There are Hackers out there, but the Employees still have a chance!";
 		return message;
 	}
 }
