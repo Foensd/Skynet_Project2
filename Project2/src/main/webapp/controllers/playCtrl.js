@@ -64,8 +64,24 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
  	};
 
 	$scope.openModal();*/
+	$scope.voteButton = 'true';
 	
-
+	$scope.gameStart = function(){
+		console.log('game starting');
+		$scope.phase = 'CURRENTLY ITS DAYTIME';
+		$scope.action = 'some action';
+		
+		$timeout($scope.goToNight, 5000);
+	}
+	
+	$scope.goToNight = function() {
+		console.log('Going to night');
+		
+		$scope.phase = 'CURRENTLY NIGHTTIME';
+		$scope.action = 'ACTIONS SHOULD HAPPEN NOW';
+		
+		$scope.voteButton = 'false';
+	}
 	   
 }]);
 
