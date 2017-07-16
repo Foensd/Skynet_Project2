@@ -52,11 +52,14 @@ public class SpringController {
 		System.out.println("User: " + user);
 		if (user.getUsername().matches("[a-zA-Z]\\w*") && r.createUser(user.getUsername())) {
 			session.setAttribute("username", user.getUsername());
-			
+
 			System.out.println("Created user: " + user.getUsername());
 
-			//StringBuilder sb = new StringBuilder();
-			/*return ResponseEntity.status(HttpStatus.OK).body(user.getUsername());*/
+			// StringBuilder sb = new StringBuilder();
+			/*
+			 * return
+			 * ResponseEntity.status(HttpStatus.OK).body(user.getUsername());
+			 */
 			return ResponseEntity.status(HttpStatus.OK).body(null);
 
 		} else {
@@ -66,7 +69,6 @@ public class SpringController {
 		}
 
 	}
-
 
 	// -------------------Retrieve All
 	// Players--------------------------------------------------------
@@ -86,7 +88,7 @@ public class SpringController {
 
 		return usernames;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/readyButton.do")
 	public ResponseEntity<Void> readyButton(@RequestBody String jsonObject, HttpSession session) {
 		Users user = null;
@@ -102,12 +104,12 @@ public class SpringController {
 			e.printStackTrace();
 		}
 		System.out.println("User: " + user);
-		
+
 		userDao.changeStatusByUsername(1, user.getUsername());
 		session.setAttribute("status", "Employed");
 		return ResponseEntity.status(HttpStatus.OK).body(null);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/allReady.do")
 	public ResponseEntity<String> allReady(@RequestBody String jsonObject) {
 
@@ -125,34 +127,33 @@ public class SpringController {
 		System.out.println("User: " + currentUser);
 		UserDao dao = new UserDaoImpl();
 		List<Users> users = dao.getUsers();
-		//Users ur = dao.getUserByUsername("test");
-		for(Users user: users) {
-			if(user.getStatus() == null)
+		// Users ur = dao.getUserByUsername("test");
+		for (Users user : users) {
+			if (user.getStatus() == null)
 				return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
-		for(Users user: users) {
-			if(user.getRole() == null) {
+		for (Users user : users) {
+			if (user.getRole() == null) {
 				RoleAssig r = new RoleAssig();
 				r.assignRandomRoles();
 			}
 		}
-		
+
 		Users u = dao.getUserByUsername(currentUser.getUsername());
-		
-		
+
 		return ResponseEntity.status(HttpStatus.OK).body(JSONObject.quote(u.getRole().getDescription()));
 	}
-	
+
 	@RequestMapping(value = "/somethinggg.do", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Users> getAllUserObjects(){
+	public List<Users> getAllUserObjects() {
 		UserDao dao = new UserDaoImpl();
 		List<Users> ul = dao.getUsers();
-		
+
 		return ul;
-		
+
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/action.do")
 	public ResponseEntity<String> NightTarget(@RequestBody String jsonObject) {
 
@@ -167,26 +168,24 @@ public class SpringController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		UserDao dao = new UserDaoImpl();
 		dao.updateUserTarget(currentUser.getUsername(), currentUser.getTargetUser());
 		return ResponseEntity.status(HttpStatus.OK).body(null);
 	}
+
+	static String message1 = null;
+	static String message2 = null;
 	
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/nightEnd.do")
-	public ResponseEntity<JSONObject> NightActions(@RequestBody String jsonObject) {
+	@ResponseBody
+	public List<String> NightActions(@RequestBody String jsonObject) {
 		JSONObject messages = new JSONObject();
-		String message1 = null;
-		String message2 = null;
+		
 
 		UserDao dao = new UserDaoImpl();
 		List<Users> users = dao.getImportantUsers();
-		for(Users user: users) {
-			if(user.getTargetUser() == null)
-				return new ResponseEntity<JSONObject>(HttpStatus.BAD_REQUEST);
-		}
-		
-		
+
 		List<String> usernames = new ArrayList<String>();
 		for (Users user : users) {
 			if (user.getRole().getDescription().equals("Hacker")) {
@@ -194,31 +193,80 @@ public class SpringController {
 			}
 		}
 		int chosen = (int) (Math.random() * usernames.size());
-		dao.changeStatusByUsername(2, usernames.get(chosen));
-		message1 = "1 Employee was fired last night !";
+		if(usernames.size() > 0) {
+			dao.changeStatusByUsername(2, usernames.get(chosen));
+			if(message1 == null)
+				message1 = usernames.get(chosen) + " was fired last night !";
+		}
 
 		for (Users user : users) {
 			if (user.getRole().getDescription().equals("Trainer")) {
-				if (dao.getUserByUsername(user.getTargetUser()).getRole().getDescription().equals("Hacker")) {
-
-					dao.changeStatusByUsername(2, user.getTargetUser());
-					message1 = "2 Employees were fired last night !";
+				if(user.getTargetUser() != null) { 
+					if (dao.getUserByUsername(user.getTargetUser()).getRole().getDescription().equals("Hacker")) {
+	
+						dao.changeStatusByUsername(2, user.getTargetUser());
+						if(message2 == null)
+							message2 = user.getTargetUser() + " was fired last night !";
+					}
 				}
 			}
 		}
 
 		for (Users user : users) {
 			if (user.getRole().getDescription().equals("HR")) {
-				if (dao.getUserByUsername(user.getTargetUser()).getStatus().getStatus().equals("Fired")) {
-					dao.changeStatusByUsername(1, user.getTargetUser());
-					message2 = "However HR stepped in and decided to let them stay ! ";
+				if(user.getTargetUser() != null) {
+					if (dao.getUserByUsername(user.getTargetUser()).getStatus().getStatus().equals("Fired")) {
+						dao.changeStatusByUsername(1, user.getTargetUser());
+						if(message1.matches(user.getTargetUser() + " .*"))
+							message1 = "Somebody was fired, however HR stepped in and decided to let them stay";
+						if(message2.matches(user.getTargetUser() + " .*"))
+							message2 = "Somebody was fired, however HR stepped in and decided to let them stay";
+					}
 				}
 			}
 		}
 		
-		messages.put("message1", message1);
-		messages.put("message2", message2);
-		
-		return ResponseEntity.status(HttpStatus.OK).body(messages);
+		List<String> st = new ArrayList<String>();
+		st.add(message1);
+		st.add(message2);
+
+		return st;
 	}
+
+	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", value = "/trial.do")
+	@ResponseBody
+	public String trial(@RequestBody String jsonObject) {
+		Users user = null;
+		UserDao userDao = new UserDaoImpl();
+		System.out.println("jsonObject: " + jsonObject);
+		try {
+			user = new ObjectMapper().readValue(jsonObject, Users.class);
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		UserDao dao = new UserDaoImpl();
+		List<Users> users = dao.getUsers();
+		int count1 = 0;
+		int count2 = 0;
+		for (Users us : users) {
+			if (us.getTargetUser().equals("guilty")) {
+				count1++;
+			}else if(us.getTargetUser().equals("innocent")){
+				count2++;
+			}
+		}
+		if (count1>count2){
+			userDao.changeStatusByUsername(2, user.getUsername());
+			return "guilty";
+		}else{
+			return "innocent";
+		}
+		
+	}
+
 }
