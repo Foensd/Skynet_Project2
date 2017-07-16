@@ -138,6 +138,7 @@ public class SpringController {
 			finished = true;
 		}
 		while(!finished);
+		
 		Users u = dao.getUserByUsername(currentUser.getUsername());
 
 		return ResponseEntity.status(HttpStatus.OK).body(JSONObject.quote(u.getRole().getDescription()));
