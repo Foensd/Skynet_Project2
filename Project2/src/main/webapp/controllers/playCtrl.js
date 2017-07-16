@@ -84,6 +84,27 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 
 	$scope.openModal();*/
 
+	$scope.showAllyHackers = function() {
+		if ($scope.user.role == 'Hacker'){
+			
+			angular.forEach($scope.allPlayers, function(p){
+				if (p.role.description == 'Hacker'){
+					console.log('Person is hacker, hiding predictions');
+					return false;
+				}
+				else {
+					console.log('This person is a Hacker, but');
+					return true;
+				}
+			});
+		}
+		else {
+			console.log('Person it NOT hacker... showing predictions');
+			return true;
+		}
+		
+	}
+ 	
 	//time function with 5 second delay
 	countDown = function(timerAmount) {   // passing in timerAmount value from function call
 		$scope.clock = timerAmount;
@@ -103,10 +124,10 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	}
 	
 	// checking if person can vote at night
-	checkVoteCredentials = function(){
+	voteCredAtNight = function(){
 		console.log('Role decription: ' + $rootScope.user.role);
 		console.log('Status : ' + $rootScope.user.status);
-		if($rootScope.user.role != 'Employee' && $rootScope.user.status === 'Active')
+		if($rootScope.user.role != 'Employee' && $rootScope.user.status == 'Active')
 		{
 			$scope.voteButton = true;
 			console.log('This person can vote at night...');
@@ -117,7 +138,19 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 			alert('YOU CANNOT VOTE!');
 		}
 	}
-	$scope.voteButton = false;
+	voteCredAtDay = function() {
+		if($rootScope.user.status == 'Active')
+		{
+			$scope.voteButton = true;
+			console.log('This person can vote during day...');
+		}
+		else {
+			$scope.voteButton = false;
+			console.log('This person IS DEAD - CANNOT vote');
+			alert('YOU ARE DEAD! DEAD PEOPLE CANNNOT VOTE');
+		}
+	}
+ 	$scope.voteButton = false;
 	/*$scope.voteButton = true;*/
 	
 	$scope.gameStart = function(){
@@ -142,7 +175,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		$scope.phase = 'night';
 		$scope.action = 'Anyone with roles, perform your actions now. Employees go to sleep!';
 		
-		checkVoteCredentials();
+		voteCredAtNight();
 	
 		
 		
@@ -186,7 +219,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.action = 'Vote for who you think should be fired';
 		
-		$scope.voteButton = true;
+		voteCredAtDay();
 		
 		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
