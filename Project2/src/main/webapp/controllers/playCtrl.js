@@ -90,7 +90,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		$scope.phase = 'day';
 		$scope.action = 'Welcome to Revature Town... please look around and get acquainted with everything';
 		
-		$timeout($scope.goToNight, 30000);
+		$timeout($scope.goToNight, 40000);
 	}
 	
 	$scope.goToNight = function() {
@@ -101,7 +101,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.voteButton = true;
 		
-		$timeout($scope.goToDay, 30000);
+		$timeout($scope.goToDay, 40000);
 	}
 	
 	$scope.goToDay = function() {
@@ -120,7 +120,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		$scope.action = 'Discuss along with you peers about what happened last night. Who did it?';
 		
 		$scope.voteButton = false;
-		$timeout($scope.goToVoting, 30000);
+		$timeout($scope.goToVoting, 40000);
 	}
 	
 	$scope.goToVoting = function() {
@@ -130,7 +130,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.voteButton = true;
 		
-		$timeout($scope.goToTrial, 30000);
+		$timeout($scope.goToTrial, 40000);
 	}
 	
 	$scope.goToTrial = function() {
@@ -150,7 +150,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.action = 'This person is being put on trial. Do you think this person is guilty or innocent?';
 		
-		$timeout($scope.goToClosing, 30000);
+		$timeout($scope.goToClosing, 40000);
 	}
 	
 	$scope.goToClosing = function() {
@@ -176,7 +176,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.voteButton = false;
 		
-		$timeout($scope.goToNight, 30000);
+		$timeout($scope.goToNight, 40000);
 	}
 	   
 }]);
