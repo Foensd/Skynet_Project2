@@ -44,7 +44,8 @@ myApp.controller('LobbyController', ['$rootScope', '$scope', '$http', '$interval
 			data: $rootScope.user
 		})
 		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
-			$interval.cancel(promise)
+			$interval.cancel(promise);
+			$interval.cancel(promise2);
 			$rootScope.user.role = response.data;
 			var path = '/play';
 			$location.path(path);

@@ -163,8 +163,12 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$timeout($scope.goToNight, 5000);
 	}
-	
-	
+	var test = this;
+	setTarget = function(username) {
+		$rootScope.user.targetUser = username;
+		console.log(username);
+		console.log(user.targetUser);
+	};
 	   
 }]);
 
