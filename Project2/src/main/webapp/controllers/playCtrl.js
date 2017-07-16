@@ -104,10 +104,10 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	
 	// checking if person can vote at night
 	checkVoteCredentials = function(){
+		console.log('Role decription: ' + $rootScope.user.role);
+		console.log('Status : ' + $rootScope.user.status);
 		if($rootScope.user.role != 'Employee' && $rootScope.user.status === 'Active')
 		{
-			console.log('Role decription: ' + $rootScope.user.role);
-			console.log('Status : ' + $rootScope.user.status);
 			$scope.voteButton = true;
 			console.log('This person can vote at night...');
 		}
