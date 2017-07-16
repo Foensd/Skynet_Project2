@@ -15,28 +15,23 @@
 							<th>Status</th>
 							<th>Voting</th>
 						</tr>
-						<form ng-app name="inputform">
-							<tr for="{{player}}" ng-repeat="player in allPlayers">
-								<td>{{player.username}}</td>
-								<td><select
-									ng-options="choice for choice in rolePredictions"
-									ng-model="selected"
-									class="form-control btn btn-primary dropdown-toggle"
-									id="predictionDropdown">
-								</select></td>
-								<!-- changing status colors -->
-								<td
-									ng-class="{activeStatus : player.status.status == 'Active', firedStatus: player.status.status == 'Fired'}">
-									{{player.status.status}}</td>
-								<td ng-show="voteButton"><input type="radio"
-									ng-model="inputform.radioinput" ng-value="player.username"></td>
-									
-							</tr>
-							<div ng-bind-template="Radio Input: {{inputform.radioinput}}" />
-						</form>
-
-
-						<p>Selected: {{$rootScope.user.targetUser}}</p>
+						<tr ng-repeat="player in allPlayers" >
+							<td>{{player.username}}</td>
+							<td>
+								<select ng-options="choice for choice in rolePredictions" ng-model="selected" 
+									class="form-control btn btn-primary dropdown-toggle" id="predictionDropdown">
+								</select>
+							</td> 
+							<!-- changing status colors -->
+							<td ng-class="{activeStatus : player.status.status == 'Active', firedStatus: player.status.status == 'Fired'}">
+								{{player.status.status}}
+							</td>
+							<td ng-show="voteButton" ng-click="voteAction()">
+								<input type="radio" name="name" ng-value="player.username" ng-model="$parent.choice">
+							</td>
+						</tr>
+						<p>Selected(choice): {{choice}}</p>
+						<p>Selected(targetUser): {{user.targetUser}}</p>
 					</table>
 				</div>
 

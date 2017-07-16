@@ -6,6 +6,11 @@ var myApp = angular.module('myApp');
 myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout', function($http, $rootScope, $scope, $timeout) {
 	
 	$scope.rolePredictions = ['Employee', 'Hacker', 'HR', 'Trainer'];
+	$scope.choice;
+	$scope.voteAction = function(){
+		$rootScope.user.targetUser = $scope.choice; 
+	}
+	console.log("targetUser" + $rootScope.user.targetUser);
 	
 	
 	getPlayers = function() {
@@ -18,7 +23,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
 			
 			$scope.allPlayers = response.data;
-			$scope.choice = $scope.allPlayers[0];
+			
 			console.log("SUCCESS - got all players");
 			/*console.log("scope.allPLayers: " + $scope.allPlayers);*/
 			$scope.numberOfPlayers = $scope.allPlayers.length;
