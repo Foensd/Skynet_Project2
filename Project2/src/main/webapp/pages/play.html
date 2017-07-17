@@ -21,16 +21,16 @@
 						</tr>
 						<tr ng-repeat="player in allPlayers">
 							<td>{{player.username}}</td>
-							<td>
-								<select ng-hide="user.role == 'Hacker' && player.role.description == 'Hacker'" 
-								ng-options="choice for choice in rolePredictions" ng-model="selected">
-								<!-- <select ng-show="showAllyHackers()" ng-options="choice for choice in rolePredictions" ng-model="selected" 
+							<td><select
+								ng-hide="user.role == 'Hacker' && player.role.description == 'Hacker'"
+								ng-options="choice for choice in rolePredictions"
+								ng-model="selected">
+									<!-- <select ng-show="showAllyHackers()" ng-options="choice for choice in rolePredictions" ng-model="selected" 
 									class="form-control btn btn-primary dropdown-toggle" id="predictionDropdown"> -->
-								</select>
-								<div ng-show="user.role == 'Hacker' && player.role.description == 'Hacker'">
-								HACKER
-								</div>
-							</td> 
+							</select>
+								<div
+									ng-show="user.role == 'Hacker' && player.role.description == 'Hacker'">
+									HACKER</div></td>
 							<!-- changing status colors -->
 							<td ng-class="{activeStatus : player.status.status == 'Active', firedStatus: player.status.status == 'Fired'}">
 								{{player.status.status}}
@@ -52,36 +52,47 @@
 			<div class="col-sm-5">
 				<div class="well col-sm-6 " id="timerContainer">
 					<div id="phaseContainer">
-						<h4 ng-class="{dayPhase : phase == 'day', nightPhase: phase == 'night'}">
-						Currently in: {{phase}} phase</h4>
+						<h4
+							ng-class="{dayPhase : phase == 'day', nightPhase: phase == 'night'}">
+							Currently in: {{phase}} phase</h4>
 					</div>
 					<p>Time left</p>
 					<div class="input-group clockpicker">
-					
-					<span class="input-group-addon">
-					        <span class="glyphicon glyphicon-time"></span>
-					    </span>
-					    <input type="text" class="form-control" ng-value="clock">
+
+						<span class="input-group-addon"> <span
+							class="glyphicon glyphicon-time"></span>
+						</span> <input type="text" class="form-control" ng-value="clock">
 					</div>
-				    
+
 				</div>
 
 				<div class="well col-sm-12 " id="actionContainer">
-					<h4>Action: </h4>
+					<h4>Action:</h4>
 					<h4>{{action}}</h4>
 				</div>
-				<div class="well col-sm-12" id="choiceDisplay" >
+
+
+				<div class="well col-sm-12" id="choiceDisplay">
 					<div ng-show="voteButton">
-						<h5 ng-if="user.role == 'HR'" >You want to save: {{choice}}</h5>
-						<h5 ng-if="user.role != 'HR'" >You want to fire: {{choice}}</h5>
+						<h5 ng-if="user.role == 'HR'">You want to save: {{choice}}</h5>
+						<h5 ng-if="user.role != 'HR'">You want to fire: {{choice}}</h5>
 					</div>
 					<div ng-show="responseMessages">
-						<p>Messages: </p>
-						<h6>{{messages[0]}} </h6>
-						<h6>{{messages[1]}} </h6>
+						<p>Messages:</p>
+						<h6>{{messages[0]}}</h6>
+						<h6>{{messages[1]}}</h6>
 						<h6>{{gameStatusMsg}}</h6>
 					</div>
+					<div ng-show="trialButtons" style="text-align: center">
+						<input class="btn btn-primary" type="submit" value="Guilty"
+							ng-click="voteAction2('guilty')"
+							style="background-color: #FF0000; width: 100px; display: inline-block; margin: 0 auto;">
+						<input class="btn btn-primary" type="submit" value="Innocent"
+							ng-click="voteAction2('innocent')"
+							style="background-color: #009900; width: 100px; display: inline-block; margin: 0 auto;">
+					</div>
 				</div>
+
 				<div class="well col-sm-12" id="chatContainer">
 					<iframe id="chat" width="100%" height="300px" scrolling="no"></iframe>
 				</div>

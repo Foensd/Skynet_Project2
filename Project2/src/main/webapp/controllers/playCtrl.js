@@ -9,10 +9,28 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	$scope.choice;
 	$scope.voteButton = false;
 	$scope.responseMessages = false;
+	$scope.trialButtons = false;
 	$scope.gameStatusMsg = 'no message yet';
 
 	$scope.voteAction = function(){
 		$rootScope.user.targetUser = $scope.choice;
+		console.log( $scope.choice);
+		console.log("targetUser" + $rootScope.user.targetUser);
+		$http({
+			url: '/Project2/action.do',
+			method: 'POST',
+			data: $rootScope.user
+		})
+		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
+			console.log("SUCCESS - updated target");
+		}, function errorCallBack(response){
+			console.log("Failed in voteAction's request to updateTarget")
+		});
+
+	}
+	$scope.voteAction2 = function(data){
+		$rootScope.user.targetUser = data;
+		console.log(data);
 		console.log("targetUser" + $rootScope.user.targetUser);
 		$http({
 			url: '/Project2/action.do',
@@ -62,28 +80,27 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	"&nick=" + $rootScope.user.username;},500);
 
 	
-	
-	
-	/*$scope.modalFunction = function() {
-		console.log('opening pop up');
+	/*$scope.openModal = function (size, parentSelector) {
+	    
 		var modalInstance = $modal.open({
 			templateUrl: 'modal.html',
-			controller: 'popCtrl'
-		});
-	}*/
-	
-	/*$scope.openModal = function(data) {
-		console.log('Modal is openned!');
-		$scope.modal = 'openned';
-		var modalInstance = $modal.open({
-			templateUrl: 'modal.html',
+			controller: function ($scope, $modalInstance, customer) {
+				$scope.customer = customer;
+			},
+			size: size,
 			resolve: {
-				data: function() {
-					return data === null ? {} : data;				
+				customers: function() {
+					return selectedCustomer;
 				}
 			}
 		});
- 	};
+		
+		modalInstance.result.then(function(selectedItem) {
+			$scope.selected = selectedItem;
+		}, function () {
+			console.log('in the end of modalInstace');
+		});
+	}
 
 	$scope.openModal();*/
  	
@@ -105,51 +122,24 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		});
 	}
 	
-	// checking if person can vote at night
-	
-//	voteCredAtNight = function(){
-//		console.log('Role decription: ' + $rootScope.user.role);
-//		console.log('Status : ' + $rootScope.user.status);
-//		if($rootScope.user.role != 'Employee' && $rootScope.user.status == 'Active')
-//		{
-//			$scope.voteButton = true;
-//			console.log('This person can vote at night...');
-//		}
-//		else {
-//			$scope.voteButton = false;
-//			console.log('This person CANNOT vote at night...');
-//			alert('YOU CANNOT VOTE!');
-//		}
-//	}
-//	voteCredAtDay = function() {
-//		if($rootScope.user.status == 'Active')
-//		{
-//			$scope.voteButton = true;
-//			console.log('This person can vote during day...');
-//		}
-//		else {
-//			$scope.voteButton = false;
-//			console.log('This person IS DEAD - CANNOT vote');
-//			alert('YOU ARE DEAD! DEAD PEOPLE CANNNOT VOTE');
-//		}
-//	}
  	$scope.voteButton = false;
  	$scope.showTargets = false;
-	/*$scope.voteButton = true;*/
- 	
-	
+
 	endGame = function(finalMsg){
 		console.log('--in endGame function');
-		
-		if (finalMsg == 'EmployeesWin') {
-			console.log('EmployeesWin');
-			$scope.gameStatusMsg = 'There are no more hackers, the Employees have won!';
-		}
-		else if (finalMsg == 'HackersWin') {
-			console.log('HackersWin');
-			$scope.gameStatusMsg = 'The Hackers have outnumbered the Employees, the Hackers have won!';
-		}
-		alert($scope.gameStatusMsg);
+		return $q(function(resolve, reject) {
+			if (finalMsg == 'EmployeesWin') {
+				console.log('EmployeesWin');
+				$scope.gameStatusMsg = 'There are no more hackers, the Employees have won!';
+			}
+			else if (finalMsg == 'HackersWin') {
+				console.log('HackersWin');
+				$scope.gameStatusMsg = 'The Hackers have outnumbered the Employees, the Hackers have won!';
+			}
+			/*clearInterval(timer);*/
+            reject('GAME OVER');
+			alert($scope.gameStatusMsg);
+		});
 	}
 	
 	$scope.gameStart = function(){
@@ -177,7 +167,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.voteButton = true;
 	
-		var promise = countDown(30); // passing x amount of seconds to perform the timer in countDown()
+		var promise = countDown(20); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
@@ -197,7 +187,13 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 			if ($scope.messages[2] == 'HackersWin' || $scope.messages[2] == 'EmployeesWin')
 			{
 				console.log('GAME IS OVER - going to endGame function');
-				endGame($scope.messages[2]);
+				var promise2 = endGame($scope.messages[2]);
+				
+				promise2.then(function(endGameResponse) {
+					console.log('Game should be over here');
+				}, function(endGameResponse2){
+					console.log('GG-WP');
+				});
 			}
 			else if ($scope.messages[2] == 'NoWin') {
 				console.log('NoWin');
@@ -214,9 +210,8 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		$scope.action = 'Discuss along with you peers about what happened last night. Who did it?';
 		
 		$scope.voteButton = false;
-		console.log(messages);
 		
-		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
+		var promise = countDown(20); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
@@ -235,14 +230,13 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.voteButton = true;
 		
-		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
+		var promise = countDown(20); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
 			goToTrial();
 		});
 	}
-	
 	goToTrial = function() {
 		getPlayers();
 		$http({
@@ -251,18 +245,25 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		})
 		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
 			$scope.allPlayerstemp = response.data;
-			$scope.onTrial = response.data.slice(allPlayerstemp.length-1, allPlayerstemp.length);
-			$scope.allPlayers = allPlayerstemp.slice(0, allPlayerstemp.length-1);
+			$scope.onTrial = response.data[$scope.allPlayerstemp.length-1];//.slice($scope.allPlayerstemp.length-1, $scope.allPlayerstemp.length);
+			console.log('onTrial: ' + $scope.onTrial.username);
+			$scope.action = $scope.onTrial.username + ' is being put on trial. Do you think this person is guilty or innocent?';
+			console.log('response data: ' + response.data)
+			$scope.allPlayers = $scope.allPlayerstemp.slice(0, $scope.allPlayerstemp.length-1);
 		}, function errorCallBack(response){
 			console.log("Failed in getMostVoted")
 		});
 		console.log('Starting trial');
 		
-		$scope.voteButton = false;
-		$scope.showTargets = true;
-		$scope.action = $scope.onTrial.username + ' is being put on trial. Do you think this person is guilty or innocent?';
 		
-		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
+		
+		$scope.voteButton = false;
+		$scope.trialButtons = true;
+		$scope.showTargets = true;
+		
+
+		
+		var promise = countDown(20); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
@@ -298,6 +299,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		}, function errorCallBack(response){
 			console.log("Failed in Trial")
 		});
+		$scope.trialButtons = false;
 		
 		console.log('Starting closing');
 		
