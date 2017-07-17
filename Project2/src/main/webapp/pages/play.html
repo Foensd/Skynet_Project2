@@ -36,12 +36,12 @@
 							<td ng-class="{activeStatus : player.status.status == 'Active', firedStatus: player.status.status == 'Fired'}">
 								{{player.status.status}}
 							</td>
-							<td ng-show="voteButton && {{player.status.status}} == 'Active' &&
-							{{user.username}} != {{player.username}} && 
-							({{phase}} == 'day') || ({{user.role}} == 'Hacker' && {{person.role.description}} != 'Hacker')
-							 || {{user.role}} != 'Employee')" 
-							ng-click="voteAction()">
-								<input type="radio" name="name" ng-value="player.username" ng-model="$parent.choice">
+							<td ng-click="voteAction()">
+								<input ng-show="voteButton && player.status.status == 'Active' &&
+							user.username != player.username && 
+							(phase == 'day' || (user.role == 'Hacker' && player.role.description != 'Hacker')
+							 || (user.role != 'Employee' && user.role != 'Hacker'))"
+							 type="radio" name="name" ng-value="player.username" ng-model="$parent.choice">
 							</td>
 						</tr>
 					</table>

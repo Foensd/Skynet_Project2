@@ -103,38 +103,38 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	}
 	
 	// checking if person can vote at night
-	voteCredAtNight = function(){
-		console.log('Role decription: ' + $rootScope.user.role);
-		console.log('Status : ' + $rootScope.user.status);
-		if($rootScope.user.role != 'Employee' && $rootScope.user.status == 'Active')
-		{
-			$scope.voteButton = true;
-			console.log('This person can vote at night...');
-		}
-		else {
-			$scope.voteButton = false;
-			console.log('This person CANNOT vote at night...');
-			alert('YOU CANNOT VOTE!');
-		}
-	}
-	voteCredAtDay = function() {
-		if($rootScope.user.status == 'Active')
-		{
-			$scope.voteButton = true;
-			console.log('This person can vote during day...');
-		}
-		else {
-			$scope.voteButton = false;
-			console.log('This person IS DEAD - CANNOT vote');
-			alert('YOU ARE DEAD! DEAD PEOPLE CANNNOT VOTE');
-		}
-	}
+//	voteCredAtNight = function(){
+//		console.log('Role decription: ' + $rootScope.user.role);
+//		console.log('Status : ' + $rootScope.user.status);
+//		if($rootScope.user.role != 'Employee' && $rootScope.user.status == 'Active')
+//		{
+//			$scope.voteButton = true;
+//			console.log('This person can vote at night...');
+//		}
+//		else {
+//			$scope.voteButton = false;
+//			console.log('This person CANNOT vote at night...');
+//			alert('YOU CANNOT VOTE!');
+//		}
+//	}
+//	voteCredAtDay = function() {
+//		if($rootScope.user.status == 'Active')
+//		{
+//			$scope.voteButton = true;
+//			console.log('This person can vote during day...');
+//		}
+//		else {
+//			$scope.voteButton = false;
+//			console.log('This person IS DEAD - CANNOT vote');
+//			alert('YOU ARE DEAD! DEAD PEOPLE CANNNOT VOTE');
+//		}
+//	}
  	$scope.voteButton = false;
 	/*$scope.voteButton = true;*/
 	
 	$scope.gameStart = function(){
 		console.log('game starting');
-		$scope.phase = 'day';
+		$rootScope.phase = 'day';
 		$scope.action = 'Welcome to Revature Town... please look around and get acquainted with everything';
 		
 		
@@ -151,10 +151,10 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	goToNight = function() {
 		console.log('Going to night');
 		
-		$scope.phase = 'night';
+		$rootScope.phase = 'night';
 		$scope.action = 'Anyone with roles, perform your actions now. Employees go to sleep!';
 		
-		voteCredAtNight();
+		$scope.voteButton = true;
 	
 		var promise = countDown(10); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
@@ -179,7 +179,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		getPlayers();
 		
-		$scope.phase = 'day';
+		$rootScope.phase = 'day';
 		$scope.action = 'Discuss along with you peers about what happened last night. Who did it?';
 		
 		$scope.voteButton = false;
@@ -197,7 +197,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.action = 'Vote for who you think should be fired';
 		
-		voteCredAtDay();
+		$scope.voteButton = true;
 		
 		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
@@ -208,7 +208,6 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	}
 	
 	goToTrial = function() {
-		$scope.voteButton = true;
 		$http({
 			url: '/Project2/getMostVoted.do',
 			method: 'POST'
@@ -221,6 +220,8 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 			console.log("Failed in getMostVoted")
 		});
 		console.log('Starting trial');
+		
+		$scope.voteButton = false;
 		
 		$scope.action = 'This person is being put on trial. Do you think this person is guilty or innocent?';
 		
