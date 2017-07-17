@@ -7,7 +7,7 @@ myApp.controller('LobbyController', ['$rootScope', '$scope', '$http', '$interval
 	function($rootScope, $scope, $http, $interval, $location) {
 	
 	console.log("currently in lobbyCtrl.js");
-	$scope.message = "This is where we'll display everyone's name (from lobbyCtrl.js)";
+	$scope.message = "Waiting for at least 5 people in lobby. All players then will be able to click ready";
 	$scope.response = ['firstPersonName', 'secondPersonName']; // creating an array to be displayed
 	
 	$scope.loadingRequest = true; // makes the loadingRequest true, so it will display 'loader' upon page load

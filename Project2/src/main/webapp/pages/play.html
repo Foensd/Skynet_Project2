@@ -73,7 +73,7 @@
 				<div class="well col-sm-12" id="choiceDisplay">
 					<div ng-show="voteButton">
 						<h5 ng-if="user.role == 'HR'">You want to save: {{choice}}</h5>
-						<h5 ng-if="user.role != 'HR'">You want to fire: {{choice}}</h5>
+						<h5 ng-if="user.role != 'HR' && user.role != 'Employee'">You want to fire: {{choice}}</h5>
 					</div>
 					<div ng-show="responseMessages">
 						<p>Messages:</p>
