@@ -72,7 +72,10 @@
 					<p ng-show="responseMessages">Messages: {{messages[0]}}
 						<br> {{messages[1]}}
 						<br> {{gameStatusMsg}}</p>
-				</div>
+						<div ng-show="trialButtons" style="text-align:center">
+	<input  class="btn btn-primary" type="submit"  value="Guilty"   ng-click="voteAction2('guilty')" style="background-color:#FF0000;width:100px;display: inline-block;margin: 0 auto;">   
+	<input  class="btn btn-primary" type="submit"  value="Innocent" ng-click="voteAction2('innocent')"  style="background-color:#009900;width:100px;display: inline-block;margin: 0 auto;">
+				</div></div>
 				<div class="well col-sm-12" id="chatContainer">
 					<iframe id="chat" width="100%" height="300px" scrolling="no"></iframe>
 				</div>

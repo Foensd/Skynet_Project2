@@ -9,10 +9,28 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	$scope.choice;
 	$scope.voteButton = false;
 	$scope.responseMessages = false;
+	$scope.trialButtons = false;
 	$scope.gameStatusMsg = 'no message yet';
 
 	$scope.voteAction = function(){
 		$rootScope.user.targetUser = $scope.choice;
+		console.log( $scope.choice);
+		console.log("targetUser" + $rootScope.user.targetUser);
+		$http({
+			url: '/Project2/action.do',
+			method: 'POST',
+			data: $rootScope.user
+		})
+		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
+			console.log("SUCCESS - updated target");
+		}, function errorCallBack(response){
+			console.log("Failed in voteAction's request to updateTarget")
+		});
+
+	}
+	$scope.voteAction2 = function(data){
+		$rootScope.user.targetUser = data;
+		console.log(data);
 		console.log("targetUser" + $rootScope.user.targetUser);
 		$http({
 			url: '/Project2/action.do',
@@ -252,9 +270,12 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		});
 		console.log('Starting trial');
 		
+		
+		
 		$scope.voteButton = false;
 		
 		$scope.action = 'This person is being put on trial. Do you think this person is guilty or innocent?';
+		$scope.trialButtons = true;
 		
 		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
@@ -292,6 +313,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		}, function errorCallBack(response){
 			console.log("Failed in Trial")
 		});
+		$scope.trialButtons = false;
 		
 		console.log('Starting closing');
 		
