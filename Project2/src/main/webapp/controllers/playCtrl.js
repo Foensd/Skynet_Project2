@@ -9,6 +9,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	$scope.choice;
 	$scope.voteButton = false;
 	$scope.responseMessages = false;
+	$scope.gameStatusMsg = 'no message yet';
 
 	$scope.voteAction = function(){
 		$rootScope.user.targetUser = $scope.choice;
