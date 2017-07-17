@@ -138,12 +138,12 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	endGame = function(finalMsg){
 		console.log('--in endGame function');
 		
-		if (finalMsg == 'EmployeesWon') {
-			console.log('EmployeesWon');
+		if (finalMsg == 'EmployeesWin') {
+			console.log('EmployeesWin');
 			$scope.gameStatusMsg = 'There are no more hackers, the Employees have won!';
 		}
-		else if (finalMsg == 'HackersWon') {
-			console.log('HackersWon');
+		else if (finalMsg == 'HackersWin') {
+			console.log('HackersWin');
 			$scope.gameStatusMsg = 'The Hackers have outnumbered the Employees, the Hackers have won!';
 		}
 		alert($scope.gameStatusMsg);
