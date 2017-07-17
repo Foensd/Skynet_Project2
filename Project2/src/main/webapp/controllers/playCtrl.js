@@ -280,7 +280,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		})
 		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
 			$scope.allPlayerstemp = response.data;
-			$scope.onTrial = response.data.slice(allPlayerstemp.length-1, allPlayerstemp.length);
+			$scope.onTrial = response.data.slice($scope.allPlayerstemp.length-1, $scope.allPlayerstemp.length);
 			if($scope.onTrial.status.id == 1)
 				$scope.messages[0] = $scope.onTrial.username + " was found innocent!";
 			else {
@@ -295,7 +295,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 					console.log("Failed in afterGuiltyTrial");
 				});
 			}
-			$scope.allPlayers = allPlayerstemp.slice(0, allPlayerstemp.length-1);
+			$scope.allPlayers = $scope.allPlayerstemp.slice(0, $scope.allPlayerstemp.length-1);
 		}, function errorCallBack(response){
 			console.log("Failed in Trial")
 		});
