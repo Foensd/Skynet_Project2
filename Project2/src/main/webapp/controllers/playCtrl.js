@@ -134,6 +134,20 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		}
 	}
 	
+	endGame = function(finalMsg){
+		console.log('--in endGame function');
+		
+		if (finalMsg == 'EmployeesWon') {
+			console.log('EmployeesWon');
+			$scope.gameStatusMsg = 'There are no more hackers, the Employees have won!';
+		}
+		else if (finalMsg == 'HackersWon') {
+			console.log('HackersWon');
+			$scope.gameStatusMsg = 'The Hackers have outnumbered the Employees, the Hackers have won!';
+		}
+		alert($scope.gameStatusMsg);
+	}
+	
 	$scope.gameStart = function(){
 		console.log('game starting');
 		$scope.phase = 'day';
@@ -175,6 +189,16 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
 			$scope.messages = response.data;
 			console.log('$SCOPE.MESSAGES' + $scope.messages);
+			if ($scope.messages[3] == 'HackersWin' || $scope.messages[3] == 'EmployeesWin')
+			{
+				console.log('GAME IS OVER - going to endGame function');
+				endGame($scope.messages[3]);
+			}
+			else if ($scope.messages[3] == 'NoWin') {
+				console.log('NoWin');
+				$scope.gameStatusMsg = 'There are still Hackers out there, but the Employees still have a chance!';
+			}
+			
 		}, function errorCallBack(response){
 			console.log("Failed in nightActions")
 		});
