@@ -168,6 +168,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	
 	
 	goToNight = function() {
+		getPlayers();
 		console.log('Going to night');
 		
 		$rootScope.phase = 'night';
@@ -192,16 +193,6 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
 			$scope.messages = response.data;
 			console.log('$SCOPE.MESSAGES' + $scope.messages);
-			if ($scope.messages[2] == 'HackersWin' || $scope.messages[2] == 'EmployeesWin')
-			{
-				console.log('GAME IS OVER - going to endGame function');
-				endGame($scope.messages[2]);
-			}
-			else if ($scope.messages[2] == 'NoWin') {
-				console.log('NoWin');
-				$scope.gameStatusMsg = 'There are still Hackers out there, but the Employees still have a chance!';
-			}
-			
 		}, function errorCallBack(response){
 			console.log("Failed in nightActions")
 		});
@@ -213,17 +204,27 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		$scope.action = 'Discuss along with you peers about what happened last night. Who did it?';
 		
 		$scope.voteButton = false;
+		if ($scope.messages[2] == 'HackersWin' || $scope.messages[2] == 'EmployeesWin')
+		{
+			console.log('GAME IS OVER - going to endGame function');
+			endGame($scope.messages[2]);
+		}
+		else if ($scope.messages[2] == 'NoWin') {
+			console.log('NoWin');
+			$scope.gameStatusMsg = 'There are still Hackers out there, but the Employees still have a chance!';
+			var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
+			//when function above resolves, it returns a promise, which lets us perform the following actions:
+			promise.then(function(promiseResolve){  
+				console.log('PROMISE: ' + promiseResolve);
+				goToVoting();
+			});
+		}
 		
-		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
-		//when function above resolves, it returns a promise, which lets us perform the following actions:
-		promise.then(function(promiseResolve){  
-			console.log('PROMISE: ' + promiseResolve);
-			goToVoting();
-		});
 	}
 	
 	goToVoting = function() {
-		
+
+		getPlayers();
 		console.log('Starting voting');
 		
 		$scope.action = 'Vote for who you think should be fired';
@@ -239,6 +240,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	}
 	
 	goToTrial = function() {
+		getPlayers();
 		$http({
 			url: '/Project2/getMostVoted.do',
 			method: 'POST'
@@ -265,7 +267,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	}
 	
 	goToClosing = function() {
-		
+		getPlayers();
 		$http({
 			url: '/Project2/trial.do',
 			method: 'POST',
