@@ -7,6 +7,8 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	
 	$scope.rolePredictions = ['Employee', 'Hacker', 'HR', 'Trainer'];
 	$scope.choice;
+	$scope.voteButton = false;
+	$scope.responseMessages = false;
 
 	$scope.voteAction = function(){
 		$rootScope.user.targetUser = $scope.choice;
@@ -104,6 +106,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	
 	// checking if person can vote at night
 	voteCredAtNight = function(){
+		
 		console.log('Role decription: ' + $rootScope.user.role);
 		console.log('Status : ' + $rootScope.user.status);
 		if($rootScope.user.role != 'Employee' && $rootScope.user.status == 'Active')
@@ -117,6 +120,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 			alert('YOU CANNOT VOTE!');
 		}
 	}
+	
 	voteCredAtDay = function() {
 		if($rootScope.user.status == 'Active')
 		{
@@ -129,8 +133,6 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 			alert('YOU ARE DEAD! DEAD PEOPLE CANNNOT VOTE');
 		}
 	}
- 	$scope.voteButton = false;
-	/*$scope.voteButton = true;*/
 	
 	$scope.gameStart = function(){
 		console.log('game starting');
@@ -142,7 +144,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
-			goToNight();
+			/*goToNight();*/
 		});
 
 	}
