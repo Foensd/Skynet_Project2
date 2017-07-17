@@ -134,6 +134,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 //		}
 //	}
  	$scope.voteButton = false;
+ 	$scope.showTargets = false;
 	/*$scope.voteButton = true;*/
  	
 	
@@ -193,6 +194,15 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
 			$scope.messages = response.data;
 			console.log('$SCOPE.MESSAGES' + $scope.messages);
+			if ($scope.messages[2] == 'HackersWin' || $scope.messages[2] == 'EmployeesWin')
+			{
+				console.log('GAME IS OVER - going to endGame function');
+				endGame($scope.messages[2]);
+			}
+			else if ($scope.messages[2] == 'NoWin') {
+				console.log('NoWin');
+				$scope.gameStatusMsg = 'There are still Hackers out there, but the Employees still have a chance!';
+			}
 		}, function errorCallBack(response){
 			console.log("Failed in nightActions")
 		});
@@ -204,21 +214,15 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		$scope.action = 'Discuss along with you peers about what happened last night. Who did it?';
 		
 		$scope.voteButton = false;
-		if ($scope.messages[2] == 'HackersWin' || $scope.messages[2] == 'EmployeesWin')
-		{
-			console.log('GAME IS OVER - going to endGame function');
-			endGame($scope.messages[2]);
-		}
-		else if ($scope.messages[2] == 'NoWin') {
-			console.log('NoWin');
-			$scope.gameStatusMsg = 'There are still Hackers out there, but the Employees still have a chance!';
-			var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
-			//when function above resolves, it returns a promise, which lets us perform the following actions:
-			promise.then(function(promiseResolve){  
-				console.log('PROMISE: ' + promiseResolve);
-				goToVoting();
-			});
-		}
+		console.log(messages);
+		
+		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
+		//when function above resolves, it returns a promise, which lets us perform the following actions:
+		promise.then(function(promiseResolve){  
+			console.log('PROMISE: ' + promiseResolve);
+			goToVoting();
+		});
+		
 		
 	}
 	
@@ -255,8 +259,8 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		console.log('Starting trial');
 		
 		$scope.voteButton = false;
-		
-		$scope.action = 'This person is being put on trial. Do you think this person is guilty or innocent?';
+		$scope.showTargets = true;
+		$scope.action = $scope.onTrial.username + ' is being put on trial. Do you think this person is guilty or innocent?';
 		
 		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
@@ -277,15 +281,15 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 			$scope.allPlayerstemp = response.data;
 			$scope.onTrial = response.data.slice(allPlayerstemp.length-1, allPlayerstemp.length);
 			if($scope.onTrial.status.id == 1)
-				$scope.message1 = $scope.onTrial.username + " was found innocent!";
+				$scope.messages[0] = $scope.onTrial.username + " was found innocent!";
 			else {
-				$scope.message1 = $scope.onTrial.username + " was found guilty and was fired!";
+				$scope.messages[0] = $scope.onTrial.username + " was found guilty and was fired!";
 				$http({
 					url: '/Project2/afterGuiltyTrial.do',
 					method: 'POST'
 				})
 				.then(function successCallBack(response) {
-					$scope.message2 = response.data;
+					endGame(response.data);
 				}, function errorCallBack(response) {
 					console.log("Failed in afterGuiltyTrial");
 				});
@@ -300,6 +304,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		$scope.action = 'Trial results are in';
 		
 		$scope.voteButton = false;
+		$scope.showTargets = true;
 		
 		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
