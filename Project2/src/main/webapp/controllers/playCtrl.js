@@ -119,7 +119,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 				console.log('HackersWin');
 				$scope.gameStatusMsg = 'The Hackers have outnumbered the Employees, the Hackers have won!';
 			}
-			clearInterval(timer);
+			/*clearInterval(timer);*/
             reject('GAME OVER');
 			alert($scope.gameStatusMsg);
 		});
