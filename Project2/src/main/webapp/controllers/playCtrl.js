@@ -3,7 +3,7 @@ var myApp = angular.module('myApp');
 /*
  * CONTROLLERS METHOD
  */
-myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout', '$q', '$modal', function($http, $rootScope, $scope, $timeout, $q, $modal) {
+myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout', '$q', function($http, $rootScope, $scope, $timeout, $q) {
 	
 	$scope.rolePredictions = ['Employee', 'Hacker', 'HR', 'Trainer'];
 	$scope.choice;
