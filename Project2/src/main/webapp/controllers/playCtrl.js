@@ -3,7 +3,7 @@ var myApp = angular.module('myApp');
 /*
  * CONTROLLERS METHOD
  */
-myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout', '$q', function($http, $rootScope, $scope, $timeout, $q) {
+myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout', '$q', '$modal', function($http, $rootScope, $scope, $timeout, $q, $modal) {
 	
 	$scope.rolePredictions = ['Employee', 'Hacker', 'HR', 'Trainer'];
 	$scope.choice;
@@ -62,28 +62,27 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	"&nick=" + $rootScope.user.username;},500);
 
 	
-	
-	
-	/*$scope.modalFunction = function() {
-		console.log('opening pop up');
+	/*$scope.openModal = function (size, parentSelector) {
+	    
 		var modalInstance = $modal.open({
 			templateUrl: 'modal.html',
-			controller: 'popCtrl'
-		});
-	}*/
-	
-	/*$scope.openModal = function(data) {
-		console.log('Modal is openned!');
-		$scope.modal = 'openned';
-		var modalInstance = $modal.open({
-			templateUrl: 'modal.html',
+			controller: function ($scope, $modalInstance, customer) {
+				$scope.customer = customer;
+			},
+			size: size,
 			resolve: {
-				data: function() {
-					return data === null ? {} : data;				
+				customers: function() {
+					return selectedCustomer;
 				}
 			}
 		});
- 	};
+		
+		modalInstance.result.then(function(selectedItem) {
+			$scope.selected = selectedItem;
+		}, function () {
+			console.log('in the end of modalInstace');
+		});
+	}
 
 	$scope.openModal();*/
  	
