@@ -16,7 +16,8 @@
 							<th>Name</th>
 							<th>Prediction</th>
 							<th>Status</th>
-							<th>Voting</th>
+							<th ng-show="voteButton">Voting</th>
+							<th ng-show="showTargets">Voted</th>
 						</tr>
 						<tr ng-repeat="player in allPlayers">
 							<td>{{player.username}}</td>
@@ -31,17 +32,18 @@
 									ng-show="user.role == 'Hacker' && player.role.description == 'Hacker'">
 									HACKER</div></td>
 							<!-- changing status colors -->
-							<td
-								ng-class="{activeStatus : player.status.status == 'Active', firedStatus: player.status.status == 'Fired'}">
-								{{player.status.status}}</td>
-							<td ng-click="voteAction()"><input
-								ng-show="voteButton && player.status.status == 'Active' &&
-							user.username != player.username && 
-							(phase == 'day' || (user.role == 'Hacker' && player.role.description != 'Hacker')
-							 || (user.role != 'Employee' && user.role != 'Hacker'))"
-								type="radio" name="name" ng-value="player.username"
-								ng-model="$parent.choice">
-								<div ng-show="showTargets">{{player.targetUser}}</div></td>
+							<td ng-class="{activeStatus : player.status.status == 'Active', firedStatus: player.status.status == 'Fired'}">
+								{{player.status.status}}
+							</td>
+							<td ng-click="voteAction()">
+								<input ng-show="voteButton && player.status.status == 'Active' && user.status == 'Active' &&
+							(user.username != player.username || (user.role == 'HR' && phase = 'night') && 
+							(phase == 'day' || 
+							(user.role == 'Hacker' && player.role.description != 'Hacker') || 
+							(user.role != 'Employee' && user.role != 'Hacker'))"
+							 type="radio" name="name" ng-value="player.username" ng-model="$parent.choice">
+							 <div ng-show="showTargets">{{player.targetUser}}</div>
+							</td>
 						</tr>
 					</table>
 				</div>
