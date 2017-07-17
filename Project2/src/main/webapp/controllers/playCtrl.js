@@ -193,9 +193,9 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 			if ($scope.messages[2] == 'HackersWin' || $scope.messages[2] == 'EmployeesWin')
 			{
 				console.log('GAME IS OVER - going to endGame function');
-				endGame($scope.messages[3]);
+				endGame($scope.messages[2]);
 			}
-			else if ($scope.messages[3] == 'NoWin') {
+			else if ($scope.messages[2] == 'NoWin') {
 				console.log('NoWin');
 				$scope.gameStatusMsg = 'There are still Hackers out there, but the Employees still have a chance!';
 			}
