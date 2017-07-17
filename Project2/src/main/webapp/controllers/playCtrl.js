@@ -190,7 +190,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
 			$scope.messages = response.data;
 			console.log('$SCOPE.MESSAGES' + $scope.messages);
-			if ($scope.messages[3] == 'HackersWin' || $scope.messages[3] == 'EmployeesWin')
+			if ($scope.messages[2] == 'HackersWin' || $scope.messages[2] == 'EmployeesWin')
 			{
 				console.log('GAME IS OVER - going to endGame function');
 				endGame($scope.messages[3]);
