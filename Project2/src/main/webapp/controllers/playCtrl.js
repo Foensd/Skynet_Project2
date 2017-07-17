@@ -9,10 +9,28 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	$scope.choice;
 	$scope.voteButton = false;
 	$scope.responseMessages = false;
+	$scope.trialButtons = false;
 	$scope.gameStatusMsg = 'no message yet';
 
 	$scope.voteAction = function(){
 		$rootScope.user.targetUser = $scope.choice;
+		console.log( $scope.choice);
+		console.log("targetUser" + $rootScope.user.targetUser);
+		$http({
+			url: '/Project2/action.do',
+			method: 'POST',
+			data: $rootScope.user
+		})
+		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
+			console.log("SUCCESS - updated target");
+		}, function errorCallBack(response){
+			console.log("Failed in voteAction's request to updateTarget")
+		});
+
+	}
+	$scope.voteAction2 = function(data){
+		$rootScope.user.targetUser = data;
+		console.log(data);
 		console.log("targetUser" + $rootScope.user.targetUser);
 		$http({
 			url: '/Project2/action.do',
@@ -149,7 +167,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.voteButton = true;
 	
-		var promise = countDown(30); // passing x amount of seconds to perform the timer in countDown()
+		var promise = countDown(20); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
@@ -193,7 +211,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.voteButton = false;
 		
-		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
+		var promise = countDown(20); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
@@ -212,14 +230,13 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.voteButton = true;
 		
-		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
+		var promise = countDown(20); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
 			goToTrial();
 		});
 	}
-	
 	goToTrial = function() {
 		getPlayers();
 		$http({
@@ -228,18 +245,25 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		})
 		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
 			$scope.allPlayerstemp = response.data;
-			$scope.onTrial = response.data.slice(allPlayerstemp.length-1, allPlayerstemp.length);
-			$scope.allPlayers = allPlayerstemp.slice(0, allPlayerstemp.length-1);
+			$scope.onTrial = response.data[$scope.allPlayerstemp.length-1];//.slice($scope.allPlayerstemp.length-1, $scope.allPlayerstemp.length);
+			console.log('onTrial: ' + $scope.onTrial.username);
+			$scope.action = $scope.onTrial.username + ' is being put on trial. Do you think this person is guilty or innocent?';
+			console.log('response data: ' + response.data)
+			$scope.allPlayers = $scope.allPlayerstemp.slice(0, $scope.allPlayerstemp.length-1);
 		}, function errorCallBack(response){
 			console.log("Failed in getMostVoted")
 		});
 		console.log('Starting trial');
 		
-		$scope.voteButton = false;
-		$scope.showTargets = true;
-		$scope.action = $scope.onTrial.username + ' is being put on trial. Do you think this person is guilty or innocent?';
 		
-		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
+		
+		$scope.voteButton = false;
+		$scope.trialButtons = true;
+		$scope.showTargets = true;
+		
+
+		
+		var promise = countDown(20); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
@@ -275,6 +299,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		}, function errorCallBack(response){
 			console.log("Failed in Trial")
 		});
+		$scope.trialButtons = false;
 		
 		console.log('Starting closing');
 		
