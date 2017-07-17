@@ -372,13 +372,11 @@ public class SpringController {
 				employeeCount++;
 		}
 		if(hackerCount == 0)
-			message = "There are no more hackers, the Employees have won!";
-		else if(employeeCount == 0)
-			message = "There are no more employees, the Hackers have won!";
-		else if(hackerCount >= employeeCount)
-			message = "The Hackers have outnumbered the Employees, the Hackers have won!";
+			message = "EmployeesWin";
+		else if(hackerCount >= employeeCount || employeeCount == 0)
+			message = "HackersWin";
 		else
-			message = "There are Hackers out there, but the Employees still have a chance!";
+			message = "NoWin";
 		return message;
 	}
 }

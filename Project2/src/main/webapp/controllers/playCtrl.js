@@ -7,6 +7,9 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	
 	$scope.rolePredictions = ['Employee', 'Hacker', 'HR', 'Trainer'];
 	$scope.choice;
+	$scope.voteButton = false;
+	$scope.responseMessages = false;
+	$scope.gameStatusMsg = 'no message yet';
 
 	$scope.voteAction = function(){
 		$rootScope.user.targetUser = $scope.choice;
@@ -103,6 +106,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	}
 	
 	// checking if person can vote at night
+	
 //	voteCredAtNight = function(){
 //		console.log('Role decription: ' + $rootScope.user.role);
 //		console.log('Status : ' + $rootScope.user.status);
@@ -131,6 +135,21 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 //	}
  	$scope.voteButton = false;
 	/*$scope.voteButton = true;*/
+ 	
+	
+	endGame = function(finalMsg){
+		console.log('--in endGame function');
+		
+		if (finalMsg == 'EmployeesWin') {
+			console.log('EmployeesWin');
+			$scope.gameStatusMsg = 'There are no more hackers, the Employees have won!';
+		}
+		else if (finalMsg == 'HackersWin') {
+			console.log('HackersWin');
+			$scope.gameStatusMsg = 'The Hackers have outnumbered the Employees, the Hackers have won!';
+		}
+		alert($scope.gameStatusMsg);
+	}
 	
 	$scope.gameStart = function(){
 		console.log('game starting');
@@ -138,7 +157,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		$scope.action = 'Welcome to Revature Town... please look around and get acquainted with everything';
 		
 		
-		var promise = countDown(5); // passing x amount of seconds to perform the timer in countDown()
+		var promise = countDown(10); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
@@ -156,7 +175,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.voteButton = true;
 	
-		var promise = countDown(10); // passing x amount of seconds to perform the timer in countDown()
+		var promise = countDown(30); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
@@ -165,6 +184,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	}
 	
 	goToDay = function() {
+		$scope.responseMessages = true;
 		$http({
 			url: '/Project2/nightEnd.do',
 			method: 'POST'
@@ -172,6 +192,16 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		.then(function successCallBack(response) {  // goes in DB and returns list with usernames if successful 
 			$scope.messages = response.data;
 			console.log('$SCOPE.MESSAGES' + $scope.messages);
+			if ($scope.messages[2] == 'HackersWin' || $scope.messages[2] == 'EmployeesWin')
+			{
+				console.log('GAME IS OVER - going to endGame function');
+				endGame($scope.messages[2]);
+			}
+			else if ($scope.messages[2] == 'NoWin') {
+				console.log('NoWin');
+				$scope.gameStatusMsg = 'There are still Hackers out there, but the Employees still have a chance!';
+			}
+			
 		}, function errorCallBack(response){
 			console.log("Failed in nightActions")
 		});
@@ -184,15 +214,16 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.voteButton = false;
 		
-		/*var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
+		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
 			goToVoting();
-		});*/
+		});
 	}
 	
 	goToVoting = function() {
+		
 		console.log('Starting voting');
 		
 		$scope.action = 'Vote for who you think should be fired';
@@ -234,6 +265,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	}
 	
 	goToClosing = function() {
+		
 		$http({
 			url: '/Project2/trial.do',
 			method: 'POST',

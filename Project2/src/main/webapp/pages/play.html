@@ -2,10 +2,8 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-4">
-				<div class="well" id="choiceDisplay">
-					<p>Selected(choice): {{choice}}</p>
-					<p>Selected(targetUser): {{user.targetUser}}</p>
-					<p>Message: {{messages}}</p>
+				<div class="well" id="titleContainer">
+					<h4>Who Did It??</h4>
 				</div>
 				<div class="well" id="playerListContainer">
 					<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" 
@@ -20,15 +18,15 @@
 							<th>Status</th>
 							<th>Voting</th>
 						</tr>
-						<tr ng-repeat="player in allPlayers" >
+						<tr ng-repeat="player in allPlayers">
 							<td>{{player.username}}</td>
 							<td>
-								<select ng-hide="{{user.role}} == 'Hacker' && {{player.role.description}} == 'Hacker'" 
+								<select ng-hide="user.role == 'Hacker' && player.role.description == 'Hacker'" 
 								ng-options="choice for choice in rolePredictions" ng-model="selected">
 								<!-- <select ng-show="showAllyHackers()" ng-options="choice for choice in rolePredictions" ng-model="selected" 
 									class="form-control btn btn-primary dropdown-toggle" id="predictionDropdown"> -->
 								</select>
-								<div ng-show="{{user.role}} == 'Hacker' && {{player.role.description}} == 'Hacker'">
+								<div ng-show="user.role == 'Hacker' && player.role.description == 'Hacker'">
 								HACKER
 								</div>
 							</td> 
@@ -49,19 +47,31 @@
 
 			</div>
 			<div class="col-sm-5">
-				<div class="well col-sm-12 " id="titleContainer">
-					<h4>Who Did It??</h4>
+				<div class="well col-sm-6 " id="timerContainer">
+					<div id="phaseContainer">
+						<h4 ng-class="{dayPhase : phase == 'day', nightPhase: phase == 'night'}">
+						Currently in: {{phase}} phase</h4>
+					</div>
+					<p>Time left</p>
+					<div class="input-group clockpicker">
+					
+					<span class="input-group-addon">
+					        <span class="glyphicon glyphicon-time"></span>
+					    </span>
+					    <input type="text" class="form-control" ng-value="clock">
+					</div>
+				    
 				</div>
-				<div class="well col-sm-12 " id="phaseContainer">
-					<h4 ng-class="{dayPhase : phase == 'day', nightPhase: phase == 'night'}">
-					Currently in: {{phase}} phase</h4>
-				</div>
+
 				<div class="well col-sm-12 " id="actionContainer">
 					<h4>Action: </h4>
 					<h4>{{action}}</h4>
 				</div>
-				<div class="well col-sm-4" id="timerContainer">
-					<p>Time left: {{clock}}s</p>
+				<div class="well col-sm-12" id="choiceDisplay">
+					<p ng-show="voteButton">You want to fire: {{choice}}</p>
+					<p ng-show="responseMessages">Messages: {{messages[0]}}
+						<br> {{messages[1]}}
+						<br> {{gameStatusMsg}}</p>
 				</div>
 				<div class="well col-sm-12" id="chatContainer">
 					<iframe id="chat" width="100%" height="300px" scrolling="no"></iframe>

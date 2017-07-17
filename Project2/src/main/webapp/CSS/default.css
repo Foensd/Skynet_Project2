@@ -75,15 +75,67 @@ body {
 	opacity: 0.8;
 }
 
+#titleContainer {
+	position: relative;
+	display: block;
+	height: 40px;
+	width: auto;
+	margin-right: 35%;
+	margin-left: 35%;
+	margin-top: 10px; /* putting space from top */
+	magin-bottom:10px;
+	text-align: center;
+	padding: 0px; /* overrules boostrap rules*/
+}
+
+#timerContainer {
+	margin: 10px;
+	width: 300px;
+	/* width: auto; */
+	margin-right: 15%;
+	margin-left: 15%;
+	font-weight: bold;
+	text-align: center;
+}
+
+.input-group {
+	width: 100px;
+	margin: 0 auto;
+}
+
+#phaseContainer {
+	/* position: relative; */
+	clear: both;
+	/* background-color: yellow; */
+	padding: 0px; /* overrules boostrap rules*/
+	text-align: center;
+	/* width: auto; */
+	/* margin-right: 25%;
+	margin-left: 25%; */
+	margin-top: 5%;
+}
+
+#actionContainer {
+	/* background-color: yellow; */
+	padding: 0px; /* overrules boostrap rules*/
+	text-align: center;
+	clear: both;
+	width: auto;
+	margin-top: 10%;
+	
+}
+
 #choiceDisplay {
 	margin: 5px;
 	width: 95%;
+	margin-top: 5px;
 }
 
 #playerListContainer {
+	position: relative;
 	/* background-color: blue; */
 	padding: 0px; /* overrules boostrap rules*/
-	/* margin-top: 5%; */
+	margin-top: 5%;
 	margin-bottom: 10%;
 	width: 95%;
 }
@@ -104,49 +156,11 @@ body {
 	padding: 2px;
 }
 
-#titleContainer {
-	/* position: relative; */
-	display: block;
-	height: 40px;
-	width: auto;
-	margin-right: 35%;
-	margin-left: 35%;
-	margin-top: 10px; /* putting space from top */
-	magin-bottom:10px;
-	text-align: center;
-	padding: 0px; /* overrules boostrap rules*/
-}
-
-#phaseContainer {
-	/* position: relative; */
-	clear: both;
-	/* background-color: yellow; */
-	padding: 0px; /* overrules boostrap rules*/
-	text-align: center;
-	width: auto;
-	margin-right: 25%;
-	margin-left: 25%;
-}
-
-#actionContainer {
-	/* background-color: yellow; */
-	padding: 0px; /* overrules boostrap rules*/
-	text-align: center;
-	clear: both;
-	width: auto;
-	
-}
-
-#timerContainer {
-	width: auto;
-	margin-right: 35%;
-	margin-left: 35%;
-}
 
 #chatContainer {
 	/* position: fixed; */
 	padding: 0px; /* overrules boostrap rules*/
-	margin-top: 25%;
+	margin-top: 10%;
 	margin-bottom: 5%; 
 	height: 300px;
 	width: 100%;
