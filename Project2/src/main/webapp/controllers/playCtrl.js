@@ -140,11 +140,11 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		$scope.action = 'Welcome to Revature Town... please look around and get acquainted with everything';
 		
 		
-		var promise = countDown(5); // passing x amount of seconds to perform the timer in countDown()
+		var promise = countDown(10); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
-			/*goToNight();*/
+			goToNight();
 		});
 
 	}
@@ -158,7 +158,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		voteCredAtNight();
 	
-		var promise = countDown(10); // passing x amount of seconds to perform the timer in countDown()
+		var promise = countDown(30); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
