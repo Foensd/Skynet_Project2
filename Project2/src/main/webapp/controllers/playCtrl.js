@@ -167,6 +167,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	}
 	
 	goToDay = function() {
+		$scope.responseMessages = true;
 		$http({
 			url: '/Project2/nightEnd.do',
 			method: 'POST'
@@ -186,15 +187,16 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 		
 		$scope.voteButton = false;
 		
-		/*var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
+		var promise = countDown(40); // passing x amount of seconds to perform the timer in countDown()
 		//when function above resolves, it returns a promise, which lets us perform the following actions:
 		promise.then(function(promiseResolve){  
 			console.log('PROMISE: ' + promiseResolve);
 			goToVoting();
-		});*/
+		});
 	}
 	
 	goToVoting = function() {
+		
 		console.log('Starting voting');
 		
 		$scope.action = 'Vote for who you think should be fired';
@@ -235,6 +237,7 @@ myApp.controller('PlayController', ['$http', '$rootScope', '$scope', '$timeout',
 	}
 	
 	goToClosing = function() {
+		
 		$http({
 			url: '/Project2/trial.do',
 			method: 'POST',
