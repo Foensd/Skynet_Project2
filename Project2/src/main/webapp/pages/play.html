@@ -36,7 +36,8 @@
 								{{player.status.status}}
 							</td>
 							<td ng-click="voteAction()">
-								<input ng-show="voteButton && player.status.status == 'Active' && user.status == 'Active' &&
+							<input ng-show="voteButton && player.status.status == 'Active' 
+							&& user.status == 'Active' &&
 							(user.username != player.username || (user.role == 'HR' && phase == 'night')) && 
 							(phase == 'day' || 
 							(user.role == 'Hacker' && player.role.description != 'Hacker') || 
