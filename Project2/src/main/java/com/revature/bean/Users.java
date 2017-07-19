@@ -146,8 +146,8 @@ public class Users {
 
 	@Override
 	public String toString() {
-		return "Users [userid=" + userid + ", username=" + username + ", roleId=" + role + ", statusId=" + status
-				+ "]";
+		return "Users [userid=" + userid + ", username=" + username + ", role=" + role + ", status=" + status
+				+ ", targetUser=" + targetUser + "]";
 	}
 
 }

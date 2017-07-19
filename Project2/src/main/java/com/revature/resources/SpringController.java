@@ -155,6 +155,7 @@ public class SpringController {
 		
 		if(!roleRandomizationStarted) {
 			roleRandomizationStarted = true;
+			System.out.println("Starting role randomization from " + currentUser.getUsername());
 			gameInProgress = true;
 			for (Users user : users) {
 				if (user.getRole() == null) {
@@ -226,7 +227,9 @@ public class SpringController {
 				}
 			}
 			int chosen = (int) (Math.random() * usernames.size());
+			System.out.println(usernames);
 			if(usernames.size() > 0) {
+				System.out.println(usernames.get(chosen));
 				dao.changeStatusByUsername(2, usernames.get(chosen));
 				message1 = usernames.get(chosen) + " was fired last night !";
 			}
@@ -294,10 +297,12 @@ public class SpringController {
 			int guiltyVotes = 0;
 			int innocentVotes = 0;
 			for (Users us : users) {
-				if (us.getTargetUser().equals("guilty")) {
-					guiltyVotes++;
-				}else if(us.getTargetUser().equals("innocent")){
-					innocentVotes++;
+				if(us.getTargetUser() != null) {
+					if (us.getTargetUser().equals("guilty")) {
+						guiltyVotes++;
+					}else if(us.getTargetUser().equals("innocent")){
+						innocentVotes++;
+					}
 				}
 			}
 			if (guiltyVotes > innocentVotes){
